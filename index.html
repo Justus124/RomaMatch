@@ -428,31 +428,103 @@ img { max-width: 100%; }
 
 /* ---------- DATE-SPOTS ---------- */
 
-.spot-latin { color: var(--gold); font-family: var(--font-body); font-size: 0.9rem; font-weight: 400; letter-spacing: 0; }
-.spot-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin: 18px 0 4px; }
-.spot-fact {
+.spot { padding: 26px 28px; position: relative; overflow: hidden; }
+.spot::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px;
+  background: linear-gradient(90deg, var(--pink), var(--gold));
+}
+.spot h4 {
+  font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold-soft); margin: 0 0 8px;
+}
+.spot-hero { display: flex; align-items: center; gap: 18px; }
+.spot-icon {
+  width: 74px; height: 74px; flex-shrink: 0;
+  display: grid; place-items: center;
+  font-size: 2.3rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(232, 62, 115, 0.35), rgba(185, 139, 82, 0.15));
+  border: 1px solid var(--gold-dark);
+  box-shadow: 0 0 30px rgba(232, 62, 115, 0.25);
+}
+.spot-title h3 { font-size: 1.6rem; color: var(--text); }
+.spot-title h3 em { font-family: var(--font-body); font-size: 0.95rem; font-weight: 400; color: var(--gold); letter-spacing: 0; }
+.spot-rating { margin: 2px 0; color: var(--text-muted); font-size: 0.82rem; }
+.spot-rating span { color: var(--pink); letter-spacing: 0.12em; font-size: 1rem; margin-right: 6px; }
+.spot-title .tip-source { margin: 0; }
+
+.spot-quote { margin: 20px 0 0; padding: 0 0 0 16px; border-left: 3px solid var(--gold); }
+.spot-quote .quote-latin { font-size: 1.12rem; }
+.spot-quote p:not(.quote-latin) { margin: 4px 0 0; color: var(--text-muted); font-size: 0.86rem; }
+
+.spot-chips { list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.spot-chips li {
+  display: flex; align-items: center; gap: 7px;
+  background: rgba(185, 139, 82, 0.1);
+  border: 1px solid rgba(185, 139, 82, 0.35);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-size: 0.8rem;
+  color: var(--gold-soft);
+}
+
+.spot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+.spot-bottom { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; margin-top: 14px; align-items: start; }
+.spot-box {
   background: rgba(15, 11, 10, 0.45);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius);
-  padding: 12px 14px;
+  padding: 16px 18px;
 }
-.spot-fact dt {
-  color: var(--gold-soft);
-  font-family: var(--font-display);
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 4px;
+.spot-box > p { margin: 0; color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; }
+.spot-mini-quote { margin: 12px 0 0 !important; padding-top: 10px; border-top: 1px dashed rgba(185, 139, 82, 0.3); color: var(--gold-soft) !important; font-style: italic; font-size: 0.86rem !important; }
+.spot-mini-quote span { display: block; font-style: normal; color: var(--text-dim); font-size: 0.78rem; margin-top: 3px; }
+
+.purpose-list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.purpose-list li {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  background: rgba(232, 62, 115, 0.09);
+  border: 1px solid rgba(232, 62, 115, 0.28);
+  border-radius: 12px;
+  padding: 8px 4px;
 }
-.spot-fact dd { margin: 0; color: var(--text-muted); font-size: 0.88rem; }
-.spot-card .tip-block { margin-top: 20px; }
-.spot-warning, .spot-check { border-radius: var(--radius); padding: 16px 20px; margin-top: 18px; }
-.spot-warning { background: rgba(217, 70, 63, 0.09); border: 1px solid rgba(217, 70, 63, 0.35); }
-.spot-warning .tip-label { color: #e8756f; }
-.spot-warning > p:not(.tip-label) { margin: 12px 0 0; color: var(--text-muted); font-size: 0.93rem; }
-.spot-check { background: rgba(185, 139, 82, 0.08); border: 1px dashed rgba(185, 139, 82, 0.45); }
-.spot-check .tip-label { color: var(--gold-soft); }
-.spot-check p:not(.tip-label) { margin: 0; color: var(--text-muted); font-size: 0.93rem; }
+.purpose-emoji { font-size: 1.3rem; line-height: 1.2; }
+.purpose-list strong { font-size: 0.8rem; color: var(--text); }
+.purpose-list em { font-size: 0.7rem; color: var(--pink-soft); }
+
+.spot-warning {
+  display: flex; align-items: center; gap: 16px;
+  margin-top: 14px;
+  background: rgba(217, 70, 63, 0.1);
+  border: 1px solid rgba(217, 70, 63, 0.4);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+}
+.spot-warning-icon { font-size: 1.8rem; color: #e8756f; flex-shrink: 0; }
+.spot-warning .quote-latin { color: #f0a09b; }
+.spot-warning p:not(.quote-latin) { margin: 3px 0 0; color: var(--text-muted); font-size: 0.86rem; }
+
+.spot-today { background: rgba(232, 62, 115, 0.07); border-color: rgba(232, 62, 115, 0.25); }
+.spot-today h4 { color: var(--pink-soft); }
+
+.seat-plan { display: block; width: 100%; max-width: 360px; margin: 4px auto 10px; }
+.seat-plan .seat-senate { fill: rgba(185, 139, 82, 0.55); }
+.seat-plan .seat-knights { fill: rgba(185, 139, 82, 0.32); }
+.seat-plan .seat-people { fill: rgba(189, 169, 158, 0.16); }
+.seat-plan .seat-women { fill: rgba(232, 62, 115, 0.55); }
+.seat-plan .seat-stage { fill: var(--surface-3); stroke: var(--border); }
+.seat-label { fill: var(--text); font-family: var(--font-display); font-size: 12px; letter-spacing: 0.1em; }
+.seat-label-strong { font-weight: 700; }
+.seat-label-stage { fill: var(--text-dim); font-size: 10px; letter-spacing: 0.3em; }
+
+@media (max-width: 860px) {
+  .spot-grid, .spot-bottom { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .spot { padding: 22px 18px; }
+  .spot-icon { width: 58px; height: 58px; font-size: 1.8rem; }
+  .spot-title h3 { font-size: 1.3rem; }
+}
 
 /* ---------- COMMUNITY ---------- */
 
@@ -1271,80 +1343,124 @@ textarea.short { min-height: 70px; }
 
   var SPOTS = [
     {
-      name: 'Das Theater', latinName: 'theatrum',
+      name: 'Das Theater', latinName: 'theatrum', icon: '🎭',
       source: 'Ars amatoria 1, 89–100',
-      rating: 'Ovids Empfehlung Nr. 1',
-      quote: 'Sed tu praecipue curvis venare theatris: haec loca sunt voto fertiliora tuo.',
-      translation: 'Du aber geh vor allem in den runden Theatern auf die Jagd: Diese Orte sind ergiebiger, als du es dir wünschen kannst.',
-      facts: [
-        ['Ort', 'Halbrunde Freilufttheater („curva theatra“) mit ansteigenden Sitzreihen. Zu Ovids Zeit hatte Rom drei Steintheater: das Pompeiustheater (55 v. Chr.), das Balbustheater und das Marcellustheater (beide um 13 v. Chr. eingeweiht).'],
-        ['Wann', 'Bei den „ludi“ – staatlichen Festspielen zu Ehren der Götter, mehrmals im Jahr und oft über mehrere Tage. Der Eintritt war frei; bezahlt haben Beamte oder der Kaiser.'],
-        ['Programm', 'Kein stilles Kunsttheater wie heute: Am beliebtesten waren der Mimus (derbe, oft freizügige Stücke aus dem Alltag, gern über Ehebruch und Liebschaften) und der Pantomimus (ein Tänzer stellt Mythen dar – häufig Liebesgeschichten). Ernste Tragödien spielten eine kleinere Rolle.'],
-        ['Publikum', 'Tausende Menschen aus allen Ständen – Männer und Frauen.'],
-        ['Stimmung', 'Voll, laut, ein ständiges Kommen und Gehen. Man ging nicht nur wegen des Stücks hin, sondern um dabei zu sein.'],
-        ['Dresscode', '„cultissima“ – die Frauen kommen aufs Feinste herausgeputzt.']
+      rating: 5,
+      quote: 'Sed tu praecipue curvis venare theatris.',
+      translation: 'Du aber geh vor allem in den runden Theatern auf die Jagd.',
+      chips: [
+        ['🏛️', '3 Steintheater in Rom'],
+        ['📅', 'bei den ludi (Festspiele)'],
+        ['🎟️', 'Eintritt frei'],
+        ['🎭', 'Mimus & Pantomime'],
+        ['👥', 'Tausende Zuschauer'],
+        ['👗', 'Dresscode: cultissima']
       ],
-      sections: [
+      cards: [
         {
-          label: 'Wie finde ich hier Frauen?',
-          text: 'Man muss gar nicht lange suchen – sie kommen von selbst, und zwar in Massen. Ovid vergleicht sie mit Ameisen, die in einem langen Zug hin- und herwimmeln. Auch der Vers selbst ist schnell: In „sic ruit ad celebres …“ stehen fast nur Daktylen, und „ruit“ (sie stürzt) betont das Tempo.',
-          quote: 'Ut redit itque frequens longum formica per agmen, … sic ruit ad celebres cultissima femina ludos.',
-          translation: 'Wie die Ameise zahlreich in langem Zug hin- und herwimmelt, … so eilt die prächtig herausgeputzte Frau zu den gut besuchten Spielen.'
+          icon: '🐜', title: 'Wie?',
+          text: 'Du musst nicht suchen – die Frauen strömen in Massen herbei, wie Ameisen.',
+          quote: 'Sic ruit ad celebres cultissima femina ludos.',
+          translation: 'So eilt die herausgeputzte Frau zu den Spielen.'
         },
         {
-          label: 'Warum gerade hier?',
-          text: 'Weil die Frauen selbst gesehen werden wollen. Im Theater darf man andere ungeniert anschauen – das Publikum ist mindestens so interessant wie die Bühne. Das Wortspiel mit „spectare“ zeigt: Jede ist gleichzeitig Zuschauerin und Teil der Show.',
+          icon: '👀', title: 'Warum hier?',
+          text: 'Alle wollen gesehen werden – das Publikum ist spannender als die Bühne.',
           quote: 'Spectatum veniunt, veniunt, spectentur ut ipsae.',
-          translation: 'Sie kommen, um sich umzuschauen, sie kommen, damit sie selbst angeschaut werden.'
-        },
-        {
-          label: 'Wofür?',
-          text: 'Für alles – vom Flirt über ein einmaliges Abenteuer bis zur festen Beziehung. Ovid zählt vier Möglichkeiten auf (siehe Tipp IV „Wisse, was du suchst“).',
-          quote: 'Illic invenies, quod ames, quod ludere possis, quodque semel tangas, quodque tenere velis.',
-          translation: 'Dort findest du, was du lieben kannst, womit du spielen kannst, was du nur einmal berührst und was du festhalten willst.'
+          translation: 'Sie kommen, um zu schauen – und um angeschaut zu werden.'
         }
+      ],
+      purposes: [
+        ['❤️', 'Liebe', 'quod ames'],
+        ['😉', 'Flirt', 'quod ludere possis'],
+        ['🔥', 'Einmalig', 'quod semel tangas'],
+        ['💍', 'Für immer', 'quod tenere velis']
       ],
       warning: {
         quote: 'Ille locus casti damna pudoris habet.',
-        translation: 'Jener Ort sorgt dafür, dass man das keusche Schamgefühl vergisst.',
-        text: 'Das Wort „damna“ (Verluste, Schaden) wirft einen Schatten auf die festliche Stimmung: Im Gedränge, bei freizügigen Mimus-Stücken und mit lauter Leuten, die flirten wollen, gehen Anstand und Zurückhaltung schnell verloren. Für eine Frau in Rom stand dabei ihr Ruf auf dem Spiel – für Ovids Schüler ist genau das die Chance.'
+        text: 'Hier geht die Scham verloren: Gedränge, freizügige Stücke, überall Flirts – für Frauen steht ihr Ruf auf dem Spiel.'
       },
-      factCheck: 'Ovid lässt aus, dass Augustus die Sitzordnung im Theater per Gesetz geregelt hatte (lex Iulia theatralis): Die Plätze wurden nach Stand verteilt, und Frauen durften laut dem Geschichtsschreiber Sueton nur in den obersten Reihen sitzen. Direkt neben einer Frau zu sitzen, war also gar nicht so einfach – vermutlich lobt Ovid deshalb kurz danach den Circus, wo Männer und Frauen nebeneinander saßen.',
-      modern: 'Das antike Theater ist eher Festival oder Club als Stadttheater: Man geht hin, um gesehen zu werden, macht sich dafür zurecht und schaut sich mehr im Publikum um als auf der Bühne. Bei Ovid wird daraus ein „Jagdrevier“ – heute würde man das Problem dabei klar benennen: Wer in Frauen eine Ameisenmasse oder Beute sieht, sieht keine Personen mehr.'
+      factCheck: 'Augustus ließ Frauen nur in den obersten Reihen sitzen (lex Iulia theatralis). Neben ihr Platz nehmen? Schwierig – deshalb empfiehlt Ovid kurz danach den Circus.',
+      modern: 'Eher Festival als Stadttheater: Man stylt sich, um gesehen zu werden. Aber wer Frauen als Ameisen oder Beute sieht, sieht keine Personen mehr.'
     }
   ];
 
-  function spotQuote(quote, translation) {
-    return '<blockquote class="quote-box">' +
-      '<p class="quote-latin">„' + esc(quote) + '“</p>' +
-      '<p class="quote-translation">' + esc(translation) + '</p>' +
-    '</blockquote>';
+  /** Halbring (obere Hälfte) für den Sitzplan – r1 = 0 ergibt einen Halbkreis. */
+  function arcBand(cx, cy, r1, r2) {
+    var outer = 'M' + (cx - r2) + ',' + cy + ' A' + r2 + ',' + r2 + ' 0 0 1 ' + (cx + r2) + ',' + cy;
+    if (!r1) return outer + ' Z';
+    return outer + ' L' + (cx + r1) + ',' + cy + ' A' + r1 + ',' + r1 + ' 0 0 0 ' + (cx - r1) + ',' + cy + ' Z';
+  }
+
+  function seatingPlan() {
+    var cx = 200, cy = 176;
+    var bands = [
+      [0, 42, 'seat-senate', 'Senatoren'],
+      [46, 92, 'seat-knights', 'Ritter'],
+      [96, 140, 'seat-people', 'Volk'],
+      [144, 172, 'seat-women', 'Frauen']
+    ];
+    return '<svg class="seat-plan" viewBox="0 0 400 210" role="img" aria-label="Sitzplan eines römischen Theaters: vorne Senatoren, dann Ritter, dann Volk, ganz oben die Frauen">' +
+      bands.map(function (b) {
+        var labelY = cy - (b[0] + b[1]) / 2 + 5;
+        return '<path class="' + b[2] + '" d="' + arcBand(cx, cy, b[0], b[1]) + '"></path>' +
+          '<text x="' + cx + '" y="' + (b[0] ? labelY : cy - 14) + '" text-anchor="middle" class="seat-label' + (b[2] === 'seat-women' ? ' seat-label-strong' : '') + '">' + b[3] + '</text>';
+      }).join('') +
+      '<rect class="seat-stage" x="60" y="182" width="280" height="22" rx="4"></rect>' +
+      '<text x="200" y="197" text-anchor="middle" class="seat-label seat-label-stage">BÜHNE</text>' +
+    '</svg>';
   }
 
   function renderSpotsSection() {
     var head = sectionHead('Loca Amoris', 'Date-Spots im alten Rom',
-      'Wo sollte man laut Ovid nach der Liebe suchen? Hier stellen wir die Orte vor, die er seinen Schülern empfiehlt – mit Steckbrief, Originalzitaten und einem kritischen Blick.');
-    return head + '<div class="tip-list">' + SPOTS.map(function (spot, i) {
+      'Die Orte, an denen man laut Ovid die Liebe findet – auf einen Blick.');
+    return head + '<div class="tip-list">' + SPOTS.map(function (spot) {
+      var stars = '★★★★★'.slice(0, spot.rating) + '☆☆☆☆☆'.slice(0, 5 - spot.rating);
       return '' +
-        '<article class="card tip-card spot-card">' +
-          '<header class="tip-head">' +
-            '<span class="tip-number">' + roman(i + 1) + '</span>' +
-            '<div><h3>' + esc(spot.name) + ' <em class="spot-latin">' + esc(spot.latinName) + '</em></h3>' +
-            '<span class="tip-source">' + esc(spot.source) + ' · ' + esc(spot.rating) + '</span></div>' +
+        '<article class="card spot">' +
+          '<header class="spot-hero">' +
+            '<span class="spot-icon" aria-hidden="true">' + spot.icon + '</span>' +
+            '<div class="spot-title">' +
+              '<h3>' + esc(spot.name) + ' <em>' + esc(spot.latinName) + '</em></h3>' +
+              '<p class="spot-rating"><span aria-label="' + spot.rating + ' von 5 Sternen">' + stars + '</span> Ovids Bewertung</p>' +
+              '<p class="tip-source">' + esc(spot.source) + '</p>' +
+            '</div>' +
           '</header>' +
-          spotQuote(spot.quote, spot.translation) +
-          '<dl class="spot-facts">' + spot.facts.map(function (f) {
-            return '<div class="spot-fact"><dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd></div>';
-          }).join('') + '</dl>' +
-          spot.sections.map(function (sec) {
-            return '<div class="tip-block"><p class="tip-label">' + esc(sec.label) + '</p><p>' + esc(sec.text) + '</p>' +
-              spotQuote(sec.quote, sec.translation) + '</div>';
-          }).join('') +
-          '<div class="spot-warning"><p class="tip-label">⚠ Warnung</p>' +
-            spotQuote(spot.warning.quote, spot.warning.translation) +
-            '<p>' + esc(spot.warning.text) + '</p></div>' +
-          '<div class="spot-check"><p class="tip-label">Faktencheck</p><p>' + esc(spot.factCheck) + '</p></div>' +
-          '<div class="modern-box"><p class="tip-label">Heute</p><p>' + esc(spot.modern) + '</p></div>' +
+          '<blockquote class="spot-quote"><p class="quote-latin">„' + esc(spot.quote) + '“</p><p>' + esc(spot.translation) + '</p></blockquote>' +
+          '<ul class="spot-chips">' + spot.chips.map(function (c) {
+            return '<li><span aria-hidden="true">' + c[0] + '</span>' + esc(c[1]) + '</li>';
+          }).join('') + '</ul>' +
+          '<div class="spot-grid">' +
+            spot.cards.map(function (c) {
+              return '<section class="spot-box">' +
+                '<h4><span aria-hidden="true">' + c.icon + '</span> ' + esc(c.title) + '</h4>' +
+                '<p>' + esc(c.text) + '</p>' +
+                '<p class="spot-mini-quote">„' + esc(c.quote) + '“<span>' + esc(c.translation) + '</span></p>' +
+              '</section>';
+            }).join('') +
+            '<section class="spot-box">' +
+              '<h4><span aria-hidden="true">🎯</span> Wofür?</h4>' +
+              '<p>Für jeden Wunsch etwas dabei:</p>' +
+              '<ul class="purpose-list">' + spot.purposes.map(function (p) {
+                return '<li><span class="purpose-emoji" aria-hidden="true">' + p[0] + '</span><strong>' + esc(p[1]) + '</strong><em>' + esc(p[2]) + '</em></li>';
+              }).join('') + '</ul>' +
+            '</section>' +
+          '</div>' +
+          '<div class="spot-warning">' +
+            '<span class="spot-warning-icon" aria-hidden="true">⚠</span>' +
+            '<div><p class="quote-latin">„' + esc(spot.warning.quote) + '“</p><p>' + esc(spot.warning.text) + '</p></div>' +
+          '</div>' +
+          '<div class="spot-bottom">' +
+            '<section class="spot-box spot-check">' +
+              '<h4><span aria-hidden="true">🔍</span> Faktencheck: der Haken</h4>' +
+              seatingPlan() +
+              '<p>' + esc(spot.factCheck) + '</p>' +
+            '</section>' +
+            '<section class="spot-box spot-today">' +
+              '<h4><span aria-hidden="true">📱</span> Heute</h4>' +
+              '<p>' + esc(spot.modern) + '</p>' +
+            '</section>' +
+          '</div>' +
         '</article>';
     }).join('') + '</div>';
   }
