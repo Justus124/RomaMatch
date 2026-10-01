@@ -1,214 +1,2126 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ROMA MATCH – Dating im alten Rom</title>
+<meta name="description" content="Ein Latein-Schulprojekt: Ovids „Ars amatoria“ im Vergleich mit modernen Dating-Apps.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
-*{box-sizing:border-box}
-:root{--bg:#f6f5f7;--white:#fff;--dark:#17161b;--pink:#e83e73;--pink2:#ff6d98;--gold:#b98b52;--muted:#77727a;--line:#e7e3e7}
-body{margin:0;background:#101014;color:#211f22;font-family:"Libre Baskerville",Georgia,serif}
-.app{max-width:440px;margin:0 auto;min-height:100vh;background:var(--bg);box-shadow:0 0 40px #0008;overflow:hidden}
-.header{position:sticky;top:0;z-index:30;height:78px;display:flex;align-items:center;gap:12px;padding:8px 16px;color:#fff;background:#17161b;border-bottom:2px solid var(--pink)}
-.header-portrait{width:53px;height:53px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid #d7bb83;box-shadow:0 2px 10px #000}
-.logo{font-family:Cinzel,serif;font-weight:700;letter-spacing:1px;font-size:21px}.logo span{color:#ff4f83}.subtitle{font-size:9px;letter-spacing:1.2px;color:#aaa6ad;margin-top:3px;text-transform:uppercase}
-.cover{position:relative;height:190px;overflow:hidden;background:#40362e}.cover img{width:100%;height:100%;object-fit:cover;object-position:center 28%;filter:grayscale(.65) sepia(.2) contrast(1.08)}.cover:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,#241b18dd 0%,#241b1830 55%,transparent 100%)}.cover-title{position:absolute;z-index:2;bottom:18px;left:20px;color:#fff}.cover-title .small{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#ff9ab8}.cover-title h1{font-family:Cinzel,serif;font-size:31px;margin:3px 0 0}.laurel{position:absolute;z-index:3;right:13px;top:13px;color:#ff9ab8;font-size:30px}
-.nav{display:flex;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:78px;z-index:20}.nav button{flex:1;border:0;background:transparent;padding:13px 3px;font-family:Cinzel,serif;font-size:10px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent}.nav button.active{color:var(--pink);border-bottom-color:var(--pink)}
-.page{padding:15px}.panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 5px 15px #432a1715;margin-bottom:14px;overflow:hidden}
-.profile-head{display:flex;gap:13px;align-items:center;padding:15px 16px 11px}.avatar{width:62px;height:62px;border-radius:50%;object-fit:cover;border:3px solid #d3b171;padding:2px;background:#fff}.name{font-family:Cinzel,serif;font-size:19px;margin:0 0 3px}.verified{color:var(--pink);font-size:12px}.meta{font-size:11px;color:var(--muted)}.bio{padding:0 16px 15px;font-size:13px;line-height:1.55}.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.tag{background:#fff0f4;border:1px solid #f0bfd0;border-radius:30px;padding:5px 8px;font-size:10px}
-.actions{display:flex;justify-content:center;gap:20px;padding:4px 0 17px}.btn{width:60px;height:60px;border-radius:50%;background:#fff;border:1px solid #d6c6b1;box-shadow:0 4px 10px #432a1718;font-size:27px;cursor:pointer;transition:.15s}.btn:hover{transform:scale(1.08)}.btn.no{color:#d93663}.btn.yes{color:var(--pink)}
-.match{margin:0 16px 16px;padding:13px;border-radius:13px;background:#fff0f5;border:1px solid #f0a9bf;text-align:center;font-size:12px;line-height:1.5}.match strong{font-family:Cinzel,serif;font-size:16px}
-.section-title{font-family:Cinzel,serif;font-size:17px;margin:0;padding:15px 16px 8px;color:#302b31}.ornament{text-align:center;color:var(--gold);font-size:16px;letter-spacing:5px}.facts{padding:0 16px 12px}.fact{display:flex;gap:9px;padding:9px 0;border-bottom:1px solid #eadfce;font-size:12px;line-height:1.45}.fact:last-child{border:0}.fact b{min-width:83px;color:var(--pink)}
-.quote{margin:0 16px 16px;background:#211e24;color:#fff7fb;border-radius:13px;padding:15px;text-align:center}.quote .latin{font-style:italic;font-size:15px;line-height:1.5}.quote .translation{font-size:10px;color:#cdbb9f;margin-top:8px}
-.score{display:flex;align-items:center;justify-content:space-between;padding:13px 16px 16px}.stars{font-size:21px;letter-spacing:2px;color:#a06d27}.score small{color:var(--muted);font-size:10px}
-.tip{padding:15px 16px}.tip h3{font-family:Cinzel,serif;margin:0 0 7px;font-size:15px}.tip p{font-size:12px;line-height:1.55}.choice{display:flex;gap:8px;margin-top:10px}.choice button,.primary{flex:1;border:1px solid #d5b9c4;background:#fff4f7;padding:10px;border-radius:10px;font-family:inherit;font-size:10px;cursor:pointer}.choice button:hover,.primary:hover{background:#ffe1ea}
-.profiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 16px}.mini{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}.mini-avatar{height:125px;width:100%;object-fit:cover}.mini-body{padding:10px}.mini h3{font-family:Cinzel,serif;font-size:13px;margin:0 0 4px}.mini p{font-size:10px;color:var(--muted);margin:0;line-height:1.45}.mini .heart{color:var(--pink);font-size:12px;margin-top:7px}
-.woman-art{height:210px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f8e5eb,#efe9e0);position:relative;overflow:hidden}.woman-art:before{content:"❦";position:absolute;top:12px;right:18px;color:#c59b6b;font-size:28px}.woman-head{width:105px;height:125px;border-radius:48% 48% 44% 44%;background:#e5b18e;position:relative;box-shadow:0 8px 20px #5a2e2e20}.woman-hair{position:absolute;inset:-13px -13px 15px -13px;background:#4c3028;border-radius:50% 50% 42% 42%;z-index:-1}.woman-head:before,.woman-head:after{content:"";position:absolute;top:55px;width:12px;height:4px;background:#4b2f2d;border-radius:10px}.woman-head:before{left:22px}.woman-head:after{right:22px}.woman-body{position:absolute;bottom:-55px;width:170px;height:90px;background:#9e4e6b;border-radius:80px 80px 0 0}.laurel-crown{position:absolute;top:-22px;left:17px;right:17px;font-size:24px;color:#b98b52}
-.form{padding:0 16px 16px}.field{margin-bottom:11px}.field label{display:block;font-family:Cinzel,serif;font-size:10px;margin-bottom:5px;color:#5d5760}.field input,.field textarea,.field select{width:100%;border:1px solid #ddd5da;border-radius:10px;padding:10px;font-family:inherit;font-size:11px;background:#fff}.field textarea{min-height:70px;resize:vertical}.checks{display:flex;gap:6px;flex-wrap:wrap}.check{font-size:10px;border:1px solid #ddd5da;border-radius:20px;padding:6px 9px;cursor:pointer}.check input{accent-color:var(--pink);margin-right:4px}.primary{background:var(--pink);color:#fff;border-color:var(--pink);font-family:Cinzel,serif;font-size:11px}.profile-created{display:none;padding:15px 16px}.profile-created.show{display:block}.created-card{border:1px solid #f0b8ca;background:#fff6f8;border-radius:14px;padding:12px}.created-top{display:flex;gap:10px;align-items:center}.created-avatar{width:54px;height:54px;border-radius:50%;background:#ead2d8;display:flex;align-items:center;justify-content:center;font-size:25px;overflow:hidden}.created-avatar img{width:100%;height:100%;object-fit:cover}.created-card h3{font-family:Cinzel,serif;margin:0;font-size:16px}.created-card p{font-size:10px;line-height:1.5}.empty{padding:5px 16px 16px;font-size:11px;color:var(--muted);text-align:center}.notice{padding:10px 12px;margin:0 16px 14px;background:#faf7f9;border:1px dashed #d9cbd2;border-radius:10px;font-size:10px;line-height:1.5;color:#6c6570}
-footer{padding:19px;text-align:center;background:#17161b;color:#aaa6ad;font-size:9px;line-height:1.7;border-top:2px solid var(--pink)}
-.hidden{display:none!important}
+/* =========================================================
+   ROMA MATCH – Einzeldatei-Version
+   Dunkles Theme, Rosa (#e83e73) + Gold (#b98b52),
+   Schriften: Cinzel (Überschriften) & Libre Baskerville (Fließtext)
+   ========================================================= */
 
-.profile-photo{width:100%;height:250px;object-fit:cover;display:block}.profile-photo.ovid-photo{object-position:center 22%}.profile-photo.livia-photo{object-position:center 34%;background:#d9cbc5}.photo-wrap{position:relative;background:#e8e0dc}.photo-overlay{position:absolute;left:0;right:0;bottom:0;padding:42px 18px 15px;color:#fff;background:linear-gradient(to top,rgba(20,17,19,.82),rgba(20,17,19,0));}.photo-overlay .eyebrow{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#f2c7d3;margin-bottom:3px}.photo-overlay h2{font-family:Cinzel,serif;font-size:24px;margin:0}.photo-overlay .meta{color:#eee;margin-top:4px}.profile-card .profile-head{padding-top:13px}.steckbrief{margin:0 16px 14px;border-top:1px solid #eadfce}.steck-row{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #eadfce;font-size:11px;line-height:1.45}.steck-row:last-child{border-bottom:0}.steck-row b{width:82px;flex:none;color:var(--pink);font-family:Cinzel,serif;font-size:9px;text-transform:uppercase;letter-spacing:.3px}.image-credit{padding:0 16px 12px;color:#8a8288;font-size:8px;line-height:1.4}.profile-intro{padding:13px 16px 4px;font-size:12px;line-height:1.55;color:#403b41}.section-divider{display:flex;align-items:center;gap:10px;padding:3px 16px 14px;color:var(--gold);font-size:10px;letter-spacing:2px}.section-divider:before,.section-divider:after{content:"";height:1px;background:#e6d8c8;flex:1}
+:root {
+  --bg: #16100f;
+  --surface: #221917;
+  --surface-2: #2c211e;
+  --surface-3: #372a26;
+  --border: #4a3730;
+  --border-soft: #3a2b26;
+
+  --pink: #e83e73;
+  --pink-soft: #f4739b;
+  --pink-dark: #b02754;
+  --gold: #b98b52;
+  --gold-soft: #d8b483;
+  --gold-dark: #8a6537;
+
+  --text: #f4ece6;
+  --text-muted: #bda99e;
+  --text-dim: #8e7a70;
+
+  --danger: #d9463f;
+  --success: #4c9a6a;
+
+  --radius: 14px;
+  --radius-lg: 22px;
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  --font-display: 'Cinzel', 'Trajan Pro', Georgia, serif;
+  --font-body: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html, body { padding: 0; margin: 0; }
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(232, 62, 115, 0.12), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(185, 139, 82, 0.14), transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(232, 62, 115, 0.07), transparent 55%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.25;
+  margin: 0;
+}
+
+a { color: var(--pink-soft); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+::selection { background: var(--pink); color: #fff; }
+
+code {
+  font-family: ui-monospace, Consolas, 'Courier New', monospace;
+  font-size: 0.85em;
+  background: rgba(185, 139, 82, 0.14);
+  color: var(--gold-soft);
+  padding: 1px 7px;
+  border-radius: 6px;
+}
+
+img { max-width: 100%; }
+
+/* ---------- Layout ---------- */
+
+.shell { max-width: 1120px; margin: 0 auto; padding: 0 20px 80px; }
+
+.site-header { text-align: center; padding: 54px 0 8px; }
+
+.laurel {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.laurel::before, .laurel::after {
+  content: ''; height: 1px; width: 58px;
+  background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+}
+
+.site-title {
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  margin: 14px 0 6px;
+  background: linear-gradient(100deg, var(--gold-soft) 0%, var(--pink) 48%, var(--gold-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.site-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0 auto;
+  max-width: 620px;
+}
+
+.site-footer {
+  border-top: 1px solid var(--border-soft);
+  margin-top: 64px;
+  padding-top: 24px;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.82rem;
+}
+.site-footer p { margin: 6px 0; }
+
+/* ---------- Tabs ---------- */
+
+.tabs {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  margin: 34px 0 40px;
+  padding: 8px;
+  background: rgba(34, 25, 23, 0.75);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+}
+
+.tab {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 12px 22px;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+.tab:hover { color: var(--text); background: rgba(232, 62, 115, 0.1); }
+.tab[aria-selected='true'] {
+  background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(232, 62, 115, 0.35);
+}
+
+/* ---------- Abschnittsköpfe ---------- */
+
+.section-head { text-align: center; margin-bottom: 34px; }
+.section-head h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); color: var(--gold-soft); }
+.section-head p { color: var(--text-muted); margin: 10px auto 0; max-width: 640px; font-size: 0.94rem; }
+
+.eyebrow {
+  color: var(--pink);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 100%);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+/* ---------- SWIPEN ---------- */
+
+.swipe-area { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+
+.swipe-stack { position: relative; width: min(420px, 100%); }
+.swipe-stack::before, .swipe-stack::after {
+  content: ''; position: absolute; inset: 0;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  background: var(--surface);
+  z-index: 0;
+}
+.swipe-stack::before { transform: rotate(-3deg) translateY(8px) scale(0.97); opacity: 0.5; }
+.swipe-stack::after { transform: rotate(2.5deg) translateY(4px) scale(0.985); opacity: 0.7; }
+
+.swipe-card {
+  position: relative; z-index: 1; overflow: hidden;
+  background: linear-gradient(165deg, var(--surface-2) 0%, var(--surface) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+}
+.swipe-card.leaving-like { transform: translateX(120%) rotate(16deg); opacity: 0; }
+.swipe-card.leaving-nope { transform: translateX(-120%) rotate(-16deg); opacity: 0; }
+
+.swipe-photo {
+  position: relative;
+  height: 300px;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(185, 139, 82, 0.32), transparent 65%),
+    linear-gradient(160deg, #3a2a25, #241a18);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.swipe-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.monogram {
+  font-family: var(--font-display);
+  font-size: 6.5rem;
+  color: var(--gold-soft);
+  opacity: 0.65;
+  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  user-select: none;
+}
+
+.swipe-body { padding: 22px 24px 26px; }
+.swipe-name { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.swipe-name h3 { font-size: 1.75rem; color: var(--text); }
+.swipe-era { color: var(--gold); font-size: 0.82rem; letter-spacing: 0.05em; }
+.swipe-status { color: var(--pink-soft); font-size: 0.85rem; font-style: italic; margin: 6px 0 12px; }
+.swipe-description { color: var(--text-muted); font-size: 0.92rem; margin: 0 0 16px; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  background: rgba(232, 62, 115, 0.12);
+  border: 1px solid rgba(232, 62, 115, 0.35);
+  border-radius: 999px;
+  color: var(--pink-soft);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  padding: 5px 13px;
+  white-space: nowrap;
+}
+.tag.gold { background: rgba(185, 139, 82, 0.12); border-color: rgba(185, 139, 82, 0.4); color: var(--gold-soft); }
+
+.swipe-controls { display: flex; align-items: center; justify-content: center; gap: 26px; }
+
+.circle-btn {
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.6rem;
+  display: grid; place-items: center;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.circle-btn:hover { transform: scale(1.09); }
+.circle-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.circle-btn.nope:hover { border-color: var(--danger); color: var(--danger); }
+.circle-btn.like { border-color: var(--pink); color: var(--pink); font-size: 1.9rem; }
+.circle-btn.like:hover { background: var(--pink); color: #fff; box-shadow: 0 10px 30px rgba(232, 62, 115, 0.45); }
+
+.swipe-counter {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  font-family: var(--font-display);
+  margin: 0;
+}
+
+.likes-panel { width: min(560px, 100%); padding: 22px 24px; }
+.likes-panel h3 { font-size: 1.05rem; color: var(--gold-soft); margin-bottom: 4px; }
+.likes-panel .hint { color: var(--text-dim); font-size: 0.8rem; margin: 0 0 14px; }
+
+.like-list {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 8px;
+  max-height: 260px; overflow-y: auto;
+}
+.like-item {
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(232, 62, 115, 0.07);
+  border: 1px solid rgba(232, 62, 115, 0.18);
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 0.88rem;
+}
+.like-item .avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), var(--gold-dark));
+  color: #fff;
+  display: grid; place-items: center;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.like-item time { margin-left: auto; color: var(--text-dim); font-size: 0.74rem; }
+
+/* ---------- Match-Popup ---------- */
+
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(10, 6, 6, 0.82);
+  backdrop-filter: blur(5px);
+  display: grid; place-items: center;
+  padding: 20px;
+  z-index: 60;
+  animation: fade-in 0.22s ease;
+}
+
+.match-modal {
+  width: min(460px, 100%);
+  text-align: center;
+  padding: 40px 32px 32px;
+  border: 1px solid var(--gold-dark);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(165deg, #2e2120 0%, #1c1413 100%);
+  box-shadow: 0 0 90px rgba(232, 62, 115, 0.28), var(--shadow);
+  animation: pop-in 0.32s cubic-bezier(0.22, 1.4, 0.5, 1);
+}
+.match-modal .heart {
+  font-size: 3.6rem; color: var(--pink);
+  animation: heartbeat 1.1s ease-in-out infinite;
+  display: block; margin-bottom: 6px;
+}
+.match-modal h2 {
+  font-size: 2.2rem;
+  background: linear-gradient(100deg, var(--gold-soft), var(--pink), var(--gold-soft));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.match-modal .latin { font-style: italic; color: var(--gold); margin: 12px 0 4px; }
+.match-modal p { color: var(--text-muted); font-size: 0.92rem; }
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.22); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.16); }
+}
+@keyframes pop-in {
+  from { transform: scale(0.86) translateY(14px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- OVIDS TIPPS ---------- */
+
+.tip-list { display: flex; flex-direction: column; gap: 22px; }
+.tip-card { padding: 26px 28px; position: relative; overflow: hidden; }
+.tip-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, var(--pink), var(--gold));
+}
+.tip-head { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 14px; }
+.tip-number {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--gold-dark);
+  color: var(--gold-soft);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  background: rgba(185, 139, 82, 0.1);
+}
+.tip-card h3 { font-size: 1.3rem; color: var(--text); }
+.tip-source { color: var(--text-dim); font-size: 0.76rem; letter-spacing: 0.08em; font-family: var(--font-display); }
+.tip-block { margin-top: 14px; }
+.tip-label {
+  color: var(--pink);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin: 0 0 5px;
+}
+.tip-block p:not(.tip-label), .modern-box p:not(.tip-label) { margin: 0; color: var(--text-muted); font-size: 0.93rem; }
+
+.quote-box {
+  background: rgba(185, 139, 82, 0.08);
+  border: 1px solid rgba(185, 139, 82, 0.28);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 16px 20px;
+  margin: 14px 0 0;
+}
+.quote-latin { color: var(--gold-soft); font-size: 1.02rem; font-style: italic; margin: 0; }
+.quote-translation {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(185, 139, 82, 0.25);
+}
+.modern-box {
+  background: rgba(232, 62, 115, 0.07);
+  border: 1px solid rgba(232, 62, 115, 0.22);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-top: 14px;
+}
+.modern-box .tip-label { margin-bottom: 5px; }
+
+/* ---------- DATE-SPOTS ---------- */
+
+.spot-latin { color: var(--gold); font-family: var(--font-body); font-size: 0.9rem; font-weight: 400; letter-spacing: 0; }
+.spot-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin: 18px 0 4px; }
+.spot-fact {
+  background: rgba(15, 11, 10, 0.45);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+.spot-fact dt {
+  color: var(--gold-soft);
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.spot-fact dd { margin: 0; color: var(--text-muted); font-size: 0.88rem; }
+.spot-card .tip-block { margin-top: 20px; }
+.spot-warning, .spot-check { border-radius: var(--radius); padding: 16px 20px; margin-top: 18px; }
+.spot-warning { background: rgba(217, 70, 63, 0.09); border: 1px solid rgba(217, 70, 63, 0.35); }
+.spot-warning .tip-label { color: #e8756f; }
+.spot-warning > p:not(.tip-label) { margin: 12px 0 0; color: var(--text-muted); font-size: 0.93rem; }
+.spot-check { background: rgba(185, 139, 82, 0.08); border: 1px dashed rgba(185, 139, 82, 0.45); }
+.spot-check .tip-label { color: var(--gold-soft); }
+.spot-check p:not(.tip-label) { margin: 0; color: var(--text-muted); font-size: 0.93rem; }
+
+/* ---------- COMMUNITY ---------- */
+
+.community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 20px; }
+.community-card {
+  padding: 22px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.community-card:hover { transform: translateY(-4px); border-color: rgba(232, 62, 115, 0.45); }
+.community-head { display: flex; align-items: center; gap: 12px; }
+.community-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: linear-gradient(140deg, var(--pink-dark), var(--gold-dark));
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.community-card h3 { font-size: 1.1rem; }
+.community-age { color: var(--gold); font-size: 0.8rem; }
+.community-bio { color: var(--text-muted); font-size: 0.88rem; margin: 0; }
+.liked-badge {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--pink);
+  font-size: 0.78rem;
+  margin-top: auto;
+  padding-top: 6px;
+}
+.liked-badge time { margin-left: auto; color: var(--text-dim); font-size: 0.74rem; }
+
+/* ---------- Formulare ---------- */
+
+.form-card { padding: 30px 32px; max-width: 640px; margin: 0 auto; }
+.field { margin-bottom: 18px; }
+.field label {
+  display: block;
+  color: var(--gold-soft);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+input[type='text'], input[type='number'], input[type='password'], textarea {
+  width: 100%;
+  background: rgba(15, 11, 10, 0.7);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  padding: 12px 14px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(232, 62, 115, 0.18);
+}
+textarea { min-height: 110px; resize: vertical; line-height: 1.6; }
+textarea.short { min-height: 70px; }
+
+.help { color: var(--text-dim); font-size: 0.76rem; margin: 6px 0 0; }
+
+.checkbox-field {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: rgba(232, 62, 115, 0.07);
+  border: 1px solid rgba(232, 62, 115, 0.22);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.checkbox-field input { width: 20px; height: 20px; accent-color: var(--pink); margin-top: 2px; flex-shrink: 0; cursor: pointer; }
+.checkbox-field span { font-size: 0.9rem; color: var(--text); }
+.checkbox-field small { color: var(--text-dim); font-size: 0.8rem; }
+
+.form-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; }
+
+/* ---------- Buttons & Meldungen ---------- */
+
+.btn {
+  appearance: none;
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  padding: 13px 28px;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1.4;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn:hover:not(:disabled) { transform: translateY(-2px); text-decoration: none; }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(232, 62, 115, 0.32);
+}
+.btn-gold { background: linear-gradient(135deg, var(--gold-soft) 0%, var(--gold-dark) 100%); color: #241a18; }
+.btn-ghost { background: transparent; border-color: var(--border); color: var(--text-muted); }
+.btn-ghost:hover:not(:disabled) { border-color: var(--gold); color: var(--gold-soft); }
+.btn-danger { background: transparent; border-color: rgba(217, 70, 63, 0.5); color: #e8756f; }
+.btn-danger:hover:not(:disabled) { background: rgba(217, 70, 63, 0.14); }
+.btn-sm { padding: 8px 16px; font-size: 0.68rem; }
+.btn-block { width: 100%; }
+
+.file-btn { position: relative; overflow: hidden; }
+.file-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; font-size: 0; }
+
+.alert { border-radius: 10px; font-size: 0.88rem; padding: 12px 16px; margin: 0 0 18px; }
+.alert-error { background: rgba(217, 70, 63, 0.14); border: 1px solid rgba(217, 70, 63, 0.4); color: #f0a09b; }
+.alert-success { background: rgba(76, 154, 106, 0.14); border: 1px solid rgba(76, 154, 106, 0.4); color: #9fd7b6; }
+.alert-note { background: rgba(185, 139, 82, 0.1); border: 1px solid rgba(185, 139, 82, 0.4); color: var(--gold-soft); }
+
+.empty-state {
+  text-align: center;
+  color: var(--text-dim);
+  padding: 46px 20px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-lg);
+  font-style: italic;
+  margin: 0;
+}
+
+/* ---------- Admin ---------- */
+
+.admin-bar {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+  border-bottom: 1px solid var(--border-soft);
+  padding: 22px 0;
+  margin-bottom: 8px;
+}
+.admin-bar h1 { font-size: 1.5rem; color: var(--gold-soft); }
+.admin-bar .sub { color: var(--text-dim); font-size: 0.8rem; margin: 4px 0 0; }
+.admin-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.admin-layout { display: grid; grid-template-columns: 1fr; gap: 26px; }
+
+.admin-panel { padding: 26px 28px; }
+.admin-panel > h2 { color: var(--gold-soft); font-size: 1.15rem; margin-bottom: 4px; }
+.panel-hint { color: var(--text-dim); font-size: 0.82rem; margin: 0 0 20px; }
+
+.admin-list { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; }
+.admin-row {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(15, 11, 10, 0.45);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.admin-row .grow { flex: 1; min-width: 0; }
+.admin-row strong { display: block; font-family: var(--font-display); font-size: 0.98rem; color: var(--text); }
+.admin-row .meta {
+  color: var(--text-dim);
+  font-size: 0.79rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.admin-row .row-actions { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
+.admin-row .small-number {
+  width: 38px; height: 38px; font-size: 0.8rem;
+}
+.admin-row .small-avatar { width: 38px; height: 38px; font-size: 1rem; }
+
+.thumb { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 1px solid var(--border); }
+
+.admin-form {
+  background: rgba(15, 11, 10, 0.4);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+}
+.admin-form h3 { font-size: 1rem; color: var(--pink-soft); margin-bottom: 16px; }
+.admin-form .intro { color: var(--text-muted); font-size: 0.86rem; margin: 0 0 16px; }
+.form-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+
+.img-preview { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
+.img-preview img { width: 72px; height: 72px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border); }
+
+.data-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+.login-card { max-width: 420px; margin: 80px auto; padding: 38px 34px; text-align: center; }
+.login-card h1 { font-size: 1.6rem; color: var(--gold-soft); margin-bottom: 6px; }
+.login-intro { color: var(--text-muted); font-size: 0.86rem; margin: 0 0 24px; }
+.login-card .field { text-align: left; }
+.back-link { display: inline-block; margin-top: 22px; color: var(--text-dim); font-size: 0.8rem; }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .shell { padding: 0 14px 60px; }
+  .tabs { border-radius: var(--radius-lg); }
+  .tab { padding: 10px 15px; font-size: 0.7rem; }
+  .swipe-photo { height: 240px; }
+  .form-row { grid-template-columns: 1fr; }
+  .admin-row { flex-wrap: wrap; }
+  .form-card, .admin-panel { padding: 22px 18px; }
+  .swipe-stack::before, .swipe-stack::after { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 </style>
-<style id="community-v7-style">
-.community-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:20px}.community-card{background:#fff;border:1px solid #eee;border-radius:22px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.06)}.community-avatar{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f7d9df,#eee1d1);font-size:26px;font-weight:700;margin-bottom:14px}.community-card h3{margin:0 0 4px}.community-age{font-size:12px;color:#888;margin-bottom:10px}.community-bio{font-size:14px;color:#555;line-height:1.5;margin-bottom:12px}.community-tags{display:flex;flex-wrap:wrap;gap:6px}.community-tag{font-size:10px;padding:6px 9px;border-radius:999px;background:#f5f2f2;color:#555}.community-empty{text-align:center;padding:25px;border:1px dashed #ddd;border-radius:18px;color:#777}
-</style></head>
+</head>
 <body>
-<div class="app">
-<header class="header">
-  <img class="header-portrait" src="ovid.jpg" alt="Ovid">
-  <div><div class="logo">ROMA <span>♥</span> MATCH</div><div class="subtitle">Dating im alten Rom · nach Ovid</div></div>
-</header>
+<div id="root"></div>
 
-<nav class="nav">
-  <button class="active" onclick="showTab('swipen',this)">SWIPEN</button>
-  <button onclick="showTab('tipps',this)">OVIDS TIPPS</button>
-  <button onclick="showTab('profil',this)">PROFILE</button>
-  <button onclick="showTab('projekt',this)">COMMUNITY</button>
-</nav>
+<noscript>
+  <p style="text-align:center;padding:40px;color:#bda99e">ROMA MATCH braucht JavaScript. Bitte im Browser aktivieren.</p>
+</noscript>
 
-<main class="page">
-
-<div id="swipen">
-  <div class="section-divider">PROFILE · 01</div>
-  <div class="panel profile-card">
-    <div class="photo-wrap">
-      <img class="profile-photo ovid-photo" src="ovid.jpg" alt="Ovid">
-      <div class="photo-overlay">
-        <div class="eyebrow">ROMA MATCH · DICHTER</div>
-        <h2>Publius Ovidius Naso <span class="verified">✦</span></h2>
-        <div class="meta">43 v. Chr. · Rom · Ritterstand</div>
-      </div>
-    </div>
-    <div class="profile-intro">Dichter, Liebesexperte und Autor der <i>Ars amatoria</i>. Ovid zeigt in seinen Texten, wie man nach seiner Vorstellung erfolgreich auf Partnersuche geht.</div>
-    <div class="steckbrief">
-      <div class="steck-row"><b>Geboren</b><span>43 v. Chr. in Sulmo</span></div>
-      <div class="steck-row"><b>Beruf</b><span>Dichter und Schriftsteller</span></div>
-      <div class="steck-row"><b>Stand</b><span>Ritterstand</span></div>
-      <div class="steck-row"><b>Bekannt für</b><span><i>Ars amatoria</i> und seine Liebesdichtung</span></div>
-    </div>
-    <div class="bio" style="padding-bottom:5px">
-      <div class="tags"><span class="tag">✒️ Dichter</span><span class="tag">❤️ Liebeskunst</span><span class="tag">🏛️ Rom</span><span class="tag">📜 Ars amatoria</span></div>
-    </div>
-    <div class="actions">
-      <button class="btn no" onclick="nextCard()">✕</button>
-      <button class="btn yes" onclick="likeCard()">♥</button>
-    </div>
-    <div id="match" class="match hidden"><strong>💘 IT'S A MATCH!</strong><br><span id="matchText">Ovid hat dich ebenfalls geliked.</span></div>
-  </div>
-  <div class="image-credit">Steckbrief nach den Angaben auf der Projektseite. Foto: eigenes Projektmaterial.</div>
-
-  <div class="section-divider">PROFILE · 02</div>
-  <div class="panel profile-card">
-    <div class="photo-wrap">
-      <img class="profile-photo livia-photo" src="https://upload.wikimedia.org/wikipedia/commons/6/61/Livia_Drusilla_Louvre_Ma1233.jpg" alt="Livia Drusilla">
-      <div class="photo-overlay">
-        <div class="eyebrow">ROMA MATCH · RÖMISCHE FRAU</div>
-        <h2>Livia Drusilla <span class="verified">✦</span></h2>
-        <div class="meta">59/58 v. Chr. – 29 n. Chr. · Rom</div>
-      </div>
-    </div>
-    <div class="profile-intro">Eine der bekanntesten Frauen der frühen römischen Kaiserzeit – selbstbewusst, einflussreich und eng mit der politischen Welt Roms verbunden.</div>
-    <div class="steckbrief">
-      <div class="steck-row"><b>Herkunft</b><span>Rom</span></div>
-      <div class="steck-row"><b>Ehemann</b><span>Augustus, erster römischer Kaiser</span></div>
-      <div class="steck-row"><b>Familie</b><span>Mutter von Tiberius und Drusus</span></div>
-      <div class="steck-row"><b>Stellung</b><span>Angesehene und einflussreiche Römerin</span></div>
-    </div>
-    <div class="bio" style="padding-bottom:5px">
-      <div class="tags"><span class="tag">🏛️ Rom</span><span class="tag">👑 Kaiserhaus</span><span class="tag">🌿 Einflussreich</span></div>
-    </div>
-    <div class="actions">
-      <button class="btn no" onclick="nextCard()">✕</button>
-      <button class="btn yes" onclick="likeWoman()">♥</button>
-    </div>
-    <div class="image-credit">Bild: Livia Drusilla, römische Büste, ca. 31 v. Chr. · Louvre. Public Domain.</div>
-  </div>
-
-  <section class="panel">
-    <h2 class="section-title">Wer hat Ovid geliked?</h2>
-    <div class="ornament">❦ ✦ ❦</div>
-    <div id="likedList" class="profiles"></div>
-    <div id="emptyLikes" class="empty">Noch niemand. Erstelle ein Profil und gib Ovid ein Herz.</div>
-  </section>
-</div>
-
-<div id="tipps" class="hidden">
-  <section class="panel">
-    <h2 class="section-title">❤️ Ovids Dating-Tipps</h2>
-    <div class="ornament">❦ ✦ ❦</div>
-    <div class="tip">
-      <h3>💗 Tipp #1 · Wo man jemanden trifft</h3>
-      <p><b>Ovids Idee:</b> Geh dorthin, wo viele Menschen zusammenkommen – öffentliche Veranstaltungen bieten Gelegenheit zum Kennenlernen.</p>
-      <div class="quote" style="margin:10px 0 0">
-        <div class="latin">„Ludite nunc, venite ...“</div>
-        <div class="translation">Kurzes Beispiel aus dem Text.</div>
-      </div>
-    </div>
-    
-<div class="tip-card">
-  <div class="tip-number">TIPP #2</div>
-  <h3>Sie fällt dir nicht in den Schoß</h3>
-  <p><strong>Ovids Idee:</strong> Die passende Person kommt nicht aus heiterem Himmel gefallen – wer Liebe finden will, muss selbst suchen.</p>
-  <div class="quote">
-    <span>📜 Ovid schreibt:</span>
-    <em>„Quaerenda est oculis apta puella tuis.“</em>
-  </div>
-  <div class="translation">
-    <span>🇩🇪 Übersetzung:</span>
-    „Die passende Geliebte musst du mit deinen eigenen Augen suchen.“
-  </div>
-  <p class="modern"><strong>💬 Heute:</strong> Heute gilt: <strong>Nicht nur warten – selbst aktiv werden.</strong></p>
-  <div class="source">📖 Ars amatoria, Buch 1</div>
-</div></section>
-</div>
-
-<div id="community" class="hidden">
-<section class="panel community-section">
-<h2 class="section-title">♡ Community</h2>
-<div class="notice">Entdecke die Profile der ROMA MATCH Community.</div>
-<div id="communityProfiles" class="community-grid"></div>
-</section>
-</div>
-<div id="profil" class="hidden">
-  <section class="panel">
-    <h2 class="section-title">👤 Mein Profil</h2>
-    <div class="notice">Stell dich vor wie bei einer echten Dating-App. Dein Profil wird auf diesem Gerät gespeichert.</div>
-    <div class="form">
-      <div class="field"><label>Name</label><input id="pName" placeholder="z. B. Marcus"></div>
-      <div class="field"><label>Alter</label><input id="pAge" type="number" min="16" max="99" placeholder="z. B. 18"></div>
-      <div class="field"><label>Über mich</label><textarea id="pBio" placeholder="Wer bist du? Was machst du gerne?"></textarea></div>
-      <div class="field"><label>Meine Interessen</label><div class="checks">
-        <label class="check"><input type="checkbox" value="🏛️ Rom">Rom</label>
-        <label class="check"><input type="checkbox" value="🎭 Theater">Theater</label>
-        <label class="check"><input type="checkbox" value="🏺 Feste">Feste</label>
-        <label class="check"><input type="checkbox" value="💬 Gespräche">Gespräche</label>
-        <label class="check"><input type="checkbox" value="❤️ Liebe">Liebe</label>
-      </div></div>
-      <div class="field"><label>Ovid?</label><div class="checks"><label class="check"><input id="pLikeOvid" type="checkbox"> ❤️ Ovid gefällt mir</label></div></div>
-      <button class="primary" onclick="createProfile()">Profil erstellen</button>
-    </div>
-    <div id="created" class="profile-created">
-      <div class="created-card">
-        <div class="created-top"><div id="createdAvatar" class="created-avatar">👤</div><div><h3 id="createdName"></h3><div id="createdMeta" class="meta"></div></div></div>
-        <p id="createdBio"></p><div id="createdTags" class="tags"></div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div id="projekt" class="hidden">
-  <section class="panel">
-    <h2 class="section-title">🏛️ ROMA MATCH COMMUNITY</h2>
-    <div style="padding:0 16px 16px;font-size:12px;line-height:1.6">
-      <p><b>ROMA MATCH</b> überträgt Ovids <i>Ars amatoria</i> in das Konzept einer modernen Dating-App.</p>
-      <p>Profile, Likes und kurze Dating-Tipps verbinden die antike Lektüre mit einer Form, die heute jeder kennt.</p>
-      <p><b>Ziel:</b> Ovids Vorstellungen von Liebe und Partnersuche kreativ darstellen und mit heutigen Dating-Gewohnheiten vergleichen.</p>
-    </div>
-  </section>
-</div>
-
-</main>
-<footer>ROMA MATCH · Ein kreatives Community zur <i>Ars amatoria</i><br>Fiktive Dating-App für den Lateinunterricht</footer>
-</div>
+<!--
+  Inhalte dieser Datei. Bleibt beim Original "null" – dann gelten die
+  Startinhalte unten im Skript. Über "Admin → Daten → HTML-Datei herunterladen"
+  wird hier der aktuelle Stand eingetragen, damit alle Besucher ihn sehen.
+-->
+<script id="roma-data" type="application/json">null</script>
 
 <script>
-const OVID={name:'Publius Ovidius Naso',age:'43 v. Chr.',meta:'43 v. Chr. · Rom · Ritterstand',bio:'Dichter mit einer Vorliebe für die Liebe, große Worte und ein wenig Chaos. Schon als Junge zog es ihn zur Dichtung – obwohl sein Vater wenig davon hielt.',tags:['✒️ Dichter','❤️ Liebeskunst','🏛️ Rom','📜 Ars amatoria'],avatar:'ovid.jpg',type:'ovid'};
-const WOMAN={name:'Livia',age:'20',meta:'20 · Rom · Liebt Theater & Feste',bio:'Selbstbewusst, neugierig und immer dort, wo etwas los ist. Ein Gespräch sollte schließlich mit einem guten ersten Eindruck beginnen.',tags:['🎭 Theater','🌿 Feste','💬 Gespräche'],avatar:'https://upload.wikimedia.org/wikipedia/commons/6/61/Livia_Drusilla_Louvre_Ma1233.jpg',type:'woman'};
-let cards=[OVID,WOMAN];let current=0;
+(function () {
+  'use strict';
 
-function showTab(id,btn){['swipen','tipps','profil','projekt'].forEach(x=>document.getElementById(x).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(id==='swipen')renderCard();}
-function renderCard(){let c=cards[current%cards.length];document.getElementById('cardName').innerHTML=c.name+(c.type==='ovid'?' <span class="verified">✦</span>':'');document.getElementById('cardMeta').textContent=c.meta;document.getElementById('cardBio').textContent=c.bio;document.getElementById('cardTags').innerHTML=c.tags.map(x=>`<span class="tag">${x}</span>`).join('');let av=document.getElementById('cardAvatar');if(c.avatar){av.src=c.avatar;av.style.display='block'}else{av.style.display='none'}document.getElementById('match').classList.add('hidden')}
-function nextCard(){current=(current+1)%cards.length;renderCard()}
-function likeCard(){let c=cards[current%cards.length];if(c.type==='ovid'){document.getElementById('matchText').textContent='Ovid hat dich ebenfalls geliked. Vielleicht passt sein Dating-Tipp zu dir.';document.getElementById('match').classList.remove('hidden');addLikeForCreated()}else{document.getElementById('matchText').textContent='💘 Livia findet dich interessant.';document.getElementById('match').classList.remove('hidden')}if(navigator.vibrate)navigator.vibrate(40)}
-function likeWoman(){document.getElementById('matchText').textContent='💘 Livia findet dich interessant.';document.getElementById('match').classList.remove('hidden')}
-function createProfile(){let name=document.getElementById('pName').value.trim();let age=document.getElementById('pAge').value.trim();let bio=document.getElementById('pBio').value.trim();if(!name||!age){alert('Bitte gib mindestens Name und Alter ein.');return}let tags=[...document.querySelectorAll('.check input:checked')].filter(x=>x.id!=='pLikeOvid').map(x=>x.value);let likeOvid=document.getElementById('pLikeOvid').checked;let profile={name,age,bio:bio||'Noch keine Vorstellung.',tags:tags.length?tags:['✨ Offen für neue Bekanntschaften'],likeOvid};localStorage.setItem('romaMatchProfile',JSON.stringify(profile));renderCreated(profile);renderLikes()}
-function renderCreated(p){document.getElementById('created').classList.add('show');document.getElementById('createdName').textContent=p.name;document.getElementById('createdMeta').textContent=p.age+' · Rom';document.getElementById('createdBio').textContent=p.bio;document.getElementById('createdTags').innerHTML=p.tags.map(x=>`<span class="tag">${x}</span>`).join('');}
-function renderLikes(){let box=document.getElementById('likedList'),empty=document.getElementById('emptyLikes'),p=JSON.parse(localStorage.getItem('romaMatchProfile')||'null');if(!p||!p.likeOvid){box.innerHTML='';empty.style.display='block';return}box.innerHTML=`<div class="mini"><div class="woman-art" style="height:115px"><div class="woman-body"></div><div class="woman-head" style="transform:scale(.58)"><div class="woman-hair"></div></div></div><div class="mini-body"><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.age)} · Rom</p><div class="heart">♥ Ovid geliked</div></div></div>`;empty.style.display='none'}
-function addLikeForCreated(){renderLikes()}
-function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-(function init(){let p=JSON.parse(localStorage.getItem('romaMatchProfile')||'null');if(p){document.getElementById('pName').value=p.name;document.getElementById('pAge').value=p.age;document.getElementById('pBio').value=p.bio;document.getElementById('pLikeOvid').checked=!!p.likeOvid;renderCreated(p)}renderLikes();renderCard()})();
+  /* =======================================================
+     Grundeinstellungen
+     ======================================================= */
+
+  var STORAGE_KEY = 'roma-match:data';
+  var NAME_KEY = 'roma-match:name';
+  var SESSION_KEY = 'roma-match:admin';
+  var PASSWORD_SALT = 'roma-match:';
+
+  // SHA-256 von "roma-match:roma2024" – das Startpasswort ist "roma2024".
+  var DEFAULT_ADMIN_HASH = '874ec478be0bc973a99779bdc1ddba1d22061a9d8892530ddeda0d33295cffac';
+
+  /* =======================================================
+     Startinhalte (werden nur benutzt, solange die Datei
+     noch keine exportierten Inhalte enthält)
+     ======================================================= */
+
+  var START = '2026-09-10T10:00:00.000Z';
+
+  var DEFAULT_DATA = {
+    version: 1,
+    revision: 2,
+    adminHash: DEFAULT_ADMIN_HASH,
+    profiles: [
+      {
+        id: 'p-ovid', name: 'Ovid', era: '43 v. Chr. – 17 n. Chr.',
+        status: 'Dichter, Ritterstand, dreimal verheiratet',
+        description: 'Publius Ovidius Naso. Schreibe Gedichte über die Liebe – und ein Handbuch dazu. Meine „Ars amatoria“ erklärt in drei Büchern, wie man die Liebe findet, gewinnt und behält. Suche: jemanden, der Ironie versteht. Warnung: Augustus mag mich nicht besonders.',
+        tags: ['Dichtung', 'Ironie', 'Ars amatoria', 'Theaterbesuche', 'Exil in Tomis'],
+        imageUrl: '', sortOrder: 1, createdAt: START
+      },
+      {
+        id: 'p-livia', name: 'Livia Drusilla', era: '58 v. Chr. – 29 n. Chr.',
+        status: 'Kaiserin, verheiratet mit Augustus',
+        description: 'Erste Dame Roms. Wolle spinnen, Intrigen lenken, Dynastien planen – nicht unbedingt in dieser Reihenfolge. Ich lege Wert auf mos maiorum und gute Manieren. Wer mir schreibt, sollte wissen, dass mein Mann gerade ein Ehegesetz erlassen hat.',
+        tags: ['Politik', 'Traditionen', 'Familie', 'Diskretion', 'Macht'],
+        imageUrl: '', sortOrder: 2, createdAt: START
+      },
+      {
+        id: 'p-corinna', name: 'Corinna', era: 'Zeit des Augustus',
+        status: 'Es ist kompliziert',
+        description: 'Die Frau aus Ovids „Amores“ – ob es mich wirklich gab, diskutieren die Gelehrten bis heute. Ich bin die Angebetete, die Umworbene, die literarische Erfindung. Erwarte Gedichte, keine Verlässlichkeit.',
+        tags: ['Literatur', 'Geheimnisse', 'Elegie', 'Nachtleben'],
+        imageUrl: '', sortOrder: 3, createdAt: START
+      },
+      {
+        id: 'p-cicero', name: 'Marcus Tullius Cicero', era: '106 v. Chr. – 43 v. Chr.',
+        status: 'Geschieden, sucht Zuhörer',
+        description: 'Konsul, Anwalt, Redner. Ich rede gern und lange – über den Staat, über die Pflicht, über mich. Wenn du eine Rede über die Freundschaft hören willst, bist du hier richtig. Ovids Liebeslehre halte ich für Zeitverschwendung.',
+        tags: ['Rhetorik', 'Philosophie', 'Politik', 'De amicitia'],
+        imageUrl: '', sortOrder: 4, createdAt: START
+      },
+      {
+        id: 'p-iulia', name: 'Iulia', era: '39 v. Chr. – 14 n. Chr.',
+        status: 'Tochter des Augustus, mehrfach verheiratet (nicht freiwillig)',
+        description: 'Ich wurde dreimal aus politischen Gründen verheiratet und wegen angeblicher Ausschweifung verbannt. Ich weiß, wie es ist, wenn andere über dein Liebesleben bestimmen. Suche: Ehrlichkeit statt Ehegesetze.',
+        tags: ['Freiheit', 'Witz', 'Widerspruch', 'Verbannung'],
+        imageUrl: '', sortOrder: 5, createdAt: START
+      }
+    ],
+    tips: [
+      {
+        id: 't-1', title: 'Wo man jemanden trifft',
+        ovidIdea: 'Geh dorthin, wo viele Menschen zusammenkommen – öffentliche Veranstaltungen bieten Gelegenheit zum Kennenlernen.',
+        latinQuote: 'Ludite nunc, venite ...',
+        translation: 'Kurzes Beispiel aus dem Text.',
+        modernInterpretation: '',
+        source: '', sortOrder: 1, createdAt: START
+      },
+      {
+        id: 't-2', title: 'Sie fällt dir nicht in den Schoß',
+        ovidIdea: 'Die passende Person kommt nicht aus heiterem Himmel gefallen – wer Liebe finden will, muss selbst suchen.',
+        latinQuote: 'Quaerenda est oculis apta puella tuis.',
+        translation: 'Die passende Geliebte musst du mit deinen eigenen Augen suchen.',
+        modernInterpretation: 'Heute gilt: Nicht nur warten – selbst aktiv werden.',
+        source: 'Ars amatoria, Buch 1', sortOrder: 2, createdAt: START
+      },
+      {
+        id: 't-3', title: 'Geh auf die Jagd – im Theater',
+        ovidIdea: 'Nachdem Ovid gesagt hat, dass man selbst suchen muss, wird er konkret: Der beste Ort dafür ist das Theater. Dort sei die Auswahl größer, als man es sich überhaupt wünschen könne. Den Imperativ „venare“ (jage!) richtet er direkt an seinen Schüler – die Partnersuche wird zur Jagd, die Frau zur Beute.',
+        latinQuote: 'Sed tu praecipue curvis venare theatris: haec loca sunt voto fertiliora tuo.',
+        translation: 'Du aber geh vor allem in den runden Theatern auf die Jagd: Diese Orte sind ergiebiger, als du es dir wünschen kannst.',
+        modernInterpretation: 'Das Theater ist für Ovid das, was heute eine Dating-App ist: der Ort mit der größten Auswahl, an dem viele Menschen gleichzeitig sichtbar sind. Auch die Sprache ist geblieben – „auf die Jagd gehen“ oder „jemanden klarmachen“ sagt man noch heute. Genau diese Jagd-Metapher wird heute aber zu Recht kritisiert, weil sie die andere Person nicht als gleichberechtigt sieht.',
+        source: 'Ars amatoria 1, 89–90', sortOrder: 3, createdAt: START
+      },
+      {
+        id: 't-4', title: 'Wisse, was du suchst',
+        ovidIdea: 'Im Theater findet laut Ovid jeder das Passende – er unterscheidet vier Arten von Beziehung: etwas, das man wirklich liebt (ames), etwas zum Spielen und Flirten (ludere), etwas, das man nur ein einziges Mal berührt (semel tangas), und etwas, das man auf Dauer festhalten will (tenere velis). Die Anapher „quod … quod … quodque … quodque“ reiht die Möglichkeiten wie ein Angebot aneinander.',
+        latinQuote: 'Illic invenies, quod ames, quod ludere possis, quodque semel tangas, quodque tenere velis.',
+        translation: 'Dort findest du, was du lieben kannst, womit du spielen kannst, was du nur einmal berührst und was du festhalten willst.',
+        modernInterpretation: 'Das ist der Filter „Ich suche …“ aus Tinder, Hinge oder Bumble: „Langfristige Beziehung“, „Etwas Lockeres“, „Noch unsicher“. Ovid hat diese Kategorien schon vor 2000 Jahren aufgestellt. Auffällig ist aber: Er schreibt „quod“ (was, Neutrum) und nicht „quam“ (die) – die Frauen erscheinen als Sachen, die man auswählt, nicht als Personen, die selbst wählen.',
+        source: 'Ars amatoria 1, 91–92', sortOrder: 4, createdAt: START
+      }
+    ],
+    community: [
+      {
+        id: 'c-sabina', name: 'Sabina', age: 16,
+        bio: 'Team Livia. Wer ohne Plan datet, hat schon verloren.',
+        interests: ['Politik', 'Serien', 'Antike Mythologie'],
+        likedOvid: true, createdAt: '2026-09-10T10:03:00.000Z'
+      },
+      {
+        id: 'c-titus', name: 'Titus', age: 18,
+        bio: 'Bin nur wegen der Metrik hier. Hexameter sind unterschätzt.',
+        interests: ['Metrik', 'Geschichte', 'Basketball'],
+        likedOvid: false, createdAt: '2026-09-10T10:02:00.000Z'
+      },
+      {
+        id: 'c-flavia', name: 'Flavia', age: 17,
+        bio: 'Lerne Latein im 3. Jahr und finde Ovid gleichzeitig witzig und ziemlich problematisch. Suche Leute für die Vokabelabfrage.',
+        interests: ['Latein', 'Poesie', 'Kaffee', 'Debattieren'],
+        likedOvid: true, createdAt: '2026-09-10T10:01:00.000Z'
+      }
+    ],
+    likes: [
+      { id: 'l-1', profileId: 'p-ovid', likerName: 'Flavia', userProfileId: 'c-flavia', createdAt: '2026-09-10T10:01:00.000Z' },
+      { id: 'l-2', profileId: 'p-ovid', likerName: 'Sabina', userProfileId: 'c-sabina', createdAt: '2026-09-10T10:03:00.000Z' },
+      { id: 'l-3', profileId: 'p-ovid', likerName: 'Corinna', userProfileId: null, createdAt: '2026-09-10T10:04:00.000Z' },
+      { id: 'l-4', profileId: 'p-ovid', likerName: 'Anonymus aus Tomis', userProfileId: null, createdAt: '2026-09-10T10:05:00.000Z' }
+    ]
+  };
+
+  /* =======================================================
+     Kleine Helfer
+     ======================================================= */
+
+  function esc(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function uid() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  }
+
+  function nowIso() { return new Date().toISOString(); }
+
+  function clone(value) { return JSON.parse(JSON.stringify(value)); }
+
+  function initial(name) { return (String(name).trim()[0] || '?').toUpperCase(); }
+
+  function formatDate(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    var pad = function (n) { return String(n).padStart(2, '0'); };
+    return pad(d.getDate()) + '.' + pad(d.getMonth() + 1) + '.' + d.getFullYear();
+  }
+
+  function roman(value) {
+    var table = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'],
+      [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']];
+    var rest = value, out = '';
+    for (var i = 0; i < table.length; i++) {
+      while (rest >= table[i][0]) { out += table[i][1]; rest -= table[i][0]; }
+    }
+    return out || 'I';
+  }
+
+  function plural(n, one, many) { return n + ' ' + (n === 1 ? one : many); }
+
+  function splitTags(value) {
+    var list = Array.isArray(value) ? value : String(value == null ? '' : value).split(',');
+    return list.map(function (t) { return String(t).trim().slice(0, 40); })
+      .filter(Boolean).slice(0, 20);
+  }
+
+  /** SHA-256 in reinem JavaScript – crypto.subtle fehlt auf http:// mit IP-Adresse. */
+  function sha256(text) {
+    var K = [
+      0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+      0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+      0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+      0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+      0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+      0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+      0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+      0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
+    ];
+    var H = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
+    var ror = function (x, n) { return (x >>> n) | (x << (32 - n)); };
+
+    var bytes = new TextEncoder().encode(text);
+    var length = bytes.length;
+    var padded = ((length + 9 + 63) >> 6) << 6;
+    var m = new Uint8Array(padded);
+    m.set(bytes);
+    m[length] = 0x80;
+    var view = new DataView(m.buffer);
+    var bits = length * 8;
+    view.setUint32(padded - 4, bits >>> 0);
+    view.setUint32(padded - 8, Math.floor(bits / 0x100000000));
+
+    var W = new Uint32Array(64);
+    for (var i = 0; i < padded; i += 64) {
+      for (var t = 0; t < 16; t++) W[t] = view.getUint32(i + t * 4);
+      for (t = 16; t < 64; t++) {
+        var s0 = ror(W[t - 15], 7) ^ ror(W[t - 15], 18) ^ (W[t - 15] >>> 3);
+        var s1 = ror(W[t - 2], 17) ^ ror(W[t - 2], 19) ^ (W[t - 2] >>> 10);
+        W[t] = (W[t - 16] + s0 + W[t - 7] + s1) >>> 0;
+      }
+      var a = H[0], b = H[1], c = H[2], d = H[3], e = H[4], f = H[5], g = H[6], h = H[7];
+      for (t = 0; t < 64; t++) {
+        var S1 = ror(e, 6) ^ ror(e, 11) ^ ror(e, 25);
+        var ch = (e & f) ^ (~e & g);
+        var t1 = (h + S1 + ch + K[t] + W[t]) >>> 0;
+        var S0 = ror(a, 2) ^ ror(a, 13) ^ ror(a, 22);
+        var maj = (a & b) ^ (a & c) ^ (b & c);
+        var t2 = (S0 + maj) >>> 0;
+        h = g; g = f; f = e; e = (d + t1) >>> 0;
+        d = c; c = b; b = a; a = (t1 + t2) >>> 0;
+      }
+      H[0] = (H[0] + a) >>> 0; H[1] = (H[1] + b) >>> 0; H[2] = (H[2] + c) >>> 0; H[3] = (H[3] + d) >>> 0;
+      H[4] = (H[4] + e) >>> 0; H[5] = (H[5] + f) >>> 0; H[6] = (H[6] + g) >>> 0; H[7] = (H[7] + h) >>> 0;
+    }
+    return H.map(function (v) { return v.toString(16).padStart(8, '0'); }).join('');
+  }
+
+  function hashPassword(password) { return sha256(PASSWORD_SALT + password); }
+
+  // Zugriffe auf den Browserspeicher können werfen (privater Modus,
+  // gesperrte Website-Daten) – dann läuft die Seite ohne Speichern weiter.
+  function storageGet(store, key) {
+    try { return store.getItem(key); } catch (e) { return null; }
+  }
+  function storageSet(store, key, value) {
+    try { store.setItem(key, value); return true; } catch (e) { return false; }
+  }
+  function storageRemove(store, key) {
+    try { store.removeItem(key); } catch (e) { /* egal */ }
+  }
+
+  /* =======================================================
+     Daten: laden, prüfen, speichern
+     ======================================================= */
+
+  function text(value, max) {
+    return (typeof value === 'string' ? value : value == null ? '' : String(value)).trim().slice(0, max);
+  }
+  function wholeNumber(value, min, max, fallback) {
+    var n = Number(value);
+    return Number.isInteger(n) && n >= min && n <= max ? n : fallback;
+  }
+  function isoDate(value) {
+    var d = new Date(value);
+    return isNaN(d.getTime()) ? nowIso() : d.toISOString();
+  }
+  function idOf(value) {
+    return typeof value === 'string' && value ? value.slice(0, 60) : uid();
+  }
+  /** Nur echte Bild-Adressen zulassen – keine javascript:-URLs o. Ä. */
+  function safeImage(value) {
+    var url = text(value, 3000000);
+    return /^(https?:\/\/|data:image\/(png|jpe?g|gif|webp);base64,)/i.test(url) ? url : '';
+  }
+
+  /**
+   * Bringt beliebige (auch importierte oder beschädigte) Daten in eine
+   * saubere Form. Likes, deren Profil nicht mehr existiert, fallen dabei weg.
+   */
+  function normalize(raw) {
+    if (!raw || typeof raw !== 'object') throw new Error('Keine gültigen ROMA-MATCH-Daten.');
+    var list = function (x) { return Array.isArray(x) ? x : []; };
+
+    var profiles = list(raw.profiles).map(function (p) {
+      return {
+        id: idOf(p.id), name: text(p.name, 80), era: text(p.era, 120), status: text(p.status, 160),
+        description: text(p.description, 2000), tags: splitTags(p.tags), imageUrl: safeImage(p.imageUrl),
+        sortOrder: wholeNumber(p.sortOrder, 0, 999, 0), createdAt: isoDate(p.createdAt)
+      };
+    }).filter(function (p) { return p.name; });
+
+    var tips = list(raw.tips).map(function (t) {
+      return {
+        id: idOf(t.id), title: text(t.title, 160), ovidIdea: text(t.ovidIdea, 2000),
+        latinQuote: text(t.latinQuote, 1000), translation: text(t.translation, 1000),
+        modernInterpretation: text(t.modernInterpretation, 2000), source: text(t.source, 120),
+        sortOrder: wholeNumber(t.sortOrder, 0, 999, 0), createdAt: isoDate(t.createdAt)
+      };
+    }).filter(function (t) { return t.title; });
+
+    var community = list(raw.community).map(function (c) {
+      return {
+        id: idOf(c.id), name: text(c.name, 60), age: wholeNumber(c.age, 10, 120, 18),
+        bio: text(c.bio, 1000), interests: splitTags(c.interests), likedOvid: !!c.likedOvid,
+        createdAt: isoDate(c.createdAt), own: !!c.own
+      };
+    }).filter(function (c) { return c.name; });
+
+    var profileIds = {}, communityIds = {};
+    profiles.forEach(function (p) { profileIds[p.id] = true; });
+    community.forEach(function (c) { communityIds[c.id] = true; });
+
+    var likes = list(raw.likes).map(function (l) {
+      return {
+        id: idOf(l.id), profileId: text(l.profileId, 60), likerName: text(l.likerName, 60) || 'Anonymus',
+        userProfileId: l.userProfileId ? text(l.userProfileId, 60) : null,
+        createdAt: isoDate(l.createdAt), own: !!l.own
+      };
+    }).filter(function (l) {
+      return profileIds[l.profileId] && (!l.userProfileId || communityIds[l.userProfileId]);
+    });
+
+    return {
+      version: 1,
+      revision: wholeNumber(raw.revision, 0, Number.MAX_SAFE_INTEGER, 0),
+      baseRevision: wholeNumber(raw.baseRevision, 0, Number.MAX_SAFE_INTEGER, 0),
+      adminHash: /^[0-9a-f]{64}$/.test(raw.adminHash) ? raw.adminHash : DEFAULT_ADMIN_HASH,
+      dirty: !!raw.dirty,
+      profiles: profiles, tips: tips, community: community, likes: likes
+    };
+  }
+
+  /** Die Inhalte, die in dieser HTML-Datei selbst stecken. */
+  function fileData() {
+    var embedded = null;
+    try { embedded = JSON.parse(document.getElementById('roma-data').textContent); } catch (e) { embedded = null; }
+    var data = normalize(embedded || DEFAULT_DATA);
+    data.baseRevision = data.revision;
+    data.dirty = false;
+    return data;
+  }
+
+  /**
+   * Was im Browser gespeichert ist, gewinnt – außer die Datei selbst ist neuer
+   * (der Admin hat eine neue Fassung hochgeladen). Dann kommen Profile, Tipps
+   * und Community aus der Datei, und nur die eigenen Einträge dieses Browsers
+   * (eigenes Profil, eigene Likes) bleiben erhalten.
+   */
+  function loadState() {
+    var base = fileData();
+    var stored = null;
+    try { stored = normalize(JSON.parse(storageGet(localStorage, STORAGE_KEY))); } catch (e) { stored = null; }
+    if (!stored) return base;
+    if (stored.baseRevision >= base.revision) return stored;
+
+    var baseCommunity = {}, baseLikes = {};
+    base.community.forEach(function (c) { baseCommunity[c.id] = true; });
+    base.likes.forEach(function (l) { baseLikes[l.id] = true; });
+
+    var ownCommunity = stored.community.filter(function (c) { return c.own && !baseCommunity[c.id]; });
+    var ownLikes = stored.likes.filter(function (l) { return l.own && !baseLikes[l.id]; });
+
+    return normalize({
+      revision: base.revision, baseRevision: base.revision, adminHash: base.adminHash, dirty: false,
+      profiles: base.profiles, tips: base.tips,
+      community: ownCommunity.concat(base.community),
+      likes: ownLikes.concat(base.likes)
+    });
+  }
+
+  var state = loadState();
+
+  function save() {
+    var ok = storageSet(localStorage, STORAGE_KEY, JSON.stringify(state));
+    if (!ok) {
+      setFlash('global', 'error', 'Speichern im Browser fehlgeschlagen – vermutlich ist der Speicher voll (große Bilder?) oder für diese Seite gesperrt. Die letzte Änderung gilt nur bis zum Neuladen.');
+    }
+    return ok;
+  }
+
+  /** Admin-Änderung: merken, dass sie noch nicht veröffentlicht ist. */
+  function saveAdminChange() {
+    state.dirty = true;
+    return save();
+  }
+
+  function sortedProfiles() {
+    return state.profiles.slice().sort(function (a, b) {
+      return a.sortOrder - b.sortOrder || a.createdAt.localeCompare(b.createdAt);
+    });
+  }
+  function sortedTips() {
+    return state.tips.slice().sort(function (a, b) {
+      return a.sortOrder - b.sortOrder || a.createdAt.localeCompare(b.createdAt);
+    });
+  }
+  function sortedCommunity() {
+    return state.community.slice().sort(function (a, b) { return b.createdAt.localeCompare(a.createdAt); });
+  }
+  function likesFor(profileId) {
+    return state.likes.filter(function (l) { return l.profileId === profileId; })
+      .sort(function (a, b) { return b.createdAt.localeCompare(a.createdAt); });
+  }
+  function findById(listName, id) {
+    return state[listName].filter(function (item) { return item.id === id; })[0] || null;
+  }
+
+  /* =======================================================
+     Oberflächen-Zustand
+     ======================================================= */
+
+  var ui = {
+    tab: 'swipe',
+    swipeIndex: 0,
+    swipeBusy: false,
+    listedId: null,      // Like-Liste: steht bei Ovid, bis ein anderes Profil geliked wird
+    matchedId: null,
+    adminSection: 'tips',
+    editTipId: null,
+    editProfileId: null,
+    loginError: null,
+    flash: null          // { scope, type, text }
+  };
+
+  function setFlash(scope, type, message) { ui.flash = { scope: scope, type: type, text: message }; }
+
+  function flashHtml(scope) {
+    if (!ui.flash || ui.flash.scope !== scope) return '';
+    return '<p class="alert alert-' + esc(ui.flash.type) + '" role="status">' + esc(ui.flash.text) + '</p>';
+  }
+
+  function isAdminView() { return location.hash === '#admin'; }
+
+  function isLoggedIn() { return storageGet(sessionStorage, SESSION_KEY) === state.adminHash; }
+
+  function likerName() { return storageGet(localStorage, NAME_KEY) || ''; }
+
+  /* =======================================================
+     Öffentliche Seite
+     ======================================================= */
+
+  var TABS = [
+    { id: 'swipe', label: 'Swipen' },
+    { id: 'tips', label: 'Ovids Tipps' },
+    { id: 'spots', label: 'Date-Spots' },
+    { id: 'community', label: 'Community' },
+    { id: 'profile', label: 'Mein Profil' }
+  ];
+
+  function renderPublic() {
+    var section = {
+      swipe: renderSwipeSection,
+      tips: renderTipsSection,
+      spots: renderSpotsSection,
+      community: renderCommunitySection,
+      profile: renderProfileSection
+    }[ui.tab]();
+
+    return '' +
+      '<main class="shell">' +
+        '<header class="site-header">' +
+          '<p class="laurel">Anno ' + roman(new Date().getFullYear()) + '</p>' +
+          '<h1 class="site-title">ROMA MATCH</h1>' +
+          '<p class="site-subtitle">Dating im alten Rom – Ovids „Ars amatoria“ trifft auf die Swipe-Kultur von heute.</p>' +
+        '</header>' +
+        '<nav class="tabs" role="tablist" aria-label="Bereiche">' +
+          TABS.map(function (t) {
+            return '<button type="button" class="tab" role="tab" data-action="tab" data-tab="' + t.id + '" aria-selected="' + (ui.tab === t.id) + '">' + t.label + '</button>';
+          }).join('') +
+        '</nav>' +
+        flashHtml('global') +
+        '<section role="tabpanel">' + section + '</section>' +
+        '<footer class="site-footer">' +
+          '<p>Latein-Schulprojekt · Publius Ovidius Naso, <em>Ars amatoria</em> (ca. 1 v. Chr.)</p>' +
+          '<p><a href="#admin">Admin-Bereich</a></p>' +
+        '</footer>' +
+      '</main>' +
+      (ui.matchedId ? renderMatch() : '');
+  }
+
+  function sectionHead(eyebrow, title, intro) {
+    return '<header class="section-head"><span class="eyebrow">' + eyebrow + '</span><h2>' + title + '</h2><p>' + intro + '</p></header>';
+  }
+
+  function renderPhoto(profile) {
+    if (profile.imageUrl) {
+      return '<img src="' + esc(profile.imageUrl) + '" alt="Bild von ' + esc(profile.name) + '" data-monogram="' + esc(initial(profile.name)) + '">';
+    }
+    return '<span class="monogram">' + esc(initial(profile.name)) + '</span>';
+  }
+
+  function renderSwipeSection() {
+    var head = sectionHead('Liber Primus', 'Finde deine Liebe im alten Rom',
+      'Ovid schickte seine Schüler ins Theater und in den Zirkus, um dort Ausschau zu halten. Hier ist der Stapel – ♥ für ein Like, ✕ für ein Nope. Auch mit den Pfeiltasten ← und →.');
+
+    var profiles = sortedProfiles();
+    if (!profiles.length) {
+      return head + '<p class="empty-state">Noch keine Profile vorhanden. Im <a href="#admin">Admin-Bereich</a> lässt sich das erste anlegen.</p>';
+    }
+
+    var current = profiles[ui.swipeIndex];
+    var listed = profiles.filter(function (p) { return p.id === ui.listedId; })[0] || profiles[0];
+    var likes = likesFor(listed.id);
+
+    var deck;
+    if (current) {
+      deck = '' +
+        '<div class="swipe-stack">' +
+          '<article class="swipe-card" id="swipe-card">' +
+            '<div class="swipe-photo">' + renderPhoto(current) + '</div>' +
+            '<div class="swipe-body">' +
+              '<div class="swipe-name"><h3>' + esc(current.name) + '</h3><span class="swipe-era">' + esc(current.era) + '</span></div>' +
+              '<p class="swipe-status">' + esc(current.status) + '</p>' +
+              '<p class="swipe-description">' + esc(current.description) + '</p>' +
+              '<div class="tag-row">' + current.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>' +
+            '</div>' +
+          '</article>' +
+        '</div>' +
+        '<div class="swipe-controls">' +
+          '<button type="button" class="circle-btn nope" data-action="nope" aria-label="' + esc(current.name) + ' ablehnen" title="Nope (←)">✕</button>' +
+          '<button type="button" class="circle-btn like" data-action="like" aria-label="' + esc(current.name) + ' liken" title="Like (→)">♥</button>' +
+        '</div>' +
+        '<p class="swipe-counter">Profil ' + (ui.swipeIndex + 1) + ' von ' + profiles.length + '</p>';
+    } else {
+      deck = '' +
+        '<div class="empty-state" style="width:min(420px,100%)">' +
+          '<p style="margin:0 0 16px">Das war ganz Rom. <em>Omnia vincit amor</em> – aber der Stapel ist leer.</p>' +
+          '<button type="button" class="btn btn-ghost btn-sm" data-action="restart">Nochmal von vorn</button>' +
+        '</div>';
+    }
+
+    var likeList = likes.length === 0
+      ? '<p class="empty-state">Noch niemand. Sei die erste Person.</p>'
+      : '<ul class="like-list">' + likes.slice(0, 100).map(function (l) {
+          return '<li class="like-item"><span class="avatar">' + esc(initial(l.likerName)) + '</span><span>' + esc(l.likerName) + '</span><time datetime="' + esc(l.createdAt) + '">' + formatDate(l.createdAt) + '</time></li>';
+        }).join('') + '</ul>';
+
+    return head +
+      '<div class="swipe-area">' +
+        deck +
+        '<div class="field" style="width:min(420px,100%);margin-bottom:0">' +
+          '<label for="liker-name">Dein Name für die Like-Liste</label>' +
+          '<input id="liker-name" type="text" maxlength="60" placeholder="Anonymus" value="' + esc(likerName()) + '">' +
+          '<p class="help">Optional. Wird im Browser gespeichert und bei jedem Like verwendet.</p>' +
+        '</div>' +
+        '<section class="card likes-panel">' +
+          '<h3>Wer hat ' + esc(listed.name) + ' geliked?</h3>' +
+          '<p class="hint">' + plural(likes.length, 'Like', 'Likes') + ' insgesamt</p>' +
+          likeList +
+        '</section>' +
+      '</div>';
+  }
+
+  function renderMatch() {
+    var profile = findById('profiles', ui.matchedId);
+    if (!profile) return '';
+    return '' +
+      '<div class="overlay" role="dialog" aria-modal="true" aria-label="Match" data-action="close-match">' +
+        '<div class="card match-modal" data-action="noop">' +
+          '<span class="heart">♥</span>' +
+          '<h2>ES IST EIN MATCH!</h2>' +
+          '<p class="latin">Amor vincit omnia.</p>' +
+          '<p>Du und <strong>' + esc(profile.name) + '</strong> habt euch gegenseitig geliked. Ovid hätte jetzt einen Vers parat – du hast immerhin einen Chat.</p>' +
+          '<button type="button" class="btn btn-primary" style="margin-top:18px" data-action="close-match" id="match-close">Weiter swipen</button>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderTipsSection() {
+    var head = sectionHead('Ars Amatoria', 'Ovids Tipps – und was heute davon übrig ist',
+      'Jeder Tipp zeigt Ovids Gedanken, das lateinische Original mit Übersetzung und eine Einordnung, wie sich dasselbe Verhalten in heutigen Dating-Apps wiederfindet.');
+    var tips = sortedTips();
+    if (!tips.length) {
+      return head + '<p class="empty-state">Noch keine Tipps vorhanden. Im <a href="#admin">Admin-Bereich</a> lassen sich welche anlegen.</p>';
+    }
+    return head + '<div class="tip-list">' + tips.map(function (tip, i) {
+      return '' +
+        '<article class="card tip-card">' +
+          '<header class="tip-head">' +
+            '<span class="tip-number">' + roman(i + 1) + '</span>' +
+            '<div><h3>' + esc(tip.title) + '</h3>' + (tip.source ? '<span class="tip-source">' + esc(tip.source) + '</span>' : '') + '</div>' +
+          '</header>' +
+          '<div class="tip-block"><p class="tip-label">Ovids Idee</p><p>' + esc(tip.ovidIdea) + '</p></div>' +
+          (tip.latinQuote ? '<blockquote class="quote-box">' +
+            '<p class="quote-latin">„' + esc(tip.latinQuote) + '“</p>' +
+            (tip.translation ? '<p class="quote-translation">' + esc(tip.translation) + '</p>' : '') +
+          '</blockquote>' : '') +
+          (tip.modernInterpretation ? '<div class="modern-box"><p class="tip-label">Heute</p><p>' + esc(tip.modernInterpretation) + '</p></div>' : '') +
+        '</article>';
+    }).join('') + '</div>';
+  }
+
+  /* =======================================================
+     Date-Spots – Ovids Orte zum Kennenlernen.
+     Jede Woche kann hier ein neuer Ort dazukommen.
+     ======================================================= */
+
+  var SPOTS = [
+    {
+      name: 'Das Theater', latinName: 'theatrum',
+      source: 'Ars amatoria 1, 89–100',
+      rating: 'Ovids Empfehlung Nr. 1',
+      quote: 'Sed tu praecipue curvis venare theatris: haec loca sunt voto fertiliora tuo.',
+      translation: 'Du aber geh vor allem in den runden Theatern auf die Jagd: Diese Orte sind ergiebiger, als du es dir wünschen kannst.',
+      facts: [
+        ['Ort', 'Halbrunde Freilufttheater („curva theatra“) mit ansteigenden Sitzreihen. Zu Ovids Zeit hatte Rom drei Steintheater: das Pompeiustheater (55 v. Chr.), das Balbustheater und das Marcellustheater (beide um 13 v. Chr. eingeweiht).'],
+        ['Wann', 'Bei den „ludi“ – staatlichen Festspielen zu Ehren der Götter, mehrmals im Jahr und oft über mehrere Tage. Der Eintritt war frei; bezahlt haben Beamte oder der Kaiser.'],
+        ['Programm', 'Kein stilles Kunsttheater wie heute: Am beliebtesten waren der Mimus (derbe, oft freizügige Stücke aus dem Alltag, gern über Ehebruch und Liebschaften) und der Pantomimus (ein Tänzer stellt Mythen dar – häufig Liebesgeschichten). Ernste Tragödien spielten eine kleinere Rolle.'],
+        ['Publikum', 'Tausende Menschen aus allen Ständen – Männer und Frauen.'],
+        ['Stimmung', 'Voll, laut, ein ständiges Kommen und Gehen. Man ging nicht nur wegen des Stücks hin, sondern um dabei zu sein.'],
+        ['Dresscode', '„cultissima“ – die Frauen kommen aufs Feinste herausgeputzt.']
+      ],
+      sections: [
+        {
+          label: 'Wie finde ich hier Frauen?',
+          text: 'Man muss gar nicht lange suchen – sie kommen von selbst, und zwar in Massen. Ovid vergleicht sie mit Ameisen, die in einem langen Zug hin- und herwimmeln. Auch der Vers selbst ist schnell: In „sic ruit ad celebres …“ stehen fast nur Daktylen, und „ruit“ (sie stürzt) betont das Tempo.',
+          quote: 'Ut redit itque frequens longum formica per agmen, … sic ruit ad celebres cultissima femina ludos.',
+          translation: 'Wie die Ameise zahlreich in langem Zug hin- und herwimmelt, … so eilt die prächtig herausgeputzte Frau zu den gut besuchten Spielen.'
+        },
+        {
+          label: 'Warum gerade hier?',
+          text: 'Weil die Frauen selbst gesehen werden wollen. Im Theater darf man andere ungeniert anschauen – das Publikum ist mindestens so interessant wie die Bühne. Das Wortspiel mit „spectare“ zeigt: Jede ist gleichzeitig Zuschauerin und Teil der Show.',
+          quote: 'Spectatum veniunt, veniunt, spectentur ut ipsae.',
+          translation: 'Sie kommen, um sich umzuschauen, sie kommen, damit sie selbst angeschaut werden.'
+        },
+        {
+          label: 'Wofür?',
+          text: 'Für alles – vom Flirt über ein einmaliges Abenteuer bis zur festen Beziehung. Ovid zählt vier Möglichkeiten auf (siehe Tipp IV „Wisse, was du suchst“).',
+          quote: 'Illic invenies, quod ames, quod ludere possis, quodque semel tangas, quodque tenere velis.',
+          translation: 'Dort findest du, was du lieben kannst, womit du spielen kannst, was du nur einmal berührst und was du festhalten willst.'
+        }
+      ],
+      warning: {
+        quote: 'Ille locus casti damna pudoris habet.',
+        translation: 'Jener Ort sorgt dafür, dass man das keusche Schamgefühl vergisst.',
+        text: 'Das Wort „damna“ (Verluste, Schaden) wirft einen Schatten auf die festliche Stimmung: Im Gedränge, bei freizügigen Mimus-Stücken und mit lauter Leuten, die flirten wollen, gehen Anstand und Zurückhaltung schnell verloren. Für eine Frau in Rom stand dabei ihr Ruf auf dem Spiel – für Ovids Schüler ist genau das die Chance.'
+      },
+      factCheck: 'Ovid lässt aus, dass Augustus die Sitzordnung im Theater per Gesetz geregelt hatte (lex Iulia theatralis): Die Plätze wurden nach Stand verteilt, und Frauen durften laut dem Geschichtsschreiber Sueton nur in den obersten Reihen sitzen. Direkt neben einer Frau zu sitzen, war also gar nicht so einfach – vermutlich lobt Ovid deshalb kurz danach den Circus, wo Männer und Frauen nebeneinander saßen.',
+      modern: 'Das antike Theater ist eher Festival oder Club als Stadttheater: Man geht hin, um gesehen zu werden, macht sich dafür zurecht und schaut sich mehr im Publikum um als auf der Bühne. Bei Ovid wird daraus ein „Jagdrevier“ – heute würde man das Problem dabei klar benennen: Wer in Frauen eine Ameisenmasse oder Beute sieht, sieht keine Personen mehr.'
+    }
+  ];
+
+  function spotQuote(quote, translation) {
+    return '<blockquote class="quote-box">' +
+      '<p class="quote-latin">„' + esc(quote) + '“</p>' +
+      '<p class="quote-translation">' + esc(translation) + '</p>' +
+    '</blockquote>';
+  }
+
+  function renderSpotsSection() {
+    var head = sectionHead('Loca Amoris', 'Date-Spots im alten Rom',
+      'Wo sollte man laut Ovid nach der Liebe suchen? Hier stellen wir die Orte vor, die er seinen Schülern empfiehlt – mit Steckbrief, Originalzitaten und einem kritischen Blick.');
+    return head + '<div class="tip-list">' + SPOTS.map(function (spot, i) {
+      return '' +
+        '<article class="card tip-card spot-card">' +
+          '<header class="tip-head">' +
+            '<span class="tip-number">' + roman(i + 1) + '</span>' +
+            '<div><h3>' + esc(spot.name) + ' <em class="spot-latin">' + esc(spot.latinName) + '</em></h3>' +
+            '<span class="tip-source">' + esc(spot.source) + ' · ' + esc(spot.rating) + '</span></div>' +
+          '</header>' +
+          spotQuote(spot.quote, spot.translation) +
+          '<dl class="spot-facts">' + spot.facts.map(function (f) {
+            return '<div class="spot-fact"><dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd></div>';
+          }).join('') + '</dl>' +
+          spot.sections.map(function (sec) {
+            return '<div class="tip-block"><p class="tip-label">' + esc(sec.label) + '</p><p>' + esc(sec.text) + '</p>' +
+              spotQuote(sec.quote, sec.translation) + '</div>';
+          }).join('') +
+          '<div class="spot-warning"><p class="tip-label">⚠ Warnung</p>' +
+            spotQuote(spot.warning.quote, spot.warning.translation) +
+            '<p>' + esc(spot.warning.text) + '</p></div>' +
+          '<div class="spot-check"><p class="tip-label">Faktencheck</p><p>' + esc(spot.factCheck) + '</p></div>' +
+          '<div class="modern-box"><p class="tip-label">Heute</p><p>' + esc(spot.modern) + '</p></div>' +
+        '</article>';
+    }).join('') + '</div>';
+  }
+
+  function renderCommunitySection() {
+    var people = sortedCommunity();
+    var head = sectionHead('Forum Romanum', 'Die Community',
+      plural(people.length, 'Profil', 'Profile') + ' – von Besucherinnen und Besuchern selbst angelegt.');
+    if (!people.length) {
+      return head + '<p class="empty-state">Noch niemand hier. Lege unter „Mein Profil“ das erste Community-Profil an.</p>';
+    }
+    return head + '<div class="community-grid">' + people.map(function (p) {
+      return '' +
+        '<article class="card community-card">' +
+          '<header class="community-head">' +
+            '<span class="community-avatar">' + esc(initial(p.name)) + '</span>' +
+            '<div><h3>' + esc(p.name) + '</h3><span class="community-age">' + p.age + ' Jahre</span></div>' +
+          '</header>' +
+          '<p class="community-bio">' + esc(p.bio) + '</p>' +
+          (p.interests.length ? '<div class="tag-row">' + p.interests.map(function (t) { return '<span class="tag gold">' + esc(t) + '</span>'; }).join('') + '</div>' : '') +
+          '<span class="liked-badge">' + (p.likedOvid ? '♥ hat Ovid geliked' : '✕ hat Ovid nicht geliked') +
+            '<time datetime="' + esc(p.createdAt) + '">' + formatDate(p.createdAt) + '</time></span>' +
+        '</article>';
+    }).join('') + '</div>';
+  }
+
+  function renderProfileSection() {
+    return sectionHead('Tabula Tua', 'Mein Profil',
+      'Lege dein eigenes Profil an. Es wird gespeichert und erscheint sofort im Community-Bereich.') +
+      '<form class="card form-card" data-form="community">' +
+        flashHtml('profile') +
+        '<div class="form-row">' +
+          '<div class="field"><label for="profile-name">Name</label><input id="profile-name" name="name" type="text" required maxlength="60" placeholder="z. B. Flavia"></div>' +
+          '<div class="field"><label for="profile-age">Alter</label><input id="profile-age" name="age" type="number" required min="10" max="120" placeholder="17"></div>' +
+        '</div>' +
+        '<div class="field"><label for="profile-bio">Über mich</label><textarea id="profile-bio" name="bio" required maxlength="1000" placeholder="Was sollte man über dich wissen? Ovid würde hier maßlos übertreiben."></textarea></div>' +
+        '<div class="field"><label for="profile-interests">Interessen</label><input id="profile-interests" name="interests" type="text" placeholder="Latein, Musik, Sport"><p class="help">Mehrere Interessen mit Komma trennen.</p></div>' +
+        '<label class="checkbox-field"><input type="checkbox" name="likedOvid">' +
+          '<span>Ich habe Ovid geliked ♥<br><small>Dann erscheinst du zusätzlich in der Liste „Wer hat Ovid geliked?“.</small></span>' +
+        '</label>' +
+        '<button type="submit" class="btn btn-primary btn-block">Profil veröffentlichen</button>' +
+      '</form>';
+  }
+
+  /* =======================================================
+     Admin-Bereich
+     ======================================================= */
+
+  var ADMIN_SECTIONS = [
+    { id: 'tips', label: 'Tipps' },
+    { id: 'profiles', label: 'Hauptprofile' },
+    { id: 'community', label: 'Community' },
+    { id: 'data', label: 'Daten' }
+  ];
+
+  function renderAdmin() {
+    if (!isLoggedIn()) return renderLogin();
+
+    var section = {
+      tips: renderTipManager,
+      profiles: renderProfileManager,
+      community: renderCommunityModeration,
+      data: renderDataSection
+    }[ui.adminSection]();
+
+    var unpublished = state.dirty
+      ? '<p class="alert alert-note">Es gibt Änderungen, die bisher nur in diesem Browser gespeichert sind. Damit alle sie sehen, unter <strong>Daten</strong> die HTML-Datei herunterladen und die alte Datei damit ersetzen.</p>'
+      : '';
+
+    return '' +
+      '<main class="shell">' +
+        '<div class="admin-bar">' +
+          '<div><h1>ROMA MATCH · Verwaltung</h1>' +
+            '<p class="sub">' + plural(state.profiles.length, 'Hauptprofil', 'Hauptprofile') + ' · ' + plural(state.tips.length, 'Tipp', 'Tipps') + ' · ' + plural(state.community.length, 'Community-Profil', 'Community-Profile') + ' · ' + plural(state.likes.length, 'Like', 'Likes') + '</p></div>' +
+          '<div class="admin-actions">' +
+            '<a class="btn btn-ghost btn-sm" href="#start">Zur Seite</a>' +
+            '<button type="button" class="btn btn-danger btn-sm" data-action="logout">Abmelden</button>' +
+          '</div>' +
+        '</div>' +
+        flashHtml('global') +
+        unpublished +
+        '<nav class="tabs" role="tablist" aria-label="Verwaltungsbereiche">' +
+          ADMIN_SECTIONS.map(function (s) {
+            return '<button type="button" class="tab" role="tab" data-action="admin-tab" data-section="' + s.id + '" aria-selected="' + (ui.adminSection === s.id) + '">' + s.label + '</button>';
+          }).join('') +
+        '</nav>' +
+        '<div class="admin-layout">' + section + '</div>' +
+      '</main>';
+  }
+
+  function renderLogin() {
+    var defaultHint = state.adminHash === DEFAULT_ADMIN_HASH
+      ? '<p class="help" style="margin-top:16px">Noch aktiv: das Startpasswort <code>roma2024</code>. Nach dem Anmelden unter „Daten“ ändern.</p>'
+      : '';
+    return '' +
+      '<main class="shell">' +
+        '<div class="card login-card">' +
+          '<p class="laurel">Area Administratoris</p>' +
+          '<h1 style="margin-top:14px">Admin-Bereich</h1>' +
+          '<p class="login-intro">Bitte das Admin-Passwort eingeben.</p>' +
+          (ui.loginError ? '<p class="alert alert-error">' + esc(ui.loginError) + '</p>' : '') +
+          '<form data-form="login">' +
+            '<div class="field"><label for="admin-password">Passwort</label><input id="admin-password" name="password" type="password" required data-autofocus></div>' +
+            '<button type="submit" class="btn btn-primary btn-block">Anmelden</button>' +
+          '</form>' +
+          defaultHint +
+          '<a class="back-link" href="#start">← Zurück zur Seite</a>' +
+        '</div>' +
+      '</main>';
+  }
+
+  function inputField(id, name, label, value, attrs, help) {
+    return '<div class="field"><label for="' + id + '">' + label + '</label>' +
+      '<input id="' + id + '" name="' + name + '" type="text" value="' + esc(value) + '" ' + (attrs || '') + '>' +
+      (help ? '<p class="help">' + help + '</p>' : '') + '</div>';
+  }
+  function areaField(id, name, label, value, attrs) {
+    return '<div class="field"><label for="' + id + '">' + label + '</label>' +
+      '<textarea id="' + id + '" name="' + name + '" ' + (attrs || '') + '>' + esc(value) + '</textarea></div>';
+  }
+  function numberField(id, name, label, value) {
+    return '<div class="field"><label for="' + id + '">' + label + '</label>' +
+      '<input id="' + id + '" name="' + name + '" type="number" min="0" max="999" value="' + esc(value) + '"></div>';
+  }
+  function nextSortOrder(list) {
+    return list.reduce(function (max, item) { return Math.max(max, item.sortOrder); }, 0) + 1;
+  }
+
+  function renderTipManager() {
+    var tips = sortedTips();
+    var editing = ui.editTipId ? findById('tips', ui.editTipId) : null;
+    var t = editing || { title: '', ovidIdea: '', latinQuote: '', translation: '', modernInterpretation: '', source: '', sortOrder: nextSortOrder(state.tips) };
+
+    return '' +
+      '<section class="card admin-panel">' +
+        '<h2>Ovids Tipps verwalten</h2>' +
+        '<p class="panel-hint">' + plural(tips.length, 'Tipp', 'Tipps') + '. Die Reihenfolge auf der Seite richtet sich nach dem Feld „Position“.</p>' +
+        flashHtml('admin') +
+        '<form class="admin-form" data-form="tip" id="admin-form">' +
+          '<h3>' + (editing ? 'Tipp bearbeiten: ' + esc(editing.title) : 'Neuen Tipp anlegen') + '</h3>' +
+          '<div class="form-row">' +
+            inputField('tip-title', 'title', 'Titel', t.title, 'required maxlength="160"') +
+            numberField('tip-sort', 'sortOrder', 'Position', t.sortOrder) +
+          '</div>' +
+          areaField('tip-idea', 'ovidIdea', 'Ovids Idee', t.ovidIdea, 'required maxlength="2000"') +
+          areaField('tip-latin', 'latinQuote', 'Lateinisches Zitat', t.latinQuote, 'class="short" required maxlength="1000"') +
+          areaField('tip-translation', 'translation', 'Deutsche Übersetzung', t.translation, 'class="short" required maxlength="1000"') +
+          areaField('tip-modern', 'modernInterpretation', 'Moderne Interpretation', t.modernInterpretation, 'required maxlength="2000"') +
+          inputField('tip-source', 'source', 'Stellenangabe', t.source, 'maxlength="120" placeholder="z. B. Ars amatoria 1,99"', 'Optional.') +
+          '<div class="form-buttons">' +
+            '<button type="submit" class="btn btn-primary">' + (editing ? 'Änderungen speichern' : 'Tipp anlegen') + '</button>' +
+            (editing ? '<button type="button" class="btn btn-ghost" data-action="cancel-edit">Abbrechen</button>' : '') +
+          '</div>' +
+        '</form>' +
+        '<div class="admin-list">' +
+          (tips.length ? '' : '<p class="empty-state">Noch keine Tipps angelegt.</p>') +
+          tips.map(function (tip) {
+            return '' +
+              '<div class="admin-row">' +
+                '<span class="tip-number small-number">' + tip.sortOrder + '</span>' +
+                '<div class="grow"><strong>' + esc(tip.title) + '</strong><span class="meta">' + (tip.source ? esc(tip.source) + ' · ' : '') + esc(tip.latinQuote) + '</span></div>' +
+                '<div class="row-actions">' +
+                  '<button type="button" class="btn btn-ghost btn-sm" data-action="edit-tip" data-id="' + esc(tip.id) + '">Bearbeiten</button>' +
+                  '<button type="button" class="btn btn-danger btn-sm" data-action="delete-tip" data-id="' + esc(tip.id) + '">Löschen</button>' +
+                '</div>' +
+              '</div>';
+          }).join('') +
+        '</div>' +
+      '</section>';
+  }
+
+  function renderProfileManager() {
+    var profiles = sortedProfiles();
+    var editing = ui.editProfileId ? findById('profiles', ui.editProfileId) : null;
+    var p = editing || { name: '', era: '', status: '', description: '', tags: [], imageUrl: '', sortOrder: nextSortOrder(state.profiles) };
+    var isUpload = /^data:/i.test(p.imageUrl);
+
+    return '' +
+      '<section class="card admin-panel">' +
+        '<h2>Hauptprofile verwalten</h2>' +
+        '<p class="panel-hint">' + plural(profiles.length, 'Profil', 'Profile') + ' im Swipe-Stapel. Die Reihenfolge richtet sich nach dem Feld „Position“; das erste Profil steht standardmäßig in der Like-Liste.</p>' +
+        flashHtml('admin') +
+        '<form class="admin-form" data-form="profile" id="admin-form">' +
+          '<h3>' + (editing ? 'Profil bearbeiten: ' + esc(editing.name) : 'Neues Profil anlegen') + '</h3>' +
+          '<div class="form-row">' +
+            inputField('mp-name', 'name', 'Name', p.name, 'required maxlength="80" placeholder="z. B. Ovid"') +
+            numberField('mp-sort', 'sortOrder', 'Position', p.sortOrder) +
+          '</div>' +
+          inputField('mp-era', 'era', 'Zeitalter', p.era, 'required maxlength="120" placeholder="43 v. Chr. – 17 n. Chr."') +
+          inputField('mp-status', 'status', 'Stand', p.status, 'required maxlength="160" placeholder="Dichter, Ritterstand"') +
+          areaField('mp-description', 'description', 'Beschreibung', p.description, 'required maxlength="2000"') +
+          inputField('mp-tags', 'tags', 'Tags', p.tags.join(', '), 'placeholder="Dichtung, Ironie, Theaterbesuche"', 'Mit Komma trennen.') +
+          '<div class="field">' +
+            '<label for="mp-image-url">Bild</label>' +
+            '<input id="mp-image-url" name="imageUrlText" type="text" maxlength="1000" placeholder="https://… (Bild-Adresse)" value="' + esc(isUpload ? '' : p.imageUrl) + '">' +
+            '<input type="hidden" name="imageData" id="mp-image-data" value="' + esc(isUpload ? p.imageUrl : '') + '">' +
+            '<div class="form-buttons" style="margin-top:10px">' +
+              '<label class="btn btn-ghost btn-sm file-btn">Bild hochladen …<input type="file" id="mp-image-file" accept="image/*"></label>' +
+              '<button type="button" class="btn btn-ghost btn-sm" data-action="remove-image">Bild entfernen</button>' +
+            '</div>' +
+            '<div class="img-preview" id="mp-image-preview"' + (p.imageUrl ? '' : ' hidden') + '>' +
+              '<img' + (p.imageUrl ? ' src="' + esc(p.imageUrl) + '"' : '') + ' alt="Vorschau"><span class="help">Vorschau</span>' +
+            '</div>' +
+            '<p class="help">Optional. Entweder eine Bild-Adresse eintragen oder ein Bild vom Gerät hochladen (wird verkleinert und in der Datei gespeichert). Ohne Bild zeigt die Karte den Anfangsbuchstaben.</p>' +
+          '</div>' +
+          '<div class="form-buttons">' +
+            '<button type="submit" class="btn btn-primary">' + (editing ? 'Änderungen speichern' : 'Profil anlegen') + '</button>' +
+            (editing ? '<button type="button" class="btn btn-ghost" data-action="cancel-edit">Abbrechen</button>' : '') +
+          '</div>' +
+        '</form>' +
+        '<div class="admin-list">' +
+          (profiles.length ? '' : '<p class="empty-state">Noch keine Profile angelegt.</p>') +
+          profiles.map(function (profile) {
+            var count = likesFor(profile.id).length;
+            var avatar = profile.imageUrl
+              ? '<img class="thumb" src="' + esc(profile.imageUrl) + '" alt="">'
+              : '<span class="community-avatar small-avatar">' + esc(initial(profile.name)) + '</span>';
+            return '' +
+              '<div class="admin-row">' + avatar +
+                '<div class="grow"><strong>' + esc(profile.name) + ' <span style="color:var(--gold)">· ' + esc(profile.era) + '</span></strong>' +
+                  '<span class="meta">Position ' + profile.sortOrder + ' · ' + plural(count, 'Like', 'Likes') + ' · ' + esc(profile.status) + '</span></div>' +
+                '<div class="row-actions">' +
+                  '<button type="button" class="btn btn-ghost btn-sm" data-action="edit-profile" data-id="' + esc(profile.id) + '">Bearbeiten</button>' +
+                  '<button type="button" class="btn btn-danger btn-sm" data-action="delete-profile" data-id="' + esc(profile.id) + '">Löschen</button>' +
+                '</div>' +
+              '</div>';
+          }).join('') +
+        '</div>' +
+      '</section>';
+  }
+
+  function renderCommunityModeration() {
+    var people = sortedCommunity();
+    return '' +
+      '<section class="card admin-panel">' +
+        '<h2>Community moderieren</h2>' +
+        '<p class="panel-hint">' + plural(people.length, 'Profil', 'Profile') + ' von Besuchern. Unpassende Einträge lassen sich hier entfernen – ihr Ovid-Like verschwindet mit.</p>' +
+        flashHtml('admin') +
+        '<div class="admin-list">' +
+          (people.length ? '' : '<p class="empty-state">Noch keine Community-Profile.</p>') +
+          people.map(function (p) {
+            return '' +
+              '<div class="admin-row">' +
+                '<span class="community-avatar small-avatar">' + esc(initial(p.name)) + '</span>' +
+                '<div class="grow">' +
+                  '<strong>' + esc(p.name) + ' <span style="color:var(--gold)">· ' + p.age + ' Jahre</span>' + (p.likedOvid ? ' <span style="color:var(--pink)">♥</span>' : '') + '</strong>' +
+                  '<span class="meta">' + esc(p.bio) + '</span>' +
+                  (p.interests.length ? '<span class="meta">Interessen: ' + esc(p.interests.join(', ')) + '</span>' : '') +
+                '</div>' +
+                '<div class="row-actions">' +
+                  '<time datetime="' + esc(p.createdAt) + '" style="color:var(--text-dim);font-size:0.74rem">' + formatDate(p.createdAt) + '</time>' +
+                  '<button type="button" class="btn btn-danger btn-sm" data-action="delete-community" data-id="' + esc(p.id) + '">Löschen</button>' +
+                '</div>' +
+              '</div>';
+          }).join('') +
+        '</div>' +
+      '</section>';
+  }
+
+  function renderDataSection() {
+    var sizeKb = Math.round(JSON.stringify(state).length / 1024);
+    return '' +
+      '<section class="card admin-panel">' +
+        '<h2>Daten &amp; Veröffentlichen</h2>' +
+        '<p class="panel-hint">Alles, was hier geändert wird, speichert zunächst nur dieser Browser (belegt: ca. ' + sizeKb + ' KB von etwa 5 000 KB). Andere Besucher sehen es erst, wenn die neue HTML-Datei die alte ersetzt.</p>' +
+        flashHtml('admin') +
+        '<div class="data-grid">' +
+          '<div class="admin-form">' +
+            '<h3>Für alle sichtbar machen</h3>' +
+            '<p class="intro">Lädt diese Seite als neue <code>roma-match.html</code> herunter – mit allen aktuellen Profilen, Tipps, Community-Einträgen, Likes und dem Admin-Passwort. Diese Datei auf den Server laden bzw. weitergeben. Wer sie öffnet, bekommt die neuen Inhalte; eigene Profile und Likes in seinem Browser bleiben erhalten.</p>' +
+            '<button type="button" class="btn btn-gold" data-action="export-html">HTML-Datei herunterladen</button>' +
+          '</div>' +
+          '<div class="admin-form">' +
+            '<h3>Sicherung</h3>' +
+            '<p class="intro">Alle Inhalte als JSON-Datei sichern oder eine Sicherung zurückspielen. Beim Einspielen werden die Inhalte in diesem Browser ersetzt.</p>' +
+            '<div class="form-buttons">' +
+              '<button type="button" class="btn btn-ghost btn-sm" data-action="export-json">JSON exportieren</button>' +
+              '<label class="btn btn-ghost btn-sm file-btn">JSON importieren …<input type="file" id="import-file" accept="application/json,.json"></label>' +
+            '</div>' +
+          '</div>' +
+          '<form class="admin-form" data-form="password">' +
+            '<h3>Admin-Passwort ändern</h3>' +
+            '<div class="field"><label for="pw-current">Aktuelles Passwort</label><input id="pw-current" name="current" type="password" required autocomplete="current-password"></div>' +
+            '<div class="field"><label for="pw-new">Neues Passwort</label><input id="pw-new" name="next" type="password" required minlength="6" autocomplete="new-password"></div>' +
+            '<div class="field"><label for="pw-repeat">Neues Passwort wiederholen</label><input id="pw-repeat" name="repeat" type="password" required minlength="6" autocomplete="new-password"></div>' +
+            '<button type="submit" class="btn btn-primary btn-sm">Passwort ändern</button>' +
+          '</form>' +
+          '<div class="admin-form">' +
+            '<h3>Zurücksetzen</h3>' +
+            '<p class="intro">Likes leeren, etwa vor einer Präsentation – oder alle Änderungen in diesem Browser verwerfen und zum Stand der Datei zurückkehren.</p>' +
+            '<div class="form-buttons">' +
+              '<button type="button" class="btn btn-danger btn-sm" data-action="clear-likes">Alle Likes löschen</button>' +
+              '<button type="button" class="btn btn-danger btn-sm" data-action="reset-all">Auf Stand der Datei zurücksetzen</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</section>';
+  }
+
+  /* =======================================================
+     Rendern
+     ======================================================= */
+
+  var root = document.getElementById('root');
+
+  function render() {
+    var admin = isAdminView();
+    root.innerHTML = admin ? renderAdmin() : renderPublic();
+    document.title = admin ? 'Admin · ROMA MATCH' : 'ROMA MATCH – Dating im alten Rom';
+
+    var focusTarget = root.querySelector('[data-autofocus]') || root.querySelector('#match-close');
+    if (focusTarget) focusTarget.focus();
+  }
+
+  function scrollToForm() {
+    var form = document.getElementById('admin-form');
+    if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /** Zeigt einen Fehler oben im Formular, ohne die Eingaben zu verlieren. */
+  function formError(form, message) {
+    var box = form.querySelector('.alert-error[data-form-error]');
+    if (!box) {
+      box = document.createElement('p');
+      box.className = 'alert alert-error';
+      box.setAttribute('data-form-error', '');
+      var anchor = form.querySelector('h3');
+      if (anchor) anchor.insertAdjacentElement('afterend', box); else form.insertBefore(box, form.firstChild);
+    }
+    box.textContent = message;
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function download(filename, content, type) {
+    var blob = new Blob([content], { type: type });
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(function () { URL.revokeObjectURL(url); link.remove(); }, 1000);
+  }
+
+  /** Stand zum Weitergeben: ohne browserinterne Markierungen. */
+  function exportData(revision) {
+    var copy = clone(state);
+    copy.revision = revision;
+    delete copy.baseRevision;
+    delete copy.dirty;
+    copy.community.forEach(function (c) { delete c.own; });
+    copy.likes.forEach(function (l) { delete l.own; });
+    return copy;
+  }
+
+  function readImageFile(file) {
+    return new Promise(function (resolve, reject) {
+      if (!file || !/^image\//.test(file.type)) { reject(new Error('Bitte eine Bilddatei auswählen.')); return; }
+      var reader = new FileReader();
+      reader.onerror = function () { reject(new Error('Die Datei konnte nicht gelesen werden.')); };
+      reader.onload = function () {
+        var img = new Image();
+        img.onerror = function () { reject(new Error('Das Bild konnte nicht geöffnet werden.')); };
+        img.onload = function () {
+          // Verkleinern, damit der Browserspeicher (ca. 5 MB) nicht volläuft.
+          var max = 640;
+          var scale = Math.min(1, max / Math.max(img.width, img.height));
+          var canvas = document.createElement('canvas');
+          canvas.width = Math.max(1, Math.round(img.width * scale));
+          canvas.height = Math.max(1, Math.round(img.height * scale));
+          var ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#2c211e';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', 0.82));
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function setImagePreview(src) {
+    var preview = document.getElementById('mp-image-preview');
+    if (!preview) return;
+    preview.hidden = !src;
+    preview.querySelector('img').src = src || '';
+  }
+
+  /* =======================================================
+     Aktionen (Klicks)
+     ======================================================= */
+
+  function swipe(direction) {
+    var profiles = sortedProfiles();
+    var current = profiles[ui.swipeIndex];
+    if (!current || ui.swipeBusy) return;
+    ui.swipeBusy = true;
+
+    var card = document.getElementById('swipe-card');
+    if (card) card.classList.add(direction === 'like' ? 'leaving-like' : 'leaving-nope');
+    root.querySelectorAll('.circle-btn').forEach(function (b) { b.disabled = true; });
+
+    if (direction === 'like') {
+      state.likes.push({
+        id: uid(), profileId: current.id, likerName: likerName().trim() || 'Anonymus',
+        userProfileId: null, createdAt: nowIso(), own: true
+      });
+      save();
+      ui.listedId = current.id;
+    }
+
+    setTimeout(function () {
+      ui.swipeBusy = false;
+      ui.swipeIndex += 1;
+      if (direction === 'like') ui.matchedId = current.id;
+      render();
+    }, 340);
+  }
+
+  var actions = {
+    noop: function () {},
+
+    tab: function (el) {
+      ui.tab = el.getAttribute('data-tab');
+      ui.flash = null;
+      render();
+    },
+    like: function () { swipe('like'); },
+    nope: function () { swipe('nope'); },
+    restart: function () { ui.swipeIndex = 0; render(); },
+    'close-match': function () { ui.matchedId = null; render(); },
+
+    'admin-tab': function (el) {
+      ui.adminSection = el.getAttribute('data-section');
+      ui.flash = null;
+      ui.editTipId = null;
+      ui.editProfileId = null;
+      render();
+    },
+    logout: function () {
+      storageRemove(sessionStorage, SESSION_KEY);
+      ui.flash = null;
+      render();
+    },
+    'cancel-edit': function () {
+      ui.editTipId = null;
+      ui.editProfileId = null;
+      ui.flash = null;
+      render();
+    },
+
+    'edit-tip': function (el) {
+      ui.editTipId = el.getAttribute('data-id');
+      ui.flash = null;
+      render();
+      scrollToForm();
+    },
+    'delete-tip': function (el) {
+      var tip = findById('tips', el.getAttribute('data-id'));
+      if (!tip || !confirm('Tipp „' + tip.title + '“ wirklich löschen?')) return;
+      state.tips = state.tips.filter(function (t) { return t.id !== tip.id; });
+      if (ui.editTipId === tip.id) ui.editTipId = null;
+      saveAdminChange();
+      setFlash('admin', 'success', 'Tipp „' + tip.title + '“ gelöscht.');
+      render();
+    },
+
+    'edit-profile': function (el) {
+      ui.editProfileId = el.getAttribute('data-id');
+      ui.flash = null;
+      render();
+      scrollToForm();
+    },
+    'delete-profile': function (el) {
+      var profile = findById('profiles', el.getAttribute('data-id'));
+      if (!profile) return;
+      var count = likesFor(profile.id).length;
+      if (!confirm('Profil „' + profile.name + '“ löschen? ' + plural(count, 'zugehöriges Like wird', 'zugehörige Likes werden') + ' mit entfernt.')) return;
+      state.profiles = state.profiles.filter(function (p) { return p.id !== profile.id; });
+      state.likes = state.likes.filter(function (l) { return l.profileId !== profile.id; });
+      if (ui.editProfileId === profile.id) ui.editProfileId = null;
+      if (ui.listedId === profile.id) ui.listedId = null;
+      ui.swipeIndex = 0;
+      saveAdminChange();
+      setFlash('admin', 'success', 'Profil „' + profile.name + '“ gelöscht.');
+      render();
+    },
+    'remove-image': function () {
+      var urlInput = document.getElementById('mp-image-url');
+      var dataInput = document.getElementById('mp-image-data');
+      if (urlInput) urlInput.value = '';
+      if (dataInput) dataInput.value = '';
+      setImagePreview('');
+    },
+
+    'delete-community': function (el) {
+      var person = findById('community', el.getAttribute('data-id'));
+      if (!person || !confirm('Profil von „' + person.name + '“ endgültig löschen?')) return;
+      state.community = state.community.filter(function (c) { return c.id !== person.id; });
+      // Das über die Checkbox entstandene Ovid-Like gehört zum Profil.
+      state.likes = state.likes.filter(function (l) { return l.userProfileId !== person.id; });
+      saveAdminChange();
+      setFlash('admin', 'success', 'Profil von ' + person.name + ' gelöscht.');
+      render();
+    },
+
+    'export-html': function () {
+      var revision = Date.now();
+      var json = JSON.stringify(exportData(revision), null, 1).replace(/</g, '\\u003c');
+      var doc = document.documentElement.cloneNode(true);
+      doc.querySelector('#root').innerHTML = '';
+      doc.querySelector('#roma-data').textContent = json;
+      download('roma-match.html', '<!DOCTYPE html>\n' + doc.outerHTML, 'text/html;charset=utf-8');
+
+      // Dieser Browser kennt den Stand jetzt – öffnet der Admin die neue
+      // Datei hier, gilt sie nicht als "neuer" und nichts wird überschrieben.
+      state.revision = revision;
+      state.baseRevision = revision;
+      state.dirty = false;
+      save();
+      setFlash('admin', 'success', 'HTML-Datei erstellt. Jetzt die alte roma-match.html damit ersetzen (z. B. auf dem Server) – dann sehen alle den neuen Stand.');
+      render();
+    },
+    'export-json': function () {
+      var stamp = new Date().toISOString().slice(0, 10);
+      download('roma-match-sicherung-' + stamp + '.json', JSON.stringify(exportData(state.revision), null, 2), 'application/json');
+      setFlash('admin', 'success', 'Sicherung heruntergeladen.');
+      render();
+    },
+    'clear-likes': function () {
+      if (!confirm('Wirklich alle ' + plural(state.likes.length, 'Like', 'Likes') + ' löschen?')) return;
+      state.likes = [];
+      saveAdminChange();
+      setFlash('admin', 'success', 'Alle Likes gelöscht.');
+      render();
+    },
+    'reset-all': function () {
+      if (!confirm('Alle Änderungen in diesem Browser verwerfen und zum Stand der Datei zurückkehren?')) return;
+      storageRemove(localStorage, STORAGE_KEY);
+      state = fileData();
+      save();
+      ui.swipeIndex = 0;
+      ui.listedId = null;
+      ui.editTipId = null;
+      ui.editProfileId = null;
+      if (!isLoggedIn()) { location.hash = '#start'; return; }
+      setFlash('admin', 'success', 'Zurückgesetzt auf den Stand der Datei.');
+      render();
+    }
+  };
+
+  /* =======================================================
+     Formulare
+     ======================================================= */
+
+  function formValues(form) {
+    var values = {};
+    new FormData(form).forEach(function (value, key) { values[key] = typeof value === 'string' ? value.trim() : value; });
+    return values;
+  }
+
+  var forms = {
+    community: function (form) {
+      var v = formValues(form);
+      var age = Number(v.age);
+      if (!v.name) return formError(form, 'Bitte einen Namen eintragen.');
+      if (!Number.isInteger(age) || age < 10 || age > 120) return formError(form, 'Das Alter muss zwischen 10 und 120 liegen.');
+      if (!v.bio) return formError(form, 'Bitte ein paar Worte über dich schreiben.');
+
+      var person = {
+        id: uid(), name: v.name.slice(0, 60), age: age, bio: v.bio.slice(0, 1000),
+        interests: splitTags(v.interests), likedOvid: v.likedOvid === 'on', createdAt: nowIso(), own: true
+      };
+      state.community.push(person);
+
+      var message = 'Profil gespeichert. ' + person.name + ' steht jetzt im Community-Bereich.';
+      if (person.likedOvid) {
+        var ovid = sortedProfiles().filter(function (p) { return /ovid/i.test(p.name); })[0];
+        if (ovid) {
+          state.likes.push({
+            id: uid(), profileId: ovid.id, likerName: person.name, userProfileId: person.id,
+            createdAt: nowIso(), own: true
+          });
+          message += ' Dein Like für Ovid wurde ebenfalls eingetragen.';
+        }
+      }
+      save();
+      setFlash('profile', 'success', message);
+      render();
+    },
+
+    login: function (form) {
+      var v = formValues(form);
+      if (hashPassword(v.password || '') === state.adminHash) {
+        storageSet(sessionStorage, SESSION_KEY, state.adminHash);
+        ui.loginError = null;
+        ui.flash = null;
+      } else {
+        ui.loginError = 'Falsches Passwort.';
+      }
+      render();
+    },
+
+    tip: function (form) {
+      var v = formValues(form);
+      var required = [['title', 'Titel'], ['ovidIdea', 'Ovids Idee'], ['latinQuote', 'Lateinisches Zitat'],
+        ['translation', 'Deutsche Übersetzung'], ['modernInterpretation', 'Moderne Interpretation']];
+      for (var i = 0; i < required.length; i++) {
+        if (!v[required[i][0]]) return formError(form, 'Das Feld „' + required[i][1] + '“ darf nicht leer sein.');
+      }
+      var data = {
+        title: v.title.slice(0, 160), ovidIdea: v.ovidIdea.slice(0, 2000), latinQuote: v.latinQuote.slice(0, 1000),
+        translation: v.translation.slice(0, 1000), modernInterpretation: v.modernInterpretation.slice(0, 2000),
+        source: (v.source || '').slice(0, 120), sortOrder: wholeNumber(v.sortOrder, 0, 999, 0)
+      };
+      var existing = ui.editTipId ? findById('tips', ui.editTipId) : null;
+      if (existing) {
+        Object.assign(existing, data);
+        setFlash('admin', 'success', 'Tipp „' + data.title + '“ gespeichert.');
+      } else {
+        data.id = uid();
+        data.createdAt = nowIso();
+        state.tips.push(data);
+        setFlash('admin', 'success', 'Tipp „' + data.title + '“ angelegt.');
+      }
+      ui.editTipId = null;
+      saveAdminChange();
+      render();
+    },
+
+    profile: function (form) {
+      var v = formValues(form);
+      var required = [['name', 'Name'], ['era', 'Zeitalter'], ['status', 'Stand'], ['description', 'Beschreibung']];
+      for (var i = 0; i < required.length; i++) {
+        if (!v[required[i][0]]) return formError(form, 'Das Feld „' + required[i][1] + '“ darf nicht leer sein.');
+      }
+      var image = v.imageData || v.imageUrlText || '';
+      if (image && !safeImage(image)) {
+        return formError(form, 'Die Bild-Adresse muss mit https:// oder http:// beginnen.');
+      }
+      var data = {
+        name: v.name.slice(0, 80), era: v.era.slice(0, 120), status: v.status.slice(0, 160),
+        description: v.description.slice(0, 2000), tags: splitTags(v.tags), imageUrl: safeImage(image),
+        sortOrder: wholeNumber(v.sortOrder, 0, 999, 0)
+      };
+      var existing = ui.editProfileId ? findById('profiles', ui.editProfileId) : null;
+      if (existing) {
+        Object.assign(existing, data);
+        setFlash('admin', 'success', 'Profil „' + data.name + '“ gespeichert.');
+      } else {
+        data.id = uid();
+        data.createdAt = nowIso();
+        state.profiles.push(data);
+        setFlash('admin', 'success', 'Profil „' + data.name + '“ angelegt.');
+      }
+      ui.editProfileId = null;
+      ui.swipeIndex = 0;
+      saveAdminChange();
+      render();
+    },
+
+    password: function (form) {
+      var v = formValues(form);
+      if (hashPassword(v.current || '') !== state.adminHash) return formError(form, 'Das aktuelle Passwort stimmt nicht.');
+      if ((v.next || '').length < 6) return formError(form, 'Das neue Passwort braucht mindestens 6 Zeichen.');
+      if (v.next !== v.repeat) return formError(form, 'Die beiden neuen Passwörter stimmen nicht überein.');
+      state.adminHash = hashPassword(v.next);
+      storageSet(sessionStorage, SESSION_KEY, state.adminHash);
+      saveAdminChange();
+      setFlash('admin', 'success', 'Passwort geändert. In anderen Browsern gilt es erst, wenn dort die neu heruntergeladene HTML-Datei geöffnet wird.');
+      render();
+    }
+  };
+
+  /* =======================================================
+     Ereignisse
+     ======================================================= */
+
+  root.addEventListener('click', function (event) {
+    var el = event.target.closest('[data-action]');
+    if (!el || !root.contains(el)) return;
+    var handler = actions[el.getAttribute('data-action')];
+    if (handler) handler(el, event);
+  });
+
+  root.addEventListener('submit', function (event) {
+    var form = event.target.closest('form[data-form]');
+    if (!form) return;
+    event.preventDefault();
+    var handler = forms[form.getAttribute('data-form')];
+    if (handler) handler(form);
+  });
+
+  root.addEventListener('input', function (event) {
+    if (event.target.id === 'liker-name') storageSet(localStorage, NAME_KEY, event.target.value.trim());
+    if (event.target.id === 'mp-image-url') {
+      var dataInput = document.getElementById('mp-image-data');
+      if (dataInput) dataInput.value = '';
+      setImagePreview(safeImage(event.target.value));
+    }
+  });
+
+  root.addEventListener('change', function (event) {
+    var input = event.target;
+
+    if (input.id === 'mp-image-file' && input.files && input.files[0]) {
+      readImageFile(input.files[0]).then(function (dataUrl) {
+        document.getElementById('mp-image-data').value = dataUrl;
+        document.getElementById('mp-image-url').value = '';
+        setImagePreview(dataUrl);
+      }).catch(function (error) {
+        formError(document.getElementById('admin-form'), error.message);
+      });
+      input.value = '';
+    }
+
+    if (input.id === 'import-file' && input.files && input.files[0]) {
+      var file = input.files[0];
+      input.value = '';
+      file.text().then(function (content) {
+        var imported = normalize(JSON.parse(content));
+        if (!confirm('Inhalte aus „' + file.name + '“ übernehmen? ' + plural(imported.profiles.length, 'Profil', 'Profile') + ', ' + plural(imported.tips.length, 'Tipp', 'Tipps') + ', ' + plural(imported.community.length, 'Community-Profil', 'Community-Profile') + '. Der jetzige Stand in diesem Browser wird ersetzt.')) return;
+        imported.baseRevision = Math.max(state.baseRevision, imported.revision);
+        state = imported;
+        ui.swipeIndex = 0;
+        ui.listedId = null;
+        saveAdminChange();
+        setFlash('admin', 'success', 'Sicherung eingespielt.');
+        render();
+      }).catch(function () {
+        setFlash('admin', 'error', 'Die Datei ist keine gültige ROMA-MATCH-Sicherung.');
+        render();
+      });
+    }
+  });
+
+  // Defekte Bild-Adresse: statt eines kaputten Bildes den Anfangsbuchstaben zeigen.
+  root.addEventListener('error', function (event) {
+    var img = event.target;
+    if (img.tagName !== 'IMG' || !img.hasAttribute('data-monogram')) return;
+    var fallback = document.createElement('span');
+    fallback.className = 'monogram';
+    fallback.textContent = img.getAttribute('data-monogram');
+    img.replaceWith(fallback);
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && ui.matchedId) {
+      ui.matchedId = null;
+      render();
+      return;
+    }
+    var typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement && document.activeElement.tagName);
+    if (typing || isAdminView() || ui.tab !== 'swipe' || ui.matchedId) return;
+    if (event.key === 'ArrowRight') swipe('like');
+    if (event.key === 'ArrowLeft') swipe('nope');
+  });
+
+  window.addEventListener('hashchange', function () {
+    ui.flash = null;
+    ui.loginError = null;
+    ui.matchedId = null;
+    render();
+    window.scrollTo(0, 0);
+  });
+
+  // Änderungen aus einem zweiten Tab derselben Seite übernehmen.
+  window.addEventListener('storage', function (event) {
+    if (event.key !== STORAGE_KEY) return;
+    state = loadState();
+    render();
+  });
+
+  render();
+})();
 </script>
-<script id="community-v7-js">(function(){function e(x){return String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}function r(){let el=document.getElementById('communityProfiles');if(!el)return;let p=[];try{p=JSON.parse(localStorage.getItem('romaMatchProfiles')||'[]')}catch(_){}if(!Array.isArray(p)||!p.length){el.innerHTML='<div class="community-empty">Noch keine Profile in der Community.</div>';return}el.innerHTML=p.map(x=>{let n=e(x.name||'Römer'),a=x.age?'<div class="community-age">'+e(x.age)+' Jahre</div>':'',b='<div class="community-bio">'+e(x.bio||'Noch keine Beschreibung hinzugefügt.')+'</div>',t=(Array.isArray(x.interests)?x.interests:[]).map(i=>'<span class="community-tag">'+e(i)+'</span>').join('');return '<article class="community-card"><div class="community-avatar">'+e(n.charAt(0).toUpperCase())+'</div><h3>'+n+'</h3>'+a+b+'<div class="community-tags">'+t+'</div></article>'}).join('')}document.addEventListener('DOMContentLoaded',r);window.addEventListener('storage',r);window.renderCommunity=r})();</script></body>
+</body>
 </html>
