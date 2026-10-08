@@ -526,6 +526,41 @@ img { max-width: 100%; }
   .spot-title h3 { font-size: 1.3rem; }
 }
 
+.spot-grid-4 { grid-template-columns: repeat(2, 1fr); }
+.spot-number {
+  margin: 0 0 2px; color: var(--pink);
+  font-family: var(--font-display); font-size: 0.66rem; letter-spacing: 0.3em; text-transform: uppercase;
+}
+.spot-warning-title {
+  margin: 0 0 2px !important; color: #e8756f !important;
+  font-family: var(--font-display); font-size: 0.68rem !important; letter-spacing: 0.24em; text-transform: uppercase;
+}
+
+.spot-compare { width: 100%; border-collapse: collapse; margin: 6px 0 12px; font-size: 0.84rem; }
+.spot-compare th, .spot-compare td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border-soft); }
+.spot-compare thead th { color: var(--gold-soft); font-family: var(--font-display); font-size: 0.74rem; letter-spacing: 0.08em; }
+.spot-compare tbody th { color: var(--text-dim); font-weight: 400; font-size: 0.78rem; }
+.spot-compare td { color: var(--text-muted); }
+.spot-compare td:last-child { color: var(--pink-soft); }
+.spot-compare tr:last-child th, .spot-compare tr:last-child td { border-bottom: 0; }
+
+.spot-full { margin-top: 14px; border: 1px solid var(--border-soft); border-radius: var(--radius); background: rgba(15, 11, 10, 0.35); }
+.spot-full summary {
+  cursor: pointer; padding: 12px 18px;
+  color: var(--gold-soft); font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.12em;
+}
+.spot-full summary:hover { color: var(--text); }
+.spot-full dl { margin: 0; padding: 4px 18px 16px; }
+.spot-full dt { color: var(--gold-soft); font-style: italic; margin-top: 12px; font-size: 0.92rem; }
+.spot-full dd { margin: 3px 0 0; color: var(--text-muted); font-size: 0.86rem; }
+
+@media (max-width: 860px) {
+  .spot-grid-4 { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .spot-compare th, .spot-compare td { padding: 7px 5px; font-size: 0.76rem; }
+}
+
 /* ---------- COMMUNITY ---------- */
 
 .community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 20px; }
@@ -784,7 +819,7 @@ textarea.short { min-height: 70px; }
 
   var DEFAULT_DATA = {
     version: 1,
-    revision: 2,
+    revision: 3,
     adminHash: DEFAULT_ADMIN_HASH,
     profiles: [
       {
@@ -855,6 +890,14 @@ textarea.short { min-height: 70px; }
         translation: 'Dort findest du, was du lieben kannst, womit du spielen kannst, was du nur einmal berührst und was du festhalten willst.',
         modernInterpretation: 'Das ist der Filter „Ich suche …“ aus Tinder, Hinge oder Bumble: „Langfristige Beziehung“, „Etwas Lockeres“, „Noch unsicher“. Ovid hat diese Kategorien schon vor 2000 Jahren aufgestellt. Auffällig ist aber: Er schreibt „quod“ (was, Neutrum) und nicht „quam“ (die) – die Frauen erscheinen als Sachen, die man auswählt, nicht als Personen, die selbst wählen.',
         source: 'Ars amatoria 1, 91–92', sortOrder: 4, createdAt: START
+      },
+      {
+        id: 't-5', title: 'Der perfekte Opener',
+        ovidIdea: 'Im Circus muss man nicht lange nach einem Thema suchen: Ovid rät, mit ganz alltäglichen Worten anzufangen („publica verba“) und einfach zu fragen, welche Pferde gerade kommen. Danach kommt der Trick: für dasselbe Team jubeln wie sie – egal, welches es ist.',
+        latinQuote: 'Hic tibi quaeratur socii sermonis origo, et moveant primos publica verba sonos.',
+        translation: 'Hier sollst du den Anfang für ein gemeinsames Gespräch suchen, und alltägliche Worte sollen die ersten Sätze anstoßen.',
+        modernInterpretation: '„Für wen bist du?“ im Stadion, „Kennst du die Band?“ beim Konzert, ein Kommentar zu einem Hobby im Profil – der beste Opener hängt an dem, was beide gerade erleben. Ovids zweiter Trick („cui favet illa, fave“) ist dagegen Fake: Interesse vortäuschen, um zu gefallen. Das fliegt heute spätestens beim zweiten Date auf.',
+        source: 'Ars amatoria 1, 143–146', sortOrder: 5, createdAt: START
       }
     ],
     community: [
@@ -1377,11 +1420,96 @@ textarea.short { min-height: 70px; }
         ['💍', 'Für immer', 'quod tenere velis']
       ],
       warning: {
+        title: 'Warnung',
         quote: 'Ille locus casti damna pudoris habet.',
         text: 'Hier geht die Scham verloren: Gedränge, freizügige Stücke, überall Flirts – für Frauen steht ihr Ruf auf dem Spiel.'
       },
-      factCheck: 'Augustus ließ Frauen nur in den obersten Reihen sitzen (lex Iulia theatralis). Neben ihr Platz nehmen? Schwierig – deshalb empfiehlt Ovid kurz danach den Circus.',
-      modern: 'Eher Festival als Stadttheater: Man stylt sich, um gesehen zu werden. Aber wer Frauen als Ameisen oder Beute sieht, sieht keine Personen mehr.'
+      check: {
+        title: 'Faktencheck: der Haken',
+        seating: true,
+        text: 'Augustus ließ Frauen nur in den obersten Reihen sitzen (lex Iulia theatralis). Neben ihr Platz nehmen? Schwierig – deshalb empfiehlt Ovid kurz danach den Circus.'
+      },
+      modern: 'Eher Festival als Stadttheater: Man stylt sich, um gesehen zu werden. Aber wer Frauen als Ameisen oder Beute sieht, sieht keine Personen mehr.',
+      fullText: [
+        ['Sed tu praecipue curvis venare theatris: haec loca sunt voto fertiliora tuo.',
+          'Du aber geh vor allem in den runden Theatern auf die Jagd: Diese Orte sind ergiebiger, als du es dir wünschen kannst.'],
+        ['Illic invenies, quod ames, quod ludere possis, quodque semel tangas, quodque tenere velis.',
+          'Dort findest du, was du lieben kannst, womit du spielen kannst, was du nur einmal berührst und was du festhalten willst.'],
+        ['Ut redit itque frequens longum formica per agmen, … sic ruit ad celebres cultissima femina ludos.',
+          'Wie die Ameise zahlreich in langem Zug hin- und herwimmelt, … so eilt die herausgeputzte Frau zu den gut besuchten Spielen.'],
+        ['Spectatum veniunt, veniunt, spectentur ut ipsae: ille locus casti damna pudoris habet.',
+          'Sie kommen, um sich umzuschauen, sie kommen, damit sie selbst angeschaut werden: Jener Ort sorgt dafür, dass man das keusche Schamgefühl vergisst.']
+      ]
+    },
+    {
+      name: 'Der Circus', latinName: 'circus', icon: '🐎',
+      source: 'Ars amatoria 1, 135–148',
+      rating: 5,
+      quote: 'Nec te nobilium fugiat certamen equorum.',
+      translation: 'Das Rennen der edlen Pferde soll dir nicht entgehen.',
+      chips: [
+        ['🏟️', 'Circus Maximus'],
+        ['👥', 'über 100.000 Plätze'],
+        ['🐎', 'Wagenrennen'],
+        ['🎨', 'Rennställe in Farben'],
+        ['🎟️', 'Eintritt frei'],
+        ['👫', 'Frauen & Männer gemischt']
+      ],
+      cards: [
+        {
+          icon: '💺', title: 'Wie?',
+          text: 'Setz dich direkt neben sie – hier hält dich niemand auf.',
+          quote: 'Proximus a domina nullo prohibente sedeto.',
+          translation: 'Setz dich ganz nah neben deine Herrin, niemand hindert dich daran.'
+        },
+        {
+          icon: '💬', title: 'Der Opener',
+          text: 'Frag einfach, welche Pferde gerade kommen – Gesprächsstoff gibt es gratis.',
+          quote: 'Cuius equi veniant, facito, studiose, requiras.',
+          translation: 'Sorge dafür, dass du eifrig fragst, wessen Pferde kommen.'
+        },
+        {
+          icon: '📣', title: 'Die Taktik',
+          text: 'Jubel für dasselbe Team wie sie – egal, welches es ist.',
+          quote: 'Quisquis erit, cui favet illa, fave.',
+          translation: 'Wem auch immer sie zujubelt – dem jubele auch du zu.'
+        },
+        {
+          icon: '🙏', title: 'Bonus',
+          text: 'Ziehen die Götterstatuen vorbei, klatsch für Venus – dann weiß sie, dass du Liebe suchst. „Domina“ ist übrigens auch das Wort für die Geliebte.',
+          quote: 'Tu Veneri dominae plaude favente manu.',
+          translation: 'Klatsche du der Herrin Venus mit gewogener Hand Beifall.'
+        }
+      ],
+      warning: {
+        title: 'Red Flag',
+        quote: 'Iunge tuum lateri qua potes usque latus.',
+        text: 'Drück dich an sie, so sehr du kannst – „niemand hindert dich“. Ob sie das will, fragt Ovid nicht. Heute heißt das: Grenzüberschreitung.'
+      },
+      check: {
+        title: 'Theater vs. Circus',
+        compare: [
+          ['', '🎭 Theater', '🐎 Circus'],
+          ['Sitzplatz', 'Frauen ganz oben', 'direkt nebeneinander'],
+          ['Kontakt', 'nur anschauen', 'sitzen, berühren, reden'],
+          ['Gesprächsstoff', 'keiner', 'die Rennen'],
+          ['Programm', 'Mimus & Pantomime', 'Wagenrennen']
+        ],
+        text: 'Im Theater kann man nur schauen, im Circus kommt man ins Gespräch – deshalb schickt Ovid seine Schüler gleich nach dem Theater hierher.'
+      },
+      modern: 'Stadion, Konzert, Public Viewing: Wo alle mitfiebern, ist der Einstieg leicht – „Für wen bist du?“ funktioniert bis heute.',
+      fullText: [
+        ['Nec te nobilium fugiat certamen equorum: multa capax populi commoda Circus habet.',
+          'Das Rennen der edlen Pferde soll dir nicht entgehen: Der Circus, der viel Volk fasst, bietet viele Vorteile.'],
+        ['… Proximus a domina nullo prohibente sedeto, iunge tuum lateri qua potes usque latus.',
+          '… Setz dich ganz nah neben deine Herrin, niemand hindert dich daran; schmiege deine Seite an ihre, so sehr du kannst.'],
+        ['… Hic tibi quaeratur socii sermonis origo, et moveant primos publica verba sonos.',
+          '… Hier sollst du den Anfang für ein gemeinsames Gespräch suchen, und alltägliche Worte sollen die ersten Sätze anstoßen.'],
+        ['Cuius equi veniant, facito, studiose, requiras, nec mora, quisquis erit, cui favet illa, fave.',
+          'Sorge dafür, dass du eifrig fragst, wessen Pferde kommen, und ohne Zögern: Wem auch immer sie zujubelt, dem jubele auch du zu.'],
+        ['At cum pompa frequens caelestibus ibit eburnis, tu Veneri dominae plaude favente manu.',
+          'Wenn aber der volle Festzug mit den Göttern aus Elfenbein vorbeizieht, dann klatsche du der Herrin Venus mit gewogener Hand Beifall.']
+      ]
     }
   ];
 
@@ -1411,16 +1539,43 @@ textarea.short { min-height: 70px; }
     '</svg>';
   }
 
+  function compareTable(rows) {
+    return '<table class="spot-compare"><thead><tr>' +
+      rows[0].map(function (h) { return '<th scope="col">' + esc(h) + '</th>'; }).join('') +
+      '</tr></thead><tbody>' +
+      rows.slice(1).map(function (r) {
+        return '<tr><th scope="row">' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>';
+      }).join('') +
+    '</tbody></table>';
+  }
+
   function renderSpotsSection() {
     var head = sectionHead('Loca Amoris', 'Date-Spots im alten Rom',
       'Die Orte, an denen man laut Ovid die Liebe findet – auf einen Blick.');
-    return head + '<div class="tip-list">' + SPOTS.map(function (spot) {
+    return head + '<div class="tip-list">' + SPOTS.map(function (spot, i) {
       var stars = '★★★★★'.slice(0, spot.rating) + '☆☆☆☆☆'.slice(0, 5 - spot.rating);
+      var boxes = spot.cards.map(function (c) {
+        return '<section class="spot-box">' +
+          '<h4><span aria-hidden="true">' + c.icon + '</span> ' + esc(c.title) + '</h4>' +
+          '<p>' + esc(c.text) + '</p>' +
+          '<p class="spot-mini-quote">„' + esc(c.quote) + '“<span>' + esc(c.translation) + '</span></p>' +
+        '</section>';
+      });
+      if (spot.purposes) {
+        boxes.push('<section class="spot-box">' +
+          '<h4><span aria-hidden="true">🎯</span> Wofür?</h4>' +
+          '<p>Für jeden Wunsch etwas dabei:</p>' +
+          '<ul class="purpose-list">' + spot.purposes.map(function (p) {
+            return '<li><span class="purpose-emoji" aria-hidden="true">' + p[0] + '</span><strong>' + esc(p[1]) + '</strong><em>' + esc(p[2]) + '</em></li>';
+          }).join('') + '</ul>' +
+        '</section>');
+      }
       return '' +
         '<article class="card spot">' +
           '<header class="spot-hero">' +
             '<span class="spot-icon" aria-hidden="true">' + spot.icon + '</span>' +
             '<div class="spot-title">' +
+              '<p class="spot-number">Date-Spot ' + roman(i + 1) + '</p>' +
               '<h3>' + esc(spot.name) + ' <em>' + esc(spot.latinName) + '</em></h3>' +
               '<p class="spot-rating"><span aria-label="' + spot.rating + ' von 5 Sternen">' + stars + '</span> Ovids Bewertung</p>' +
               '<p class="tip-source">' + esc(spot.source) + '</p>' +
@@ -1430,37 +1585,30 @@ textarea.short { min-height: 70px; }
           '<ul class="spot-chips">' + spot.chips.map(function (c) {
             return '<li><span aria-hidden="true">' + c[0] + '</span>' + esc(c[1]) + '</li>';
           }).join('') + '</ul>' +
-          '<div class="spot-grid">' +
-            spot.cards.map(function (c) {
-              return '<section class="spot-box">' +
-                '<h4><span aria-hidden="true">' + c.icon + '</span> ' + esc(c.title) + '</h4>' +
-                '<p>' + esc(c.text) + '</p>' +
-                '<p class="spot-mini-quote">„' + esc(c.quote) + '“<span>' + esc(c.translation) + '</span></p>' +
-              '</section>';
-            }).join('') +
-            '<section class="spot-box">' +
-              '<h4><span aria-hidden="true">🎯</span> Wofür?</h4>' +
-              '<p>Für jeden Wunsch etwas dabei:</p>' +
-              '<ul class="purpose-list">' + spot.purposes.map(function (p) {
-                return '<li><span class="purpose-emoji" aria-hidden="true">' + p[0] + '</span><strong>' + esc(p[1]) + '</strong><em>' + esc(p[2]) + '</em></li>';
-              }).join('') + '</ul>' +
-            '</section>' +
-          '</div>' +
+          '<div class="spot-grid' + (boxes.length === 4 ? ' spot-grid-4' : '') + '">' + boxes.join('') + '</div>' +
           '<div class="spot-warning">' +
             '<span class="spot-warning-icon" aria-hidden="true">⚠</span>' +
-            '<div><p class="quote-latin">„' + esc(spot.warning.quote) + '“</p><p>' + esc(spot.warning.text) + '</p></div>' +
+            '<div><p class="spot-warning-title">' + esc(spot.warning.title) + '</p>' +
+            '<p class="quote-latin">„' + esc(spot.warning.quote) + '“</p><p>' + esc(spot.warning.text) + '</p></div>' +
           '</div>' +
           '<div class="spot-bottom">' +
             '<section class="spot-box spot-check">' +
-              '<h4><span aria-hidden="true">🔍</span> Faktencheck: der Haken</h4>' +
-              seatingPlan() +
-              '<p>' + esc(spot.factCheck) + '</p>' +
+              '<h4><span aria-hidden="true">🔍</span> ' + esc(spot.check.title) + '</h4>' +
+              (spot.check.seating ? seatingPlan() : '') +
+              (spot.check.compare ? compareTable(spot.check.compare) : '') +
+              '<p>' + esc(spot.check.text) + '</p>' +
             '</section>' +
             '<section class="spot-box spot-today">' +
               '<h4><span aria-hidden="true">📱</span> Heute</h4>' +
               '<p>' + esc(spot.modern) + '</p>' +
             '</section>' +
           '</div>' +
+          '<details class="spot-full">' +
+            '<summary>📜 Ganze Textstelle mit Übersetzung</summary>' +
+            '<dl>' + spot.fullText.map(function (pair) {
+              return '<dt>' + esc(pair[0]) + '</dt><dd>' + esc(pair[1]) + '</dd>';
+            }).join('') + '</dl>' +
+          '</details>' +
         '</article>';
     }).join('') + '</div>';
   }
