@@ -7,7 +7,7 @@
 <meta name="description" content="Ein Latein-Schulprojekt: Ovids „Ars amatoria“ im Vergleich mit modernen Dating-Apps.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 /* =========================================================
    ROMA MATCH – Einzeldatei-Version
@@ -778,6 +778,588 @@ textarea.short { min-height: 70px; }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* =========================================================
+   ÖFFENTLICHE SEITE – Neues Design (alles unter .pub)
+   ========================================================= */
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='4' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 0.9 0 0 0 0 0.8 0 0 0 1.4 -0.45'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+#root { position: relative; z-index: 1; }
+
+.pub { --green: #5fb58a; overflow-x: clip; }
+.pub .shell { padding-top: 10px; }
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  min-height: clamp(460px, 74vh, 680px);
+  display: grid; place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  text-align: center;
+  padding: 70px 20px 120px;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: -3;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(0.85) contrast(1.05) brightness(0.62) sepia(0.25);
+  animation: ken-burns 38s ease-in-out infinite alternate;
+}
+.hero-sky {
+  position: absolute; inset: 0; z-index: -4;
+  background:
+    radial-gradient(circle at 78% 22%, rgba(255, 226, 180, 0.28) 0 38px, rgba(255, 226, 180, 0.08) 39px 120px, transparent 260px),
+    radial-gradient(ellipse at 50% 120%, rgba(232, 62, 115, 0.35), transparent 60%),
+    linear-gradient(180deg, #120b14 0%, #2a1520 55%, #3b2018 100%);
+}
+.hero-shade {
+  position: absolute; inset: 0; z-index: -2;
+  background:
+    radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(22, 16, 15, 0.55) 75%),
+    linear-gradient(180deg, rgba(22, 16, 15, 0.25) 0%, rgba(22, 16, 15, 0.1) 45%, var(--bg) 100%);
+}
+.hero-skyline { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 34%; z-index: -1; }
+.hero-skyline .sk-far { fill: #2a1d1a; opacity: 0.85; }
+.hero-skyline .sk-mid { fill: #1f1614; }
+.hero-skyline .sk-near { fill: var(--bg); }
+.hero-skyline .sk-window { fill: rgba(255, 196, 120, 0.55); animation: flicker 4s ease-in-out infinite; }
+.hero-skyline .sk-window:nth-child(3n) { animation-delay: -1.3s; }
+.hero-skyline .sk-window:nth-child(4n) { animation-delay: -2.6s; }
+
+.star { position: absolute; width: 2px; height: 2px; border-radius: 50%; background: #fff; z-index: -3; animation: twinkle 3s ease-in-out infinite; }
+
+.float-heart {
+  position: absolute; bottom: -40px; left: var(--x);
+  font-size: var(--s);
+  color: var(--pink);
+  opacity: 0;
+  z-index: -1;
+  filter: drop-shadow(0 0 8px rgba(232, 62, 115, 0.6));
+  animation: float-up var(--d) linear infinite;
+  animation-delay: var(--delay);
+  pointer-events: none;
+}
+
+.hero-inner { max-width: 760px; }
+.hero .laurel { margin-bottom: 4px; }
+.hero-logo {
+  font-family: 'Cinzel Decorative', var(--font-display);
+  font-weight: 700;
+  font-size: clamp(3rem, 12vw, 6.4rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  margin: 18px 0 10px;
+  background: linear-gradient(100deg, var(--gold-soft) 0%, #fff4e6 18%, var(--pink) 42%, var(--gold-soft) 62%, #fff4e6 80%, var(--pink) 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shimmer 9s linear infinite;
+  filter: drop-shadow(0 6px 30px rgba(232, 62, 115, 0.35));
+}
+.hero-logo .heart-i { display: inline-block; -webkit-text-fill-color: var(--pink); color: var(--pink); animation: heartbeat 1.6s ease-in-out infinite; font-size: 0.6em; vertical-align: 0.18em; margin: 0 0.06em; }
+.hero-sub { color: #eadbd0; font-style: italic; font-size: clamp(1rem, 2.4vw, 1.2rem); margin: 0 auto; max-width: 560px; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7); }
+.hero-quote { color: var(--gold-soft); font-family: var(--font-display); letter-spacing: 0.18em; font-size: 0.74rem; text-transform: uppercase; margin: 16px 0 0; opacity: 0.9; }
+
+.hero-stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 30px 0 26px; padding: 0; list-style: none; }
+.hero-stats li {
+  min-width: 104px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: rgba(22, 16, 15, 0.55);
+  border: 1px solid rgba(216, 180, 131, 0.28);
+  backdrop-filter: blur(8px);
+}
+.hero-stats strong { display: block; font-family: var(--font-display); font-size: 1.7rem; color: var(--gold-soft); line-height: 1.1; }
+.hero-stats span { color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; }
+
+.hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn-glow { position: relative; }
+.btn-glow::after {
+  content: ''; position: absolute; inset: -4px; border-radius: inherit;
+  border: 2px solid rgba(232, 62, 115, 0.6);
+  animation: ring 2.2s ease-out infinite;
+  pointer-events: none;
+}
+.btn-glass { background: rgba(244, 236, 230, 0.08); color: var(--text); border-color: rgba(244, 236, 230, 0.3); backdrop-filter: blur(6px); }
+.btn-glass:hover:not(:disabled) { border-color: var(--gold-soft); color: var(--gold-soft); }
+
+.scroll-hint { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); color: var(--gold-soft); font-size: 1.4rem; opacity: 0.8; animation: bob 2s ease-in-out infinite; }
+
+/* ---------- Navigation ---------- */
+
+.nav {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(22, 16, 15, 0.82);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  border-bottom: 1px solid var(--border-soft);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+.nav-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: flex; gap: 6px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  justify-content: safe center;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-tab {
+  appearance: none; flex-shrink: 0;
+  display: flex; align-items: center; gap: 8px;
+  border: 1px solid transparent; border-radius: 999px;
+  background: transparent; color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-display); font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 10px 16px;
+  transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.nav-tab .ico { font-size: 1rem; filter: grayscale(0.6); transition: filter 0.2s, transform 0.2s; }
+.nav-tab:hover { color: var(--text); background: rgba(232, 62, 115, 0.1); }
+.nav-tab:hover .ico { transform: scale(1.15) rotate(-6deg); filter: none; }
+.nav-tab[aria-selected='true'] {
+  color: #fff;
+  background: linear-gradient(135deg, var(--pink) 0%, var(--pink-dark) 100%);
+  box-shadow: 0 6px 20px rgba(232, 62, 115, 0.4);
+}
+.nav-tab[aria-selected='true'] .ico { filter: none; }
+.nav-tab .new-badge { background: var(--gold); color: #241a18; font-size: 0.56rem; letter-spacing: 0.08em; padding: 2px 6px; border-radius: 999px; }
+
+/* ---------- Abschnittsköpfe ---------- */
+
+.pub .section-head { margin: 34px 0 36px; }
+.pub .section-head h2 {
+  font-size: clamp(1.7rem, 4.6vw, 2.6rem);
+  background: linear-gradient(100deg, var(--gold-soft), #fff1df, var(--gold-soft));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.pub .section-head p { font-size: 0.98rem; }
+.ornament { display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--gold); margin: 12px 0 0; font-size: 0.9rem; }
+.ornament::before, .ornament::after { content: ''; width: 70px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dark)); }
+.ornament::after { transform: scaleX(-1); }
+
+/* ---------- Einblenden ---------- */
+
+.animate .reveal { animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 80ms); }
+
+/* ---------- Swipen ---------- */
+
+.pub .swipe-area { gap: 26px; }
+.pub .swipe-stack { width: min(400px, 100%); }
+.pub .swipe-card { touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.pub .swipe-card.dragging { cursor: grabbing; }
+.pub .swipe-card.leaving-like { transform: translateX(150%) rotate(26deg); opacity: 0; }
+.pub .swipe-card.leaving-nope { transform: translateX(-150%) rotate(-26deg); opacity: 0; }
+.pub .swipe-photo { height: 460px; border-bottom: 0; }
+.pub .swipe-photo img { pointer-events: none; -webkit-user-drag: none; }
+.pub .swipe-photo .portrait-svg { width: 100%; height: 100%; display: block; }
+.swipe-overlay {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 90px 22px 18px;
+  background: linear-gradient(180deg, transparent 0%, rgba(16, 11, 10, 0.75) 45%, rgba(16, 11, 10, 0.96) 100%);
+  text-align: left;
+}
+.swipe-overlay h3 { font-size: 2rem; color: #fff; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7); }
+.swipe-overlay .swipe-era { display: block; margin-top: 2px; }
+.swipe-overlay .swipe-status { margin: 6px 0 0; }
+.verified { color: var(--pink); font-size: 1rem; vertical-align: 0.3em; }
+.profile-dots { position: absolute; top: 12px; left: 14px; right: 14px; display: flex; gap: 5px; z-index: 3; }
+.profile-dots span { flex: 1; height: 4px; border-radius: 4px; background: rgba(255, 255, 255, 0.25); }
+.profile-dots span.on { background: #fff; box-shadow: 0 0 8px rgba(255, 255, 255, 0.6); }
+
+.stamp {
+  position: absolute; top: 46px; z-index: 4;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 2rem; letter-spacing: 0.12em;
+  padding: 4px 14px;
+  border: 4px solid currentColor; border-radius: 12px;
+  pointer-events: none;
+  text-shadow: 0 0 18px currentColor;
+}
+.stamp-like { left: 20px; color: #5fe3a1; transform: rotate(-16deg); opacity: var(--like, 0); }
+.stamp-nope { right: 20px; color: #ff5d6c; transform: rotate(16deg); opacity: var(--nope, 0); }
+.swipe-card.leaving-like .stamp-like, .swipe-card.leaving-nope .stamp-nope { opacity: 1; }
+
+.pub .swipe-body { padding: 18px 22px 22px; }
+.pub .circle-btn { width: 72px; height: 72px; box-shadow: var(--shadow-soft); }
+.pub .circle-btn.nope { color: #ff7b86; border-color: rgba(255, 93, 108, 0.5); }
+.pub .circle-btn.nope:hover { background: #ff5d6c; color: #fff; border-color: #ff5d6c; box-shadow: 0 10px 30px rgba(255, 93, 108, 0.4); }
+.pub .circle-btn.like { width: 84px; height: 84px; font-size: 2.2rem; }
+.swipe-hint { color: var(--text-dim); font-size: 0.8rem; margin: -8px 0 0; text-align: center; }
+
+/* ---------- Match ---------- */
+
+.pub-match { position: relative; overflow: hidden; }
+.match-faces { display: flex; justify-content: center; align-items: center; margin: 4px 0 14px; }
+.match-face {
+  width: 96px; height: 96px; border-radius: 50%;
+  border: 3px solid var(--gold-soft);
+  overflow: hidden;
+  background: var(--surface-3);
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-size: 2.4rem; color: var(--gold-soft);
+  box-shadow: 0 0 30px rgba(232, 62, 115, 0.4);
+}
+.match-face img, .match-face svg { width: 100%; height: 100%; object-fit: cover; }
+.match-face.you { margin-left: -16px; background: linear-gradient(135deg, var(--pink), var(--gold-dark)); color: #fff; }
+.burst { position: absolute; left: 50%; top: 40%; pointer-events: none; }
+.burst span {
+  position: absolute; left: 0; top: 0;
+  color: var(--c, var(--pink));
+  font-size: var(--s, 18px);
+  animation: burst 1.3s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+
+/* ---------- Tipps ---------- */
+
+.tips-toolbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+  margin: -12px 0 26px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: rgba(34, 25, 23, 0.7);
+  border: 1px solid var(--border-soft);
+}
+.tips-toolbar p { margin: 0; color: var(--text-muted); font-size: 0.86rem; }
+.tips-toolbar strong { color: var(--gold-soft); }
+
+.pub .tip-list { gap: 26px; }
+.pub .tip-card { padding: 28px 30px; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+.pub .tip-card:hover { transform: translateY(-3px); border-color: rgba(232, 62, 115, 0.35); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); }
+.pub .tip-card.is-new { border-color: rgba(216, 180, 131, 0.55); box-shadow: 0 0 0 1px rgba(216, 180, 131, 0.25), 0 18px 50px rgba(185, 139, 82, 0.18); }
+.new-ribbon {
+  position: absolute; top: 18px; right: -34px;
+  transform: rotate(38deg);
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold-dark));
+  color: #241a18;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.66rem; letter-spacing: 0.18em;
+  padding: 5px 40px;
+}
+.pub .tip-number {
+  width: 58px; height: 58px; font-size: 1.15rem;
+  background: radial-gradient(circle at 35% 30%, rgba(232, 62, 115, 0.3), rgba(185, 139, 82, 0.1));
+  border: 1px solid var(--gold);
+  box-shadow: 0 0 22px rgba(185, 139, 82, 0.25), inset 0 0 12px rgba(0, 0, 0, 0.4);
+}
+.pub .tip-card h3 { font-size: 1.4rem; }
+
+.pub .quote-box { position: relative; cursor: pointer; }
+.pub .quote-box .quote-latin { font-size: 1.1rem; }
+.pub .quote-box .quote-translation { transition: filter 0.35s ease, opacity 0.35s ease; }
+.pub .quote-box:not(.revealed) .quote-translation { filter: blur(6px); opacity: 0.55; user-select: none; }
+.reveal-hint {
+  position: absolute; right: 14px; bottom: 12px;
+  font-family: var(--font-display); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #241a18; background: var(--gold-soft);
+  padding: 4px 10px; border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: opacity 0.25s;
+}
+.pub .quote-box.revealed .reveal-hint { opacity: 0; pointer-events: none; }
+
+.vote-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--border); }
+.vote-row > span { color: var(--text-dim); font-size: 0.82rem; margin-right: auto; }
+.vote-btn {
+  appearance: none; cursor: pointer;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(15, 11, 10, 0.5);
+  color: var(--text-muted);
+  font-family: var(--font-body); font-size: 0.82rem;
+  padding: 7px 14px;
+  transition: all 0.2s ease;
+}
+.vote-btn:hover { transform: translateY(-1px); color: var(--text); }
+.vote-btn.up[aria-pressed='true'] { background: rgba(95, 181, 138, 0.18); border-color: var(--green); color: #9fe3bf; }
+.vote-btn.down[aria-pressed='true'] { background: rgba(217, 70, 63, 0.18); border-color: var(--danger); color: #f0a09b; }
+.tip-cta { margin-top: 16px; }
+
+/* ---------- Style-Check ---------- */
+
+.styler-intro { display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: center; padding: 22px 26px; margin-bottom: 26px; }
+.styler-intro img { width: 120px; height: 160px; object-fit: cover; border-radius: 14px; border: 1px solid var(--gold-dark); box-shadow: var(--shadow-soft); }
+.styler-intro .quote-latin { font-size: 1.15rem; }
+.styler-intro p { margin: 4px 0 0; color: var(--text-muted); font-size: 0.9rem; }
+
+.styler { display: grid; grid-template-columns: minmax(260px, 380px) 1fr; gap: 26px; align-items: start; }
+.figure-card { padding: 18px; position: sticky; top: 84px; }
+.figure-wrap { position: relative; width: 100%; aspect-ratio: 300 / 560; margin: 0 auto; }
+.figure-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.figure-glow { position: absolute; inset: 8% 0 4%; border-radius: 50%; background: radial-gradient(ellipse at 50% 45%, rgba(232, 62, 115, 0.22), transparent 65%); transition: background 0.6s; }
+.styler.all-done .figure-glow { background: radial-gradient(ellipse at 50% 45%, rgba(216, 180, 131, 0.45), transparent 68%); }
+
+.fig { --skin: #eedbc9; --skin-shade: #d8bfa8; }
+.fig.fix-skin { --skin: #c68a5f; --skin-shade: #a86e47; }
+.fig .skin { fill: var(--skin); transition: fill 0.8s ease; }
+.fig .skin-shade { fill: var(--skin-shade); transition: fill 0.8s ease; }
+.fig .messy, .fig .neat { transition: opacity 0.5s ease, transform 0.5s ease; transform-box: fill-box; transform-origin: center; }
+.fig .neat { opacity: 0; }
+.fig.fix-skin .skin-messy, .fig.fix-toga .toga-messy, .fig.fix-mouth .mouth-messy, .fig.fix-shoes .shoes-messy,
+.fig.fix-hair .hair-messy, .fig.fix-nails .nails-messy, .fig.fix-nose .nose-messy { opacity: 0; transform: scale(0.6); }
+.fig.fix-toga .toga-neat, .fig.fix-mouth .mouth-neat, .fig.fix-shoes .shoes-neat, .fig.fix-hair .hair-neat { opacity: 1; }
+.fig .breath { animation: stink 2.4s ease-in-out infinite; }
+.fig .breath:nth-of-type(2) { animation-delay: -0.8s; }
+.fig .breath:nth-of-type(3) { animation-delay: -1.6s; }
+.fig .sparkle { opacity: 0; transition: opacity 0.6s; }
+.styler.all-done .fig .sparkle { opacity: 1; animation: twinkle 1.6s ease-in-out infinite; }
+.styler.all-done .fig .sparkle:nth-of-type(2n) { animation-delay: -0.8s; }
+
+.hotspot {
+  position: absolute; left: var(--x); top: var(--y);
+  width: 34px; height: 34px; margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: var(--pink);
+  color: #fff;
+  font-size: 0.95rem; font-weight: 700; font-family: var(--font-display);
+  cursor: pointer;
+  display: grid; place-items: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, background 0.3s ease;
+  z-index: 2;
+}
+.hotspot::before {
+  content: ''; position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid var(--pink);
+  animation: ring 1.8s ease-out infinite;
+}
+.hotspot:hover { transform: scale(1.15); }
+.hotspot.done { background: var(--green); }
+.hotspot.done::before { display: none; }
+.hotspot.selected { transform: scale(1.22); box-shadow: 0 0 0 4px rgba(244, 236, 230, 0.35), 0 6px 18px rgba(0, 0, 0, 0.5); }
+
+.style-panel { display: flex; flex-direction: column; gap: 18px; }
+.progress-card { padding: 18px 22px; }
+.progress-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+.progress-top h3 { font-size: 1rem; color: var(--gold-soft); }
+.progress-top span { color: var(--text-muted); font-size: 0.85rem; }
+.progress-bar { height: 12px; border-radius: 999px; background: rgba(15, 11, 10, 0.7); border: 1px solid var(--border-soft); overflow: hidden; }
+.progress-bar i { display: block; height: 100%; width: var(--p); background: linear-gradient(90deg, var(--pink), var(--gold-soft)); border-radius: inherit; transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 0 14px rgba(232, 62, 115, 0.5); }
+.progress-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+
+.detail-card { padding: 22px 24px; position: relative; overflow: hidden; }
+.detail-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--pink), var(--gold)); }
+.detail-head { display: flex; gap: 14px; align-items: center; margin-bottom: 12px; }
+.detail-icon { font-size: 2rem; width: 56px; height: 56px; display: grid; place-items: center; border-radius: 16px; background: rgba(232, 62, 115, 0.12); border: 1px solid rgba(232, 62, 115, 0.3); flex-shrink: 0; }
+.detail-head h3 { font-size: 1.25rem; }
+.detail-head .tip-source { display: block; }
+.detail-card .quote-box { cursor: default; }
+.detail-card .quote-box .quote-translation { filter: none; opacity: 1; }
+.detail-text { color: var(--text-muted); font-size: 0.93rem; margin: 14px 0 0; }
+.detail-empty { text-align: center; color: var(--text-muted); padding: 30px 24px; }
+.detail-empty .big { font-size: 2.6rem; display: block; margin-bottom: 8px; animation: hover-y 2.2s ease-in-out infinite; }
+
+.check-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+.check-list button {
+  width: 100%; appearance: none; cursor: pointer; text-align: left;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-soft);
+  background: rgba(15, 11, 10, 0.45);
+  color: var(--text-muted);
+  font-family: var(--font-body); font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+.check-list button:hover { border-color: var(--pink); color: var(--text); }
+.check-list button .box { width: 22px; height: 22px; border-radius: 7px; border: 2px solid var(--border); display: grid; place-items: center; font-size: 0.75rem; flex-shrink: 0; transition: all 0.25s; }
+.check-list button.done { color: var(--text); border-color: rgba(95, 181, 138, 0.45); background: rgba(95, 181, 138, 0.08); }
+.check-list button.done .box { background: var(--green); border-color: var(--green); color: #fff; }
+.check-list button.selected { box-shadow: 0 0 0 2px rgba(232, 62, 115, 0.5); }
+
+.done-banner {
+  text-align: center; padding: 22px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(216, 180, 131, 0.2), rgba(232, 62, 115, 0.18));
+  border: 1px solid var(--gold);
+  position: relative; overflow: hidden;
+}
+.done-banner .laurel-big { font-size: 2.6rem; display: block; animation: pop-in 0.5s cubic-bezier(0.2, 1.6, 0.4, 1); }
+.done-banner h3 { color: var(--gold-soft); font-size: 1.3rem; margin: 6px 0 4px; }
+.done-banner p { margin: 0; color: var(--text-muted); font-size: 0.9rem; }
+
+.styl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.styl-card { padding: 16px 18px; border-radius: var(--radius); background: rgba(15, 11, 10, 0.45); border: 1px solid var(--border-soft); }
+.styl-card h4 { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-soft); margin: 0 0 6px; }
+.styl-card .ex { color: var(--pink-soft); font-style: italic; font-size: 0.86rem; margin: 0 0 6px; }
+.styl-card p { margin: 0; color: var(--text-muted); font-size: 0.86rem; }
+.styl-card .fn { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
+.styl-card .fn b { color: var(--gold-soft); font-weight: 400; font-family: var(--font-display); font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; margin-right: 6px; }
+
+.block-title { display: flex; align-items: center; gap: 10px; margin: 40px 0 16px; font-size: 1.15rem; color: var(--gold-soft); }
+.block-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold-dark), transparent); }
+
+/* ---------- Date-Spots: Bildkopf & Szenen ---------- */
+
+.spot-banner {
+  position: relative; margin: -26px -28px 22px;
+  height: 260px; overflow: hidden;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.spot-banner img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; filter: saturate(0.9) sepia(0.15); }
+.spot:hover .spot-banner img { transform: scale(1.06); }
+.spot-banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(22, 16, 15, 0.1) 20%, rgba(34, 25, 23, 0.95) 100%); }
+.spot-banner .spot-hero { position: absolute; left: 28px; right: 28px; bottom: 18px; z-index: 1; }
+.spot-banner .photo-credit { position: absolute; top: 10px; right: 12px; z-index: 1; font-size: 0.66rem; color: rgba(255, 255, 255, 0.7); background: rgba(0, 0, 0, 0.45); padding: 2px 8px; border-radius: 999px; }
+.spot-banner .spot-title h3 { color: #fff; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8); }
+
+.seat-plan path, .seat-plan text { cursor: pointer; }
+.seat-plan path { transition: filter 0.2s, opacity 0.2s; }
+.seat-plan path:hover { filter: brightness(1.35); }
+.seat-plan.has-active path:not(.is-active) { opacity: 0.45; }
+.seat-plan path.is-active { filter: brightness(1.4) drop-shadow(0 0 8px rgba(232, 62, 115, 0.7)); }
+.seat-caption { min-height: 2.6em; margin: 0 0 10px !important; padding: 10px 12px; border-radius: 10px; background: rgba(232, 62, 115, 0.08); border: 1px dashed rgba(232, 62, 115, 0.35); color: var(--text) !important; font-size: 0.86rem !important; }
+
+.race-box { margin-top: 14px; padding: 18px 20px; border-radius: var(--radius); background: rgba(15, 11, 10, 0.45); border: 1px solid var(--border-soft); }
+.race-box h4 { font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-soft); margin: 0 0 4px; }
+.race-box > p { margin: 0 0 12px; color: var(--text-muted); font-size: 0.88rem; }
+.race { width: 100%; display: block; border-radius: 14px; background: #2a1d17; }
+.race .sand { fill: #b98d5a; }
+.race .stands { fill: #3a2a23; }
+.race .crowd circle { animation: twinkle 2.6s ease-in-out infinite; }
+.race .crowd circle:nth-child(3n) { animation-delay: -1s; }
+.race .crowd circle:nth-child(5n) { animation-delay: -1.8s; }
+.race .spina { fill: #d9c3a0; }
+.race .meta { fill: var(--gold); }
+.race .track-line { fill: none; stroke: rgba(255, 255, 255, 0.18); stroke-dasharray: 4 6; }
+.race .ch-inner { transition: transform 0.4s cubic-bezier(0.2, 1.6, 0.4, 1); transform-box: fill-box; transform-origin: center; }
+.race[data-fav] .chariot:not(.is-fav) { opacity: 0.45; }
+.race .chariot.is-fav .ch-inner { transform: scale(1.7); filter: drop-shadow(0 0 6px #fff); }
+.team-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.team-btn {
+  appearance: none; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 999px;
+  border: 1px solid var(--border); background: rgba(15, 11, 10, 0.55);
+  color: var(--text); font-family: var(--font-body); font-size: 0.84rem;
+  transition: all 0.2s;
+}
+.team-btn i { width: 14px; height: 14px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); }
+.team-btn:hover { border-color: var(--c); transform: translateY(-1px); }
+.team-btn[aria-pressed='true'] { border-color: var(--c); background: rgba(255, 255, 255, 0.06); }
+.team-result { margin: 12px 0 0 !important; padding: 12px 14px; border-radius: 12px; background: rgba(232, 62, 115, 0.08); border: 1px solid rgba(232, 62, 115, 0.3); color: var(--text) !important; font-size: 0.9rem !important; animation: pop-in 0.4s cubic-bezier(0.2, 1.4, 0.4, 1); }
+.team-result em { color: var(--gold-soft); }
+
+/* ---------- Quiz ---------- */
+
+.quiz-card { max-width: 680px; margin: 0 auto; padding: 30px 32px; position: relative; overflow: hidden; }
+.quiz-progress { display: flex; gap: 5px; margin-bottom: 22px; }
+.quiz-progress span { flex: 1; height: 6px; border-radius: 6px; background: var(--surface-3); }
+.quiz-progress span.ok { background: var(--green); }
+.quiz-progress span.bad { background: var(--danger); }
+.quiz-progress span.now { background: var(--gold-soft); box-shadow: 0 0 10px rgba(216, 180, 131, 0.6); }
+.quiz-meta { color: var(--pink); font-family: var(--font-display); font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; margin: 0 0 8px; }
+.quiz-q { font-size: 1.35rem; color: var(--text); margin-bottom: 20px; line-height: 1.4; }
+.quiz-answers { display: grid; gap: 10px; }
+.quiz-answer {
+  appearance: none; cursor: pointer; text-align: left;
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(15, 11, 10, 0.5);
+  color: var(--text);
+  font-family: var(--font-body); font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+.quiz-answer .letter { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-3); color: var(--gold-soft); font-family: var(--font-display); font-size: 0.85rem; flex-shrink: 0; }
+.quiz-answer:hover:not(:disabled) { border-color: var(--pink); transform: translateX(4px); }
+.quiz-answer:disabled { cursor: default; }
+.quiz-answer.correct { border-color: var(--green); background: rgba(95, 181, 138, 0.14); }
+.quiz-answer.correct .letter { background: var(--green); color: #fff; }
+.quiz-answer.wrong { border-color: var(--danger); background: rgba(217, 70, 63, 0.14); animation: shake 0.4s; }
+.quiz-answer.wrong .letter { background: var(--danger); color: #fff; }
+.quiz-explain { margin: 18px 0 0; padding: 14px 16px; border-radius: 12px; background: rgba(185, 139, 82, 0.1); border: 1px solid rgba(185, 139, 82, 0.35); color: var(--text-muted); font-size: 0.9rem; animation: rise 0.4s ease both; }
+.quiz-explain em { color: var(--gold-soft); }
+.quiz-foot { display: flex; justify-content: flex-end; margin-top: 18px; }
+.quiz-result { text-align: center; }
+.quiz-result .medal { font-size: 4.4rem; display: block; animation: pop-in 0.6s cubic-bezier(0.2, 1.6, 0.4, 1); filter: drop-shadow(0 0 24px rgba(216, 180, 131, 0.5)); }
+.quiz-result h3 { font-size: 1.8rem; color: var(--gold-soft); margin: 10px 0 6px; }
+.quiz-result .score { font-family: var(--font-display); font-size: 3rem; color: var(--text); line-height: 1; margin: 10px 0; }
+.quiz-result p { color: var(--text-muted); }
+
+/* ---------- Community / Profil ---------- */
+
+.pub .community-card { position: relative; overflow: hidden; }
+.pub .community-card::after { content: ''; position: absolute; right: -40px; top: -40px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, rgba(232, 62, 115, 0.18), transparent 70%); }
+.pub .community-avatar { box-shadow: 0 0 0 3px rgba(216, 180, 131, 0.25); }
+
+/* ---------- Footer ---------- */
+
+.pub .site-footer { margin-top: 70px; }
+.text-trail { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 14px 0 18px; padding: 0; list-style: none; }
+.text-trail button {
+  appearance: none; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border); border-radius: 999px;
+  background: rgba(15, 11, 10, 0.5); color: var(--text-muted);
+  font-family: var(--font-body); font-size: 0.78rem;
+  padding: 6px 12px;
+  transition: all 0.2s;
+}
+.text-trail button:hover { color: var(--text); border-color: var(--gold); }
+.text-trail b { color: var(--gold-soft); font-weight: 400; font-family: var(--font-display); letter-spacing: 0.06em; }
+
+/* ---------- Animationen ---------- */
+
+@keyframes ken-burns { from { transform: scale(1.04) translate(0, 0); } to { transform: scale(1.16) translate(-2%, -1.5%); } }
+@keyframes shimmer { to { background-position: 220% center; } }
+@keyframes twinkle { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+@keyframes flicker { 0%, 100% { opacity: 0.45; } 40% { opacity: 0.9; } 60% { opacity: 0.6; } }
+@keyframes float-up {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.85; }
+  100% { transform: translateY(-110vh) rotate(30deg); opacity: 0; }
+}
+@keyframes ring { 0% { transform: scale(0.9); opacity: 0.9; } 100% { transform: scale(1.45); opacity: 0; } }
+@keyframes bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+@keyframes hover-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes burst {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.4); }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--r)); }
+}
+@keyframes stink { 0%, 100% { opacity: 0.2; transform: translateY(0); } 50% { opacity: 0.9; transform: translateY(-4px); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 860px) {
+  .styler { grid-template-columns: 1fr; }
+  .figure-card { position: relative; top: 0; max-width: 360px; margin: 0 auto; width: 100%; }
+}
+@media (max-width: 640px) {
+  .hero { padding: 54px 16px 110px; min-height: 520px; }
+  .hero-stats li { min-width: 0; flex: 1 1 40%; padding: 10px 8px; }
+  .hero-stats strong { font-size: 1.4rem; }
+  .nav-inner { justify-content: flex-start; padding: 8px 12px; }
+  .nav-tab { padding: 9px 12px; font-size: 0.68rem; letter-spacing: 0.08em; }
+  .pub .swipe-photo { height: 400px; }
+  .pub .tip-card { padding: 22px 18px; }
+  .pub .tip-card .tip-head { gap: 12px; }
+  .pub .tip-number { width: 46px; height: 46px; font-size: 0.95rem; }
+  .styler-intro { grid-template-columns: 1fr; text-align: center; padding: 20px 18px; }
+  .styler-intro img { margin: 0 auto; }
+  .spot-banner { margin: -22px -18px 18px; height: 210px; }
+  .spot-banner .spot-hero { left: 18px; right: 18px; }
+  .quiz-card { padding: 22px 18px; }
+  .quiz-q { font-size: 1.15rem; }
+  .vote-row > span { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
 </style>
 </head>
 <body>
@@ -793,6 +1375,9 @@ textarea.short { min-height: 70px; }
   wird hier der aktuelle Stand eingetragen, damit alle Besucher ihn sehen.
 -->
 <script id="roma-data" type="application/json">null</script>
+
+<!-- Fotos (Wikimedia Commons, siehe img/CREDITS.md), direkt eingebettet -->
+<script id="roma-images" type="application/json">{}</script>
 
 <script>
 (function () {
@@ -819,7 +1404,7 @@ textarea.short { min-height: 70px; }
 
   var DEFAULT_DATA = {
     version: 1,
-    revision: 3,
+    revision: 4,
     adminHash: DEFAULT_ADMIN_HASH,
     profiles: [
       {
@@ -898,6 +1483,14 @@ textarea.short { min-height: 70px; }
         translation: 'Hier sollst du den Anfang für ein gemeinsames Gespräch suchen, und alltägliche Worte sollen die ersten Sätze anstoßen.',
         modernInterpretation: '„Für wen bist du?“ im Stadion, „Kennst du die Band?“ beim Konzert, ein Kommentar zu einem Hobby im Profil – der beste Opener hängt an dem, was beide gerade erleben. Ovids zweiter Trick („cui favet illa, fave“) ist dagegen Fake: Interesse vortäuschen, um zu gefallen. Das fliegt heute spätestens beim zweiten Date auf.',
         source: 'Ars amatoria 1, 143–146', sortOrder: 5, createdAt: START
+      },
+      {
+        id: 't-6', title: 'Sauber schlägt schön',
+        ovidIdea: 'Schönheitspflege ist nicht nur Frauensache: Ovid gibt seinen männlichen Schülern eine regelrechte Checkliste – vom gebräunten Körper über die saubere Toga bis zu Zähnen, Schuhen, Frisur, Bart, Fingernägeln und sogar Nasenhaaren. Das Ziel ist Sauberkeit (munditia), nicht Eitelkeit.',
+        latinQuote: 'Munditie placeant, fuscentur corpora Campo; sit bene conveniens et sine labe toga.',
+        translation: 'Durch Sauberkeit sollen die Körper gefallen, auf dem Marsfeld sollen sie gebräunt werden; die Toga soll gut sitzen und ohne Flecken sein.',
+        modernInterpretation: 'Duschen, Zähneputzen, saubere Klamotten, Friseur und Nagelschere – Ovids Liste könnte aus jedem Männerpflege-Ratgeber stammen. Der Unterschied: Ovid denkt nur an die Wirkung auf andere (placeant = sie sollen gefallen). Heute gilt Pflege auch als Selbstrespekt – und kein Mann muss sich dafür schämen.',
+        source: 'Ars amatoria 1, 513–520', sortOrder: 6, createdAt: '2026-11-12T10:00:00.000Z'
       }
     ],
     community: [
@@ -1208,7 +1801,15 @@ textarea.short { min-height: 70px; }
     editTipId: null,
     editProfileId: null,
     loginError: null,
-    flash: null          // { scope, type, text }
+    flash: null,         // { scope, type, text }
+    animate: true,       // Einblend-Animation nur beim ersten Laden und bei Tab-Wechsel
+    revealAll: false,
+    styleFixed: {},
+    styleSel: null,
+    styleCelebrate: false,
+    seat: null,
+    team: null,          // { mine, hers }
+    quiz: null
   };
 
   function setFlash(scope, type, message) { ui.flash = { scope: scope, type: type, text: message }; }
@@ -1228,59 +1829,206 @@ textarea.short { min-height: 70px; }
      Öffentliche Seite
      ======================================================= */
 
+  var VOTES_KEY = 'roma-match:votes';
+
   var TABS = [
-    { id: 'swipe', label: 'Swipen' },
-    { id: 'tips', label: 'Ovids Tipps' },
-    { id: 'spots', label: 'Date-Spots' },
-    { id: 'community', label: 'Community' },
-    { id: 'profile', label: 'Mein Profil' }
+    { id: 'swipe', label: 'Swipen', icon: '💘' },
+    { id: 'tips', label: 'Ovids Tipps', icon: '📜' },
+    { id: 'style', label: 'Style-Check', icon: '🪞', isNew: true },
+    { id: 'spots', label: 'Date-Spots', icon: '📍' },
+    { id: 'quiz', label: 'Quiz', icon: '🏆' },
+    { id: 'community', label: 'Community', icon: '👥' },
+    { id: 'profile', label: 'Mein Profil', icon: '✍️' }
   ];
+
+  /** Textstellen, die im Projekt schon bearbeitet wurden – erscheinen im Footer. */
+  var TEXT_TRAIL = [
+    { verses: '1, 89–100', title: 'Das Theater', tab: 'spots' },
+    { verses: '1, 135–148', title: 'Der Circus', tab: 'spots' },
+    { verses: '1, 513–520', title: 'Pflege für Männer', tab: 'style' }
+  ];
+
+  /* ---------- Bilder ---------- */
+
+  var IMAGES = {};
+  try { IMAGES = JSON.parse(document.getElementById('roma-images').textContent) || {}; } catch (e) { IMAGES = {}; }
+
+  var PROFILE_PHOTOS = { 'p-ovid': 'ovid', 'p-livia': 'livia', 'p-cicero': 'cicero', 'p-iulia': 'iulia', 'p-corinna': 'corinna' };
+
+  function photo(name) { return (IMAGES[name] && IMAGES[name].src) || ''; }
+  function photoCredit(name) { return (IMAGES[name] && IMAGES[name].credit) || ''; }
+
+  function profilePhoto(profile) {
+    return profile.imageUrl || photo(PROFILE_PHOTOS[profile.id]);
+  }
+
+  function hashOf(str) {
+    var h = 0;
+    for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  }
+
+  /** Marmorbüste als Ersatz, wenn ein Profil kein Bild hat. */
+  function bustSvg(name) {
+    var hues = [[340, 30], [20, 40], [200, 30], [280, 25], [150, 25]];
+    var pick = hues[hashOf(name) % hues.length];
+    var id = 'b' + hashOf(name);
+    return '<svg class="portrait-svg" viewBox="0 0 400 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+      '<defs>' +
+        '<radialGradient id="' + id + 'bg" cx="50%" cy="35%" r="75%"><stop offset="0" stop-color="hsl(' + pick[0] + ',' + pick[1] + '%,32%)"/><stop offset="1" stop-color="hsl(' + pick[0] + ',' + pick[1] + '%,9%)"/></radialGradient>' +
+        '<linearGradient id="' + id + 'm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6efe6"/><stop offset="1" stop-color="#b9ab9b"/></linearGradient>' +
+      '</defs>' +
+      '<rect width="400" height="460" fill="url(#' + id + 'bg)"/>' +
+      '<path d="M90,460 V190 A110,110 0 0 1 310,190 V460" fill="none" stroke="rgba(216,180,131,0.35)" stroke-width="3"/>' +
+      '<path d="M110,460 V196 A90,90 0 0 1 290,196 V460" fill="rgba(0,0,0,0.18)"/>' +
+      '<g fill="url(#' + id + 'm)">' +
+        '<path d="M110,420 Q118,330 200,318 Q282,330 290,420 Z"/>' +
+        '<rect x="176" y="268" width="48" height="60" rx="14"/>' +
+        '<ellipse cx="200" cy="222" rx="58" ry="70"/>' +
+        '<rect x="150" y="412" width="100" height="18" rx="4"/>' +
+        '<rect x="132" y="428" width="136" height="32" rx="4"/>' +
+      '</g>' +
+      '<path d="M146,196 Q150,150 200,148 Q250,150 254,196 Q240,170 200,168 Q160,170 146,196 Z" fill="#cfc2b2"/>' +
+      '<path d="M150,348 Q200,380 250,348" fill="none" stroke="#a89887" stroke-width="3"/>' +
+      '<path d="M140,380 Q200,410 262,378" fill="none" stroke="#a89887" stroke-width="3"/>' +
+      '<text x="200" y="452" text-anchor="middle" font-family="Cinzel, serif" font-size="22" fill="#6d5d4f" letter-spacing="4">' + esc(initial(name)) + '</text>' +
+    '</svg>';
+  }
+
+  function renderPortrait(profile, cls) {
+    var src = profilePhoto(profile);
+    if (src) {
+      return '<img' + (cls ? ' class="' + cls + '"' : '') + ' src="' + esc(src) + '" alt="Bild von ' + esc(profile.name) + '" data-monogram="' + esc(initial(profile.name)) + '" draggable="false">';
+    }
+    return bustSvg(profile.name);
+  }
+
+  /* ---------- Rahmen ---------- */
 
   function renderPublic() {
     var section = {
       swipe: renderSwipeSection,
       tips: renderTipsSection,
+      style: renderStyleSection,
       spots: renderSpotsSection,
+      quiz: renderQuizSection,
       community: renderCommunitySection,
       profile: renderProfileSection
-    }[ui.tab]();
+    }[ui.tab] || renderSwipeSection;
 
     return '' +
-      '<main class="shell">' +
-        '<header class="site-header">' +
-          '<p class="laurel">Anno ' + roman(new Date().getFullYear()) + '</p>' +
-          '<h1 class="site-title">ROMA MATCH</h1>' +
-          '<p class="site-subtitle">Dating im alten Rom – Ovids „Ars amatoria“ trifft auf die Swipe-Kultur von heute.</p>' +
-        '</header>' +
-        '<nav class="tabs" role="tablist" aria-label="Bereiche">' +
+      '<div class="pub">' +
+        renderHero() +
+        '<nav class="nav" aria-label="Bereiche"><div class="nav-inner" role="tablist">' +
           TABS.map(function (t) {
-            return '<button type="button" class="tab" role="tab" data-action="tab" data-tab="' + t.id + '" aria-selected="' + (ui.tab === t.id) + '">' + t.label + '</button>';
+            return '<button type="button" class="nav-tab" role="tab" data-action="tab" data-tab="' + t.id + '" aria-selected="' + (ui.tab === t.id) + '">' +
+              '<span class="ico" aria-hidden="true">' + t.icon + '</span>' + t.label +
+              (t.isNew ? '<span class="new-badge">Neu</span>' : '') +
+            '</button>';
           }).join('') +
-        '</nav>' +
-        flashHtml('global') +
-        '<section role="tabpanel">' + section + '</section>' +
-        '<footer class="site-footer">' +
-          '<p>Latein-Schulprojekt · Publius Ovidius Naso, <em>Ars amatoria</em> (ca. 1 v. Chr.)</p>' +
-          '<p><a href="#admin">Admin-Bereich</a></p>' +
-        '</footer>' +
-      '</main>' +
+        '</div></nav>' +
+        '<main class="shell">' +
+          flashHtml('global') +
+          '<section role="tabpanel">' + section() + '</section>' +
+          '<footer class="site-footer">' +
+            '<p class="tip-label" style="margin:0">Bisher bearbeitete Textstellen</p>' +
+            '<ul class="text-trail">' + TEXT_TRAIL.map(function (t) {
+              return '<li><button type="button" data-action="tab" data-tab="' + t.tab + '" data-scroll><b>' + esc(t.verses) + '</b>' + esc(t.title) + '</button></li>';
+            }).join('') + '</ul>' +
+            '<p>Latein-Schulprojekt · Publius Ovidius Naso, <em>Ars amatoria</em> (ca. 1 v. Chr.)</p>' +
+            (Object.keys(IMAGES).length ? '<p>Fotos: Wikimedia Commons – Urheber und Lizenzen in <code>img/CREDITS.md</code></p>' : '') +
+            '<p><a href="#admin">Admin-Bereich</a></p>' +
+          '</footer>' +
+        '</main>' +
+      '</div>' +
       (ui.matchedId ? renderMatch() : '');
   }
 
-  function sectionHead(eyebrow, title, intro) {
-    return '<header class="section-head"><span class="eyebrow">' + eyebrow + '</span><h2>' + title + '</h2><p>' + intro + '</p></header>';
+  function renderHero() {
+    var stars = '';
+    for (var i = 0; i < 40; i++) {
+      var h = hashOf('star' + i);
+      stars += '<span class="star" style="left:' + (h % 100) + '%;top:' + ((h >> 7) % 55) + '%;animation-delay:-' + ((h >> 3) % 30) / 10 + 's;opacity:' + (0.3 + ((h >> 5) % 7) / 10) + '"></span>';
+    }
+    var hearts = '';
+    for (var j = 0; j < 14; j++) {
+      var k = hashOf('heart' + j);
+      hearts += '<span class="float-heart" aria-hidden="true" style="--x:' + (k % 96) + '%;--s:' + (12 + k % 20) + 'px;--d:' + (9 + k % 9) + 's;--delay:-' + (k % 14) + 's">' + (j % 4 === 0 ? '❦' : '♥') + '</span>';
+    }
+    var stats = [
+      [state.profiles.length, 'Profile'],
+      [state.tips.length, 'Tipps'],
+      [SPOTS.length, 'Date-Spots'],
+      [state.likes.length, 'Likes']
+    ];
+    var heroImg = photo('hero') || photo('theater');
+    return '' +
+      '<header class="hero">' +
+        '<div class="hero-sky"></div>' +
+        (heroImg ? '<img class="hero-bg" src="' + esc(heroImg) + '" alt="">' : stars) +
+        '<div class="hero-shade"></div>' +
+        skylineSvg() +
+        hearts +
+        '<div class="hero-inner">' +
+          '<p class="laurel">Anno ' + roman(new Date().getFullYear()) + ' · Roma</p>' +
+          '<h1 class="hero-logo">Roma<span class="heart-i" aria-hidden="true">♥</span>Match</h1>' +
+          '<p class="hero-sub">Dating im alten Rom – Ovids „Ars amatoria“ trifft auf die Swipe-Kultur von heute.</p>' +
+          '<p class="hero-quote">„Ut ameris, amabilis esto“ – Ovid</p>' +
+          '<ul class="hero-stats">' + stats.map(function (s) {
+            return '<li><strong data-count="' + s[0] + '">' + s[0] + '</strong><span>' + s[1] + '</span></li>';
+          }).join('') + '</ul>' +
+          '<div class="hero-cta">' +
+            '<button type="button" class="btn btn-primary btn-glow" data-action="tab" data-tab="swipe" data-scroll>♥ Jetzt swipen</button>' +
+            '<button type="button" class="btn btn-glass" data-action="tab" data-tab="style" data-scroll>🪞 Neu: Style-Check</button>' +
+          '</div>' +
+        '</div>' +
+        '<span class="scroll-hint" aria-hidden="true">⌄</span>' +
+      '</header>';
   }
 
-  function renderPhoto(profile) {
-    if (profile.imageUrl) {
-      return '<img src="' + esc(profile.imageUrl) + '" alt="Bild von ' + esc(profile.name) + '" data-monogram="' + esc(initial(profile.name)) + '">';
+  /** Silhouette Roms: Tempel, Marcellustheater, Aquädukt, Zypressen. */
+  function skylineSvg() {
+    var arches = '', windows = '';
+    for (var i = 0; i < 9; i++) {
+      var x = 770 + i * 30;
+      arches += '<path class="sk-far" d="M' + x + ',150 v-18 a9,9 0 0 1 18,0 v18 z" style="fill:#120c0b"/>';
+      arches += '<path class="sk-far" d="M' + (x + 2) + ',112 v-14 a7,7 0 0 1 14,0 v14 z" style="fill:#120c0b"/>';
+      if (i % 3 === 1) windows += '<rect class="sk-window" x="' + (x + 6) + '" y="136" width="6" height="12" rx="3"/>';
     }
-    return '<span class="monogram">' + esc(initial(profile.name)) + '</span>';
+    var aqueduct = '';
+    for (var j = 0; j < 8; j++) {
+      aqueduct += '<path d="M' + (380 + j * 34) + ',178 v-26 a13,13 0 0 1 26,0 v26 z" fill="#2a1d1a"/>';
+    }
+    var cypress = [40, 64, 330, 352, 600, 1010, 1036, 1160].map(function (x, n) {
+      var h = 46 + (n % 3) * 12;
+      return '<ellipse class="sk-mid" cx="' + x + '" cy="' + (186 - h / 2) + '" rx="9" ry="' + (h / 2) + '"/>';
+    }).join('');
+    return '<svg class="hero-skyline" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" aria-hidden="true">' +
+      '<path class="sk-far" d="M0,170 Q120,138 260,156 T560,146 T860,150 T1200,140 V220 H0 Z"/>' +
+      '<path d="M372,182 V150 H654 V182 Z" fill="#2a1d1a"/>' + aqueduct +
+      '<g class="sk-mid">' +
+        '<rect x="128" y="118" width="150" height="10"/>' +
+        '<polygon points="122,118 284,118 203,86"/>' +
+        [136, 158, 180, 202, 224, 246, 266].map(function (x) { return '<rect x="' + x + '" y="128" width="9" height="46"/>'; }).join('') +
+        '<rect x="118" y="172" width="170" height="10"/>' +
+        '<path d="M752,186 V96 Q880,70 1008,96 V186 Z"/>' +
+      '</g>' +
+      arches + windows + cypress +
+      '<path class="sk-near" d="M0,190 Q300,176 600,186 T1200,182 V220 H0 Z"/>' +
+    '</svg>';
   }
+
+  function sectionHead(eyebrow, title, intro) {
+    return '<header class="section-head reveal"><span class="eyebrow">' + eyebrow + '</span><h2>' + title + '</h2>' +
+      '<div class="ornament" aria-hidden="true">❦</div>' +
+      (intro ? '<p>' + intro + '</p>' : '') + '</header>';
+  }
+
+  /* ---------- Swipen ---------- */
 
   function renderSwipeSection() {
     var head = sectionHead('Liber Primus', 'Finde deine Liebe im alten Rom',
-      'Ovid schickte seine Schüler ins Theater und in den Zirkus, um dort Ausschau zu halten. Hier ist der Stapel – ♥ für ein Like, ✕ für ein Nope. Auch mit den Pfeiltasten ← und →.');
+      'Ovid schickte seine Schüler ins Theater und in den Circus, um Ausschau zu halten. Hier ist der Stapel: Karte nach rechts ziehen = ♥, nach links = ✕. Geht auch mit den Pfeiltasten ← und →.');
 
     var profiles = sortedProfiles();
     if (!profiles.length) {
@@ -1294,25 +2042,36 @@ textarea.short { min-height: 70px; }
     var deck;
     if (current) {
       deck = '' +
-        '<div class="swipe-stack">' +
+        '<div class="swipe-stack reveal" style="--i:1">' +
           '<article class="swipe-card" id="swipe-card">' +
-            '<div class="swipe-photo">' + renderPhoto(current) + '</div>' +
+            '<div class="swipe-photo">' +
+              '<div class="profile-dots" aria-hidden="true">' + profiles.map(function (p, i) {
+                return '<span' + (i <= ui.swipeIndex ? ' class="on"' : '') + '></span>';
+              }).join('') + '</div>' +
+              '<span class="stamp stamp-like" aria-hidden="true">LIKE</span>' +
+              '<span class="stamp stamp-nope" aria-hidden="true">NOPE</span>' +
+              renderPortrait(current) +
+              '<div class="swipe-overlay">' +
+                '<h3>' + esc(current.name) + ' <span class="verified" title="verifiziert">✦</span></h3>' +
+                '<span class="swipe-era">' + esc(current.era) + '</span>' +
+                '<p class="swipe-status">' + esc(current.status) + '</p>' +
+              '</div>' +
+            '</div>' +
             '<div class="swipe-body">' +
-              '<div class="swipe-name"><h3>' + esc(current.name) + '</h3><span class="swipe-era">' + esc(current.era) + '</span></div>' +
-              '<p class="swipe-status">' + esc(current.status) + '</p>' +
               '<p class="swipe-description">' + esc(current.description) + '</p>' +
               '<div class="tag-row">' + current.tags.map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</div>' +
             '</div>' +
           '</article>' +
         '</div>' +
-        '<div class="swipe-controls">' +
+        '<div class="swipe-controls reveal" style="--i:2">' +
           '<button type="button" class="circle-btn nope" data-action="nope" aria-label="' + esc(current.name) + ' ablehnen" title="Nope (←)">✕</button>' +
           '<button type="button" class="circle-btn like" data-action="like" aria-label="' + esc(current.name) + ' liken" title="Like (→)">♥</button>' +
         '</div>' +
-        '<p class="swipe-counter">Profil ' + (ui.swipeIndex + 1) + ' von ' + profiles.length + '</p>';
+        '<p class="swipe-hint">Profil ' + (ui.swipeIndex + 1) + ' von ' + profiles.length + ' · Karte ziehen oder Knöpfe drücken</p>';
     } else {
       deck = '' +
-        '<div class="empty-state" style="width:min(420px,100%)">' +
+        '<div class="empty-state reveal" style="width:min(420px,100%)">' +
+          '<p style="margin:0 0 6px;font-size:2.4rem">🏛️</p>' +
           '<p style="margin:0 0 16px">Das war ganz Rom. <em>Omnia vincit amor</em> – aber der Stapel ist leer.</p>' +
           '<button type="button" class="btn btn-ghost btn-sm" data-action="restart">Nochmal von vorn</button>' +
         '</div>';
@@ -1327,12 +2086,12 @@ textarea.short { min-height: 70px; }
     return head +
       '<div class="swipe-area">' +
         deck +
-        '<div class="field" style="width:min(420px,100%);margin-bottom:0">' +
+        '<div class="field reveal" style="width:min(400px,100%);margin-bottom:0;--i:3">' +
           '<label for="liker-name">Dein Name für die Like-Liste</label>' +
           '<input id="liker-name" type="text" maxlength="60" placeholder="Anonymus" value="' + esc(likerName()) + '">' +
           '<p class="help">Optional. Wird im Browser gespeichert und bei jedem Like verwendet.</p>' +
         '</div>' +
-        '<section class="card likes-panel">' +
+        '<section class="card likes-panel reveal" style="--i:4">' +
           '<h3>Wer hat ' + esc(listed.name) + ' geliked?</h3>' +
           '<p class="hint">' + plural(likes.length, 'Like', 'Likes') + ' insgesamt</p>' +
           likeList +
@@ -1340,13 +2099,29 @@ textarea.short { min-height: 70px; }
       '</div>';
   }
 
+  function heartBurst(count) {
+    var out = '<div class="burst" aria-hidden="true">';
+    var colors = ['#e83e73', '#f4739b', '#d8b483', '#ffffff'];
+    for (var i = 0; i < count; i++) {
+      var angle = (i / count) * Math.PI * 2 + (i % 3) * 0.2;
+      var dist = 110 + (i * 37) % 120;
+      out += '<span style="--dx:' + Math.round(Math.cos(angle) * dist) + 'px;--dy:' + Math.round(Math.sin(angle) * dist) + 'px;--r:' + ((i * 47) % 90 - 45) + 'deg;--s:' + (14 + (i * 7) % 18) + 'px;--c:' + colors[i % colors.length] + ';--delay:' + ((i % 5) * 0.04) + 's">' + (i % 5 === 0 ? '✦' : '♥') + '</span>';
+    }
+    return out + '</div>';
+  }
+
   function renderMatch() {
     var profile = findById('profiles', ui.matchedId);
     if (!profile) return '';
+    var name = likerName().trim() || 'Du';
     return '' +
       '<div class="overlay" role="dialog" aria-modal="true" aria-label="Match" data-action="close-match">' +
-        '<div class="card match-modal" data-action="noop">' +
-          '<span class="heart">♥</span>' +
+        '<div class="card match-modal pub-match" data-action="noop">' +
+          heartBurst(26) +
+          '<div class="match-faces">' +
+            '<span class="match-face">' + renderPortrait(profile) + '</span>' +
+            '<span class="match-face you">' + esc(initial(name)) + '</span>' +
+          '</div>' +
           '<h2>ES IST EIN MATCH!</h2>' +
           '<p class="latin">Amor vincit omnia.</p>' +
           '<p>Du und <strong>' + esc(profile.name) + '</strong> habt euch gegenseitig geliked. Ovid hätte jetzt einen Vers parat – du hast immerhin einen Chat.</p>' +
@@ -1355,34 +2130,311 @@ textarea.short { min-height: 70px; }
       '</div>';
   }
 
+  /* ---------- Ovids Tipps ---------- */
+
+  function readVotes() {
+    try { return JSON.parse(storageGet(localStorage, VOTES_KEY)) || {}; } catch (e) { return {}; }
+  }
+
   function renderTipsSection() {
     var head = sectionHead('Ars Amatoria', 'Ovids Tipps – und was heute davon übrig ist',
-      'Jeder Tipp zeigt Ovids Gedanken, das lateinische Original mit Übersetzung und eine Einordnung, wie sich dasselbe Verhalten in heutigen Dating-Apps wiederfindet.');
+      'Jeder Tipp zeigt Ovids Gedanken, das lateinische Original und eine Einordnung für heute. Tippe auf ein Zitat, um die Übersetzung aufzudecken – und stimm ab: Top-Tipp oder Red Flag?');
     var tips = sortedTips();
     if (!tips.length) {
       return head + '<p class="empty-state">Noch keine Tipps vorhanden. Im <a href="#admin">Admin-Bereich</a> lassen sich welche anlegen.</p>';
     }
-    return head + '<div class="tip-list">' + tips.map(function (tip, i) {
-      return '' +
-        '<article class="card tip-card">' +
-          '<header class="tip-head">' +
-            '<span class="tip-number">' + roman(i + 1) + '</span>' +
-            '<div><h3>' + esc(tip.title) + '</h3>' + (tip.source ? '<span class="tip-source">' + esc(tip.source) + '</span>' : '') + '</div>' +
-          '</header>' +
-          '<div class="tip-block"><p class="tip-label">Ovids Idee</p><p>' + esc(tip.ovidIdea) + '</p></div>' +
-          (tip.latinQuote ? '<blockquote class="quote-box">' +
-            '<p class="quote-latin">„' + esc(tip.latinQuote) + '“</p>' +
-            (tip.translation ? '<p class="quote-translation">' + esc(tip.translation) + '</p>' : '') +
-          '</blockquote>' : '') +
-          (tip.modernInterpretation ? '<div class="modern-box"><p class="tip-label">Heute</p><p>' + esc(tip.modernInterpretation) + '</p></div>' : '') +
-        '</article>';
-    }).join('') + '</div>';
+    var votes = readVotes();
+    var ups = 0, downs = 0;
+    tips.forEach(function (t) { if (votes[t.id] === 'up') ups++; if (votes[t.id] === 'down') downs++; });
+    var newest = tips.reduce(function (a, b) { return a.createdAt >= b.createdAt ? a : b; });
+
+    return head +
+      '<div class="tips-toolbar reveal" style="--i:1">' +
+        '<p>Deine Bilanz: <strong>' + ups + ' × 👍 Top</strong> · <strong>' + downs + ' × 🚩 Red Flag</strong> · ' + (tips.length - ups - downs) + ' offen</p>' +
+        '<button type="button" class="btn btn-ghost btn-sm" data-action="reveal-all">' + (ui.revealAll ? 'Übersetzungen verdecken' : 'Alle Übersetzungen zeigen') + '</button>' +
+      '</div>' +
+      '<div class="tip-list">' + tips.map(function (tip, i) {
+        var vote = votes[tip.id];
+        var isNew = tip === newest && tips.length > 1;
+        return '' +
+          '<article class="card tip-card reveal' + (isNew ? ' is-new' : '') + '" style="--i:' + (i + 2) + '">' +
+            (isNew ? '<span class="new-ribbon">Neu</span>' : '') +
+            '<header class="tip-head">' +
+              '<span class="tip-number">' + roman(i + 1) + '</span>' +
+              '<div><h3>' + esc(tip.title) + '</h3>' + (tip.source ? '<span class="tip-source">' + esc(tip.source) + '</span>' : '') + '</div>' +
+            '</header>' +
+            '<div class="tip-block"><p class="tip-label">Ovids Idee</p><p>' + esc(tip.ovidIdea) + '</p></div>' +
+            (tip.latinQuote ? '<blockquote class="quote-box' + (ui.revealAll ? ' revealed' : '') + '" data-action="reveal" title="Tippen, um die Übersetzung zu zeigen">' +
+              '<p class="quote-latin">„' + esc(tip.latinQuote) + '“</p>' +
+              (tip.translation ? '<p class="quote-translation">' + esc(tip.translation) + '</p><span class="reveal-hint">Übersetzen 👆</span>' : '') +
+            '</blockquote>' : '') +
+            (tip.modernInterpretation ? '<div class="modern-box"><p class="tip-label">Heute</p><p>' + esc(tip.modernInterpretation) + '</p></div>' : '') +
+            (tip.id === 't-6' ? '<div class="tip-cta"><button type="button" class="btn btn-gold btn-sm" data-action="tab" data-tab="style" data-scroll>🪞 Interaktiver Style-Check</button></div>' : '') +
+            '<div class="vote-row">' +
+              '<span>Würdest du das heute so machen?</span>' +
+              '<button type="button" class="vote-btn up" data-action="vote" data-id="' + esc(tip.id) + '" data-v="up" aria-pressed="' + (vote === 'up') + '">👍 Top-Tipp</button>' +
+              '<button type="button" class="vote-btn down" data-action="vote" data-id="' + esc(tip.id) + '" data-v="down" aria-pressed="' + (vote === 'down') + '">🚩 Red Flag</button>' +
+            '</div>' +
+          '</article>';
+      }).join('') + '</div>';
   }
 
-  /* =======================================================
-     Date-Spots – Ovids Orte zum Kennenlernen.
-     Jede Woche kann hier ein neuer Ort dazukommen.
-     ======================================================= */
+  /* ---------- Style-Check (Ars amatoria 1, 513–520) ---------- */
+
+  var STYLE_ITEMS = [
+    {
+      id: 'skin', icon: '☀️', label: 'Gebräunter Körper', x: 42.7, y: 88,
+      quote: 'Munditie placeant, fuscentur corpora Campo.',
+      translation: 'Durch Sauberkeit sollen die Körper gefallen, auf dem Marsfeld sollen sie gebräunt werden.',
+      text: 'Kein Stubenhocker: Gesunde Bräune holt man sich beim Sport auf dem Marsfeld (Campus Martius), wo junge Römer liefen, rangen und ritten.',
+      today: 'Sport an der frischen Luft – und Sonnencreme nicht vergessen.'
+    },
+    {
+      id: 'toga', icon: '🧺', label: 'Saubere Toga', x: 56, y: 55,
+      quote: 'Sit bene conveniens et sine labe toga.',
+      translation: 'Die Toga soll gut sitzen und ohne Flecken sein.',
+      text: 'Die Toga muss passen und darf keinen einzigen Fleck haben.',
+      today: 'Saubere Klamotten, die richtig sitzen – kein Ketchupfleck auf dem Lieblingspulli.'
+    },
+    {
+      id: 'mouth', icon: '🦷', label: 'Frischer Atem', x: 37, y: 24.8,
+      quote: 'Lingua ne rigeat; careant rubigine dentes.',
+      translation: 'Die Zunge soll nicht belegt sein, die Zähne sollen keine Zahnfäule haben.',
+      text: 'Belegte Zunge und faule Zähne? Absolutes No-Go vor dem ersten Gespräch.',
+      today: 'Zähneputzen, Zahnseide, Kaugummi vor dem Date.'
+    },
+    {
+      id: 'shoes', icon: '👞', label: 'Passende Schuhe', x: 61, y: 94,
+      quote: 'Nec vagus in laxa pes tibi pelle natet.',
+      translation: 'Dein Fuß soll nicht locker im zu weiten Leder herumschwimmen.',
+      text: 'Zu große, ausgelatschte Schuhe wirken schlampig – sie müssen sitzen.',
+      today: 'Passende, saubere Sneaker statt ausgelatschter Schlappen.'
+    },
+    {
+      id: 'hair', icon: '💈', label: 'Haare & Bart', x: 50, y: 7,
+      quote: 'Nec male deformet rigidos tonsura capillos: sit coma, sit trita barba resecta manu.',
+      translation: 'Die Frisur soll das widerspenstige Haar nicht übel entstellen: Haar und Bart sollen von geübter Hand geschnitten sein.',
+      text: 'Kein Selbstschnitt: Frisur und Bart gehören in die Hände eines Profis – in Rom war das der Barbier (tonsor).',
+      today: 'Barbershop statt Küchenschere.'
+    },
+    {
+      id: 'nails', icon: '✂️', label: 'Kurze Nägel', x: 24.5, y: 61.5,
+      quote: 'Et nihil emineant, et sint sine sordibus ungues.',
+      translation: 'Die Fingernägel sollen nicht überstehen und ohne Schmutz sein.',
+      text: 'Die Nägel: kurz geschnitten und ohne Dreck darunter.',
+      today: 'Nagelschere und Nagelbürste gehören zur Grundausstattung.'
+    },
+    {
+      id: 'nose', icon: '👃', label: 'Keine Nasenhaare', x: 61, y: 19.5,
+      quote: 'Inque cava nullus stet tibi nare pilus.',
+      translation: 'Und in deinem hohlen Nasenloch soll kein Haar hervorstehen.',
+      text: 'Ovid denkt wirklich an alles – sogar an Nasenhaare.',
+      today: 'Der Nasenhaartrimmer – Klassiker jeder Männerpflege-Werbung.'
+    }
+  ];
+
+  var STYLE_FULLTEXT = [
+    ['Munditie placeant, fuscentur corpora Campo;', 'Durch Sauberkeit sollen die Körper gefallen, auf dem Marsfeld sollen sie gebräunt werden;'],
+    ['sit bene conveniens et sine labe toga.', 'die Toga soll gut sitzen und ohne Flecken sein.'],
+    ['Lingua ne rigeat; careant rubigine dentes;', 'Die Zunge soll nicht belegt sein; die Zähne sollen keine Zahnfäule haben;'],
+    ['nec vagus in laxa pes tibi pelle natet;', 'dein Fuß soll nicht locker im zu weiten Leder herumschwimmen;'],
+    ['nec male deformet rigidos tonsura capillos:', 'die Frisur soll das widerspenstige Haar nicht übel entstellen:'],
+    ['sit coma, sit trita barba resecta manu.', 'Haar und Bart sollen von geübter Hand geschnitten sein.'],
+    ['Et nihil emineant, et sint sine sordibus ungues;', 'Die Fingernägel sollen nicht überstehen und ohne Schmutz sein;'],
+    ['inque cava nullus stet tibi nare pilus.', 'und in deinem hohlen Nasenloch soll kein Haar hervorstehen.']
+  ];
+
+  var STILMITTEL = [
+    {
+      name: 'Konjunktive als Befehle', ex: 'placeant, fuscentur, sit, careant, natet, deformet, emineant, sint, stet',
+      text: 'Fast jeder Satz steht im Iussiv („… soll …“).',
+      fn: 'Klingt wie eine Checkliste oder ein Ratgeber: Ovid ist der Lehrer, der Leser bekommt klare Anweisungen.'
+    },
+    {
+      name: 'Häufung von Verneinungen', ex: 'ne rigeat · nec … natet · nec … deformet · nihil emineant · nullus … pilus',
+      text: 'Ovid sagt vor allem, was man NICHT tun soll.',
+      fn: 'Die Tipps wirken wie eine Liste typischer Fehler – man soll gar nicht erst unangenehm auffallen.'
+    },
+    {
+      name: 'Anapher', ex: 'sit coma, sit … barba · et nihil …, et sint …',
+      text: 'Gleiche Wörter am Anfang aufeinanderfolgender Satzteile.',
+      fn: 'Betont, dass wirklich alles gepflegt sein muss, und gibt der Aufzählung einen eingängigen Rhythmus.'
+    },
+    {
+      name: 'Hyperbaton (Sperrstellung)', ex: 'in laxa pes tibi pelle · rigidos … capillos · cava … nare',
+      text: 'Zusammengehörige Wörter werden getrennt.',
+      fn: 'Bei „laxa … pelle“ steht der Fuß (pes) mitten im zu weiten Leder – man kann das als Wortbild deuten: Der Fuß „schwimmt“ im Schuh.'
+    },
+    {
+      name: 'Asyndeton / Aufzählung', ex: 'Munditie placeant, fuscentur corpora Campo; …',
+      text: 'Kurze Sätze, meist ohne verbindende Wörter, Schlag auf Schlag.',
+      fn: 'Erzeugt Tempo und wirkt wie ein Körper-Check von Kopf bis Fuß.'
+    },
+    {
+      name: 'Alliteration', ex: 'sint sine sordibus',
+      text: 'Mehrere Wörter beginnen mit demselben Laut.',
+      fn: 'Der Zischlaut macht die Forderung nach Sauberkeit einprägsam.'
+    }
+  ];
+
+  function figureSvg(fixed) {
+    var cls = 'fig' + STYLE_ITEMS.map(function (it) { return fixed[it.id] ? ' fix-' + it.id : ''; }).join('');
+    return '<svg class="' + cls + '" viewBox="0 0 300 560" role="img" aria-label="Zeichnung eines jungen Römers in Toga">' +
+      '<defs>' +
+        '<linearGradient id="togaG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbf5ea"/><stop offset="1" stop-color="#d9cdb9"/></linearGradient>' +
+        '<linearGradient id="tunicG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9b394"/><stop offset="1" stop-color="#a88f6f"/></linearGradient>' +
+      '</defs>' +
+      // Funkeln, wenn alles erledigt ist
+      '<g class="sparkle-group" fill="#ffe6b0">' +
+        '<path class="sparkle" d="M40,80 l4,10 l10,4 l-10,4 l-4,10 l-4,-10 l-10,-4 l10,-4z"/>' +
+        '<path class="sparkle" d="M252,150 l3,8 l8,3 l-8,3 l-3,8 l-3,-8 l-8,-3 l8,-3z"/>' +
+        '<path class="sparkle" d="M262,420 l4,10 l10,4 l-10,4 l-4,10 l-4,-10 l-10,-4 l10,-4z"/>' +
+        '<path class="sparkle" d="M30,300 l3,8 l8,3 l-8,3 l-3,8 l-3,-8 l-8,-3 l8,-3z"/>' +
+      '</g>' +
+      // Beine
+      '<rect class="skin" x="120" y="455" width="20" height="62" rx="8"/>' +
+      '<rect class="skin" x="160" y="455" width="20" height="62" rx="8"/>' +
+      // Schuhe
+      '<g class="messy shoes-messy">' +
+        '<ellipse cx="128" cy="524" rx="30" ry="12" fill="#6b4a32"/>' +
+        '<ellipse cx="174" cy="524" rx="30" ry="12" fill="#6b4a32"/>' +
+        '<path d="M104,520 q-14,-10 -6,-22 M196,520 q16,-8 10,-22" stroke="#4a3220" stroke-width="3" fill="none"/>' +
+        '<path d="M118,512 q10,-6 20,0 M164,512 q10,-6 20,0" stroke="#8a6646" stroke-width="2" fill="none"/>' +
+      '</g>' +
+      '<g class="neat shoes-neat">' +
+        '<path d="M116,508 h26 v10 q0,10 -10,10 h-18 q-8,0 -8,-8 q0,-8 10,-12z" fill="#7a4b2a"/>' +
+        '<path d="M158,508 h26 v10 q0,10 -10,10 h-18 q-8,0 -8,-8 q0,-8 10,-12z" fill="#7a4b2a"/>' +
+        '<path d="M120,470 l20,14 M140,470 l-20,14 M120,488 l20,14 M162,470 l20,14 M182,470 l-20,14 M162,488 l20,14" stroke="#7a4b2a" stroke-width="3"/>' +
+      '</g>' +
+      // Tunika und Toga
+      '<path d="M92,186 Q150,160 208,186 L222,330 L78,330 Z" fill="url(#tunicG)"/>' +
+      '<path d="M90,180 Q150,158 210,180 L224,300 Q232,400 216,466 L84,466 Q68,400 78,300 Z" fill="url(#togaG)"/>' +
+      '<path d="M90,182 Q140,250 218,300" fill="none" stroke="#c8bba6" stroke-width="10" stroke-linecap="round"/>' +
+      '<path d="M96,210 Q150,280 222,330 M86,300 Q140,360 218,380 M90,380 Q150,420 214,430" fill="none" stroke="#cdbfa9" stroke-width="2.5"/>' +
+      '<path d="M110,466 L118,330 M150,466 L152,340 M190,466 L186,350" fill="none" stroke="#d7cab5" stroke-width="2"/>' +
+      '<g class="messy toga-messy">' +
+        '<ellipse cx="122" cy="262" rx="11" ry="8" fill="#7a5a3a" opacity="0.75"/>' +
+        '<ellipse cx="184" cy="350" rx="14" ry="10" fill="#8a4a3a" opacity="0.7"/>' +
+        '<ellipse cx="136" cy="420" rx="8" ry="6" fill="#6b5a2a" opacity="0.7"/>' +
+        '<ellipse cx="200" cy="250" rx="6" ry="5" fill="#7a5a3a" opacity="0.7"/>' +
+        '<path d="M84,466 l10,-12 l8,12 l10,-14 l8,14" fill="#fbf5ea" stroke="#cdbfa9" stroke-width="2"/>' +
+      '</g>' +
+      '<path class="neat toga-neat" d="M196,200 l4,9 l9,4 l-9,4 l-4,9 l-4,-9 l-9,-4 l9,-4z" fill="#fff6dc"/>' +
+      // Arme
+      '<path d="M90,184 Q68,250 70,320 L90,320 Q90,252 104,204 Z" fill="url(#togaG)"/>' +
+      '<path d="M210,184 Q236,250 228,300 L210,302 Q216,250 198,206 Z" fill="url(#togaG)"/>' +
+      '<circle class="skin" cx="80" cy="333" r="13"/>' +
+      '<circle class="skin" cx="219" cy="310" r="13"/>' +
+      '<g class="messy nails-messy" fill="#3b2a1f">' +
+        '<rect x="70" y="342" width="4" height="13" rx="2"/><rect x="77" y="344" width="4" height="14" rx="2"/><rect x="84" y="343" width="4" height="13" rx="2"/>' +
+        '<rect x="209" y="319" width="4" height="13" rx="2"/><rect x="216" y="321" width="4" height="14" rx="2"/><rect x="223" y="320" width="4" height="13" rx="2"/>' +
+      '</g>' +
+      // Hals und Kopf
+      '<rect class="skin-shade" x="137" y="134" width="26" height="34" rx="8"/>' +
+      '<ellipse class="skin" cx="113" cy="104" rx="7" ry="11"/>' +
+      '<ellipse class="skin" cx="187" cy="104" rx="7" ry="11"/>' +
+      '<ellipse class="skin" cx="150" cy="100" rx="37" ry="45"/>' +
+      // Bart
+      '<path class="messy hair-messy" d="M116,110 C118,140 132,158 150,160 C168,158 182,140 184,110 L188,130 L180,152 L170,168 L160,160 L152,174 L144,160 L134,170 L126,154 L116,144 Z" fill="#5a3b25"/>' +
+      '<path class="neat hair-neat" d="M118,114 C122,142 134,154 150,156 C166,154 178,142 182,114" fill="none" stroke="#5a3b25" stroke-width="6" stroke-linecap="round" opacity="0.8"/>' +
+      // Haare
+      '<path class="messy hair-messy" d="M110,98 L102,70 L118,74 L112,48 L130,60 L132,34 L148,54 L158,30 L166,56 L184,40 L184,64 L200,60 L190,82 L198,100 L186,88 C178,72 168,64 150,64 C132,64 120,72 116,90 Z" fill="#4a3020"/>' +
+      '<path class="neat hair-neat" d="M113,96 C110,62 130,52 150,52 C172,52 192,62 187,96 C184,80 172,70 158,72 C150,66 142,70 134,72 C124,74 116,82 113,96 Z" fill="#4a3020"/>' +
+      // Gesicht
+      '<path d="M128,86 q8,-5 16,0 M156,86 q8,-5 16,0" stroke="#4a3020" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+      '<ellipse cx="136" cy="96" rx="4" ry="4.5" fill="#2a1d16"/><ellipse cx="164" cy="96" rx="4" ry="4.5" fill="#2a1d16"/>' +
+      '<path class="skin-shade" d="M150,98 L144,117 Q150,121 156,117 Z"/>' +
+      '<g class="messy nose-messy" stroke="#2a1d16" stroke-width="1.6" stroke-linecap="round">' +
+        '<path d="M146,119 l-2,7 M149,120 l-1,7 M154,119 l2,7"/>' +
+      '</g>' +
+      '<g class="messy mouth-messy">' +
+        '<path d="M136,131 Q150,124 164,131 Q150,144 136,131 Z" fill="#3a1d1a"/>' +
+        '<rect x="143" y="129" width="5" height="5" fill="#b7a24a"/><rect x="150" y="129" width="5" height="4" fill="#8f7f3a"/>' +
+        '<path class="breath" d="M170,128 q5,-6 10,0 t10,0" stroke="#8fbf5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+        '<path class="breath" d="M172,138 q5,-6 10,0 t10,0" stroke="#8fbf5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+        '<path class="breath" d="M174,118 q5,-6 10,0 t10,0" stroke="#8fbf5a" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+      '</g>' +
+      '<g class="neat mouth-neat">' +
+        '<path d="M134,128 Q150,146 166,128 Q150,136 134,128 Z" fill="#fff" stroke="#6b3a2a" stroke-width="2"/>' +
+        '<path d="M178,122 l2,5 l5,2 l-5,2 l-2,5 l-2,-5 l-5,-2 l5,-2z" fill="#fff"/>' +
+      '</g>' +
+    '</svg>';
+  }
+
+  function renderStyleSection() {
+    var fixed = ui.styleFixed;
+    var count = STYLE_ITEMS.filter(function (it) { return fixed[it.id]; }).length;
+    var all = count === STYLE_ITEMS.length;
+    var sel = STYLE_ITEMS.filter(function (it) { return it.id === ui.styleSel; })[0];
+    var togatus = photo('togatus');
+
+    var detail;
+    if (sel) {
+      detail = '' +
+        '<article class="card detail-card">' +
+          '<header class="detail-head">' +
+            '<span class="detail-icon" aria-hidden="true">' + sel.icon + '</span>' +
+            '<div><h3>' + esc(sel.label) + '</h3><span class="tip-source">Ovids Regel ' + (STYLE_ITEMS.indexOf(sel) + 1) + ' von ' + STYLE_ITEMS.length + '</span></div>' +
+          '</header>' +
+          '<blockquote class="quote-box revealed"><p class="quote-latin">„' + esc(sel.quote) + '“</p><p class="quote-translation">' + esc(sel.translation) + '</p></blockquote>' +
+          '<p class="detail-text">' + esc(sel.text) + '</p>' +
+          '<div class="modern-box"><p class="tip-label">Heute</p><p>' + esc(sel.today) + '</p></div>' +
+        '</article>';
+    } else {
+      detail = '<article class="card detail-empty"><span class="big" aria-hidden="true">👆</span>Tippe auf einen der pinken Punkte am Römer. Jeder Punkt ist eine von Ovids Pflege-Regeln – und macht ihn ein Stück date-ready.</article>';
+    }
+
+    return sectionHead('Ars amatoria 1, 513–520', 'Style-Check: Mach ihn date-ready',
+        'Schönheitspflege nur für Frauen? Von wegen! Ovid gibt seinen Schülern eine komplette Pflege-Checkliste. Tippe auf die Punkte und style den jungen Römer nach Ovids Regeln.') +
+      '<div class="card styler-intro reveal" style="--i:1">' +
+        (togatus ? '<img src="' + esc(togatus) + '" alt="Römische Statue eines Mannes in Toga">' : '') +
+        '<div>' +
+          '<p class="tip-label">Ovids Grundregel</p>' +
+          '<p class="quote-latin">„Munditie placeant …“</p>' +
+          '<p>Durch Sauberkeit sollen sie gefallen. Das Ziel ist Gepflegtheit (<em>munditia</em>), nicht Eitelkeit.</p>' +
+        '</div>' +
+      '</div>' +
+      '<div class="styler' + (all ? ' all-done' : '') + '">' +
+        '<div class="card figure-card reveal" style="--i:2">' +
+          '<div class="figure-wrap">' +
+            '<div class="figure-glow"></div>' +
+            figureSvg(fixed) +
+            STYLE_ITEMS.map(function (it, i) {
+              return '<button type="button" class="hotspot' + (fixed[it.id] ? ' done' : '') + (ui.styleSel === it.id ? ' selected' : '') + '" style="--x:' + it.x + '%;--y:' + it.y + '%" data-action="style-pick" data-id="' + it.id + '" aria-label="' + esc(it.label) + '">' + (fixed[it.id] ? '✓' : (i + 1)) + '</button>';
+            }).join('') +
+          '</div>' +
+        '</div>' +
+        '<div class="style-panel reveal" style="--i:3">' +
+          '<div class="card progress-card">' +
+            '<div class="progress-top"><h3>' + (all ? 'Ovid-approved ✓' : 'Date-ready-o-Meter') + '</h3><span>' + count + ' / ' + STYLE_ITEMS.length + ' Regeln</span></div>' +
+            '<div class="progress-bar"><i style="--p:' + Math.round(count / STYLE_ITEMS.length * 100) + '%"></i></div>' +
+            '<div class="progress-actions">' +
+              (all ? '' : '<button type="button" class="btn btn-ghost btn-sm" data-action="style-all">Alles auf einmal stylen</button>') +
+              (count ? '<button type="button" class="btn btn-ghost btn-sm" data-action="style-reset">Zurück zum Vorher</button>' : '') +
+            '</div>' +
+          '</div>' +
+          (all ? '<div class="done-banner">' + (ui.styleCelebrate ? heartBurst(18) : '') + '<span class="laurel-big" aria-hidden="true">🏛️</span><h3>Munditie placeant!</h3><p>Gebräunt, saubere Toga, frischer Atem, passende Schuhe, Profi-Frisur, kurze Nägel, keine Nasenhaare – Ovid ist zufrieden.</p></div>' : '') +
+          detail +
+          '<ul class="check-list">' + STYLE_ITEMS.map(function (it) {
+            return '<li><button type="button" class="' + (fixed[it.id] ? 'done' : '') + (ui.styleSel === it.id ? ' selected' : '') + '" data-action="style-pick" data-id="' + it.id + '"><span class="box">' + (fixed[it.id] ? '✓' : '') + '</span>' + it.icon + ' ' + esc(it.label) + '</button></li>';
+          }).join('') + '</ul>' +
+        '</div>' +
+      '</div>' +
+      '<h3 class="block-title reveal">🔎 Stilmittel-Lupe</h3>' +
+      '<div class="styl-grid">' + STILMITTEL.map(function (s, i) {
+        return '<article class="styl-card reveal" style="--i:' + (i + 4) + '"><h4>' + esc(s.name) + '</h4><p class="ex">' + esc(s.ex) + '</p><p>' + esc(s.text) + '</p><p class="fn"><b>Funktion</b>' + esc(s.fn) + '</p></article>';
+      }).join('') + '</div>' +
+      '<h3 class="block-title reveal">📱 Und heute?</h3>' +
+      '<div class="card modern-box reveal" style="margin-top:0">' +
+        '<p>Fast alles lässt sich eins zu eins übertragen: Duschen, Zähneputzen, saubere Klamotten, Friseur, Nagelschere – Ovids Liste könnte aus jedem Männerpflege-Ratgeber stammen. Der Unterschied: Ovid denkt nur an die Wirkung auf andere (<em>placeant</em> = sie sollen gefallen). Heute gilt Pflege auch als Selbstrespekt – und kein Mann muss sich dafür schämen. Nur die Bräune vom Marsfeld sehen wir heute kritischer: Sonne ja, Sonnenbrand nein.</p>' +
+      '</div>' +
+      '<details class="spot-full reveal">' +
+        '<summary>📜 Ganze Textstelle mit Übersetzung (Ars amatoria 1, 513–520)</summary>' +
+        '<dl>' + STYLE_FULLTEXT.map(function (pair) { return '<dt>' + esc(pair[0]) + '</dt><dd>' + esc(pair[1]) + '</dd>'; }).join('') + '</dl>' +
+      '</details>';
+  }
+
+  /* ---------- Date-Spots ---------- */
 
   var SPOTS = [
     {
@@ -1513,6 +2565,26 @@ textarea.short { min-height: 70px; }
     }
   ];
 
+  /** Bilder und interaktive Szenen zu den Spots. */
+  var SPOT_EXTRAS = {
+    'Das Theater': { photo: 'theater' },
+    'Der Circus': { photo: 'circus', race: true }
+  };
+
+  var SEATS = {
+    senate: 'Senatoren: in der Orchestra direkt vor der Bühne – die besten Plätze.',
+    knights: 'Ritter: die ersten 14 Sitzreihen dahinter (schon seit der lex Roscia, 67 v. Chr.).',
+    people: 'Das Volk: der große Rest der Ränge – Männer, nach Stand sortiert.',
+    women: 'Frauen: ganz oben, weit weg von der Bühne – und von den Männern.'
+  };
+
+  var TEAMS = [
+    { id: 'green', name: 'die Grünen', label: 'Grün', color: '#4fc27d' },
+    { id: 'blue', name: 'die Blauen', label: 'Blau', color: '#4f8fe8' },
+    { id: 'red', name: 'die Roten', label: 'Rot', color: '#e8504f' },
+    { id: 'white', name: 'die Weißen', label: 'Weiß', color: '#f2ece2' }
+  ];
+
   /** Halbring (obere Hälfte) für den Sitzplan – r1 = 0 ergibt einen Halbkreis. */
   function arcBand(cx, cy, r1, r2) {
     var outer = 'M' + (cx - r2) + ',' + cy + ' A' + r2 + ',' + r2 + ' 0 0 1 ' + (cx + r2) + ',' + cy;
@@ -1523,20 +2595,21 @@ textarea.short { min-height: 70px; }
   function seatingPlan() {
     var cx = 200, cy = 176;
     var bands = [
-      [0, 42, 'seat-senate', 'Senatoren'],
-      [46, 92, 'seat-knights', 'Ritter'],
-      [96, 140, 'seat-people', 'Volk'],
-      [144, 172, 'seat-women', 'Frauen']
+      [0, 42, 'seat-senate', 'Senatoren', 'senate'],
+      [46, 92, 'seat-knights', 'Ritter', 'knights'],
+      [96, 140, 'seat-people', 'Volk', 'people'],
+      [144, 172, 'seat-women', 'Frauen', 'women']
     ];
-    return '<svg class="seat-plan" viewBox="0 0 400 210" role="img" aria-label="Sitzplan eines römischen Theaters: vorne Senatoren, dann Ritter, dann Volk, ganz oben die Frauen">' +
+    return '<svg class="seat-plan' + (ui.seat ? ' has-active' : '') + '" viewBox="0 0 400 210" role="img" aria-label="Sitzplan eines römischen Theaters: vorne Senatoren, dann Ritter, dann Volk, ganz oben die Frauen. Antippen für Details.">' +
       bands.map(function (b) {
         var labelY = cy - (b[0] + b[1]) / 2 + 5;
-        return '<path class="' + b[2] + '" d="' + arcBand(cx, cy, b[0], b[1]) + '"></path>' +
-          '<text x="' + cx + '" y="' + (b[0] ? labelY : cy - 14) + '" text-anchor="middle" class="seat-label' + (b[2] === 'seat-women' ? ' seat-label-strong' : '') + '">' + b[3] + '</text>';
+        return '<path class="' + b[2] + (ui.seat === b[4] ? ' is-active' : '') + '" d="' + arcBand(cx, cy, b[0], b[1]) + '" data-action="seat" data-seat="' + b[4] + '"></path>' +
+          '<text x="' + cx + '" y="' + (b[0] ? labelY : cy - 14) + '" text-anchor="middle" class="seat-label' + (b[2] === 'seat-women' ? ' seat-label-strong' : '') + '" data-action="seat" data-seat="' + b[4] + '">' + b[3] + '</text>';
       }).join('') +
       '<rect class="seat-stage" x="60" y="182" width="280" height="22" rx="4"></rect>' +
       '<text x="200" y="197" text-anchor="middle" class="seat-label seat-label-stage">BÜHNE</text>' +
-    '</svg>';
+    '</svg>' +
+    '<p class="seat-caption" aria-live="polite">' + (ui.seat ? esc(SEATS[ui.seat]) : '👆 Tippe auf einen Rang, um zu sehen, wer dort saß.') + '</p>';
   }
 
   function compareTable(rows) {
@@ -1549,10 +2622,66 @@ textarea.short { min-height: 70px; }
     '</tbody></table>';
   }
 
+  /** Circus Maximus von oben – vier Gespanne drehen ihre Runden. */
+  function raceSvg() {
+    var track = 'M150,78 H450 A52,52 0 0 1 450,182 H150 A52,52 0 0 1 150,78 Z';
+    var crowd = '';
+    for (var i = 0; i < 70; i++) {
+      var t = i / 70;
+      var x = 40 + t * 520, top = (i % 2) ? 16 : 26, bottom = (i % 2) ? 244 : 234;
+      var c = ['#e83e73', '#d8b483', '#f4ece6', '#4f8fe8', '#4fc27d'][i % 5];
+      crowd += '<circle cx="' + x.toFixed(1) + '" cy="' + top + '" r="2.6" fill="' + c + '"/><circle cx="' + (x + 4).toFixed(1) + '" cy="' + bottom + '" r="2.6" fill="' + c + '"/>';
+    }
+    var fav = ui.team ? ui.team.hers : '';
+    var chariots = TEAMS.map(function (team, n) {
+      var dur = [7.2, 7.8, 8.4, 9][n];
+      return '<g class="chariot' + (fav === team.id ? ' is-fav' : '') + '">' +
+        '<animateMotion dur="' + dur + 's" repeatCount="indefinite" rotate="auto" begin="-' + (n * 1.7) + 's" path="' + track + '"/>' +
+        '<g class="ch-inner">' +
+          '<ellipse cx="9" cy="-4" rx="7" ry="2.6" fill="#6b4a32"/><ellipse cx="9" cy="4" rx="7" ry="2.6" fill="#5a3b25"/>' +
+          '<rect x="-8" y="-6" width="9" height="12" rx="3" fill="' + team.color + '" stroke="#1b1210" stroke-width="1"/>' +
+          '<circle cx="-3" cy="0" r="3" fill="' + team.color + '" stroke="#1b1210" stroke-width="1"/>' +
+        '</g>' +
+      '</g>';
+    }).join('');
+    return '<svg class="race"' + (fav ? ' data-fav="' + fav + '"' : '') + ' viewBox="0 0 600 260" role="img" aria-label="Animierter Circus Maximus von oben: vier Gespanne in den Farben Grün, Blau, Rot und Weiß fahren um die Mittelmauer.">' +
+      '<rect class="stands" x="6" y="6" width="588" height="248" rx="120"/>' +
+      '<g class="crowd">' + crowd + '</g>' +
+      '<rect class="sand" x="40" y="40" width="520" height="180" rx="90"/>' +
+      '<path class="track-line" d="' + track + '"/>' +
+      '<rect class="spina" x="150" y="124" width="300" height="12" rx="6"/>' +
+      '<polygon class="meta" points="140,130 152,118 152,142"/><polygon class="meta" points="460,130 448,118 448,142"/>' +
+      '<rect x="296" y="112" width="8" height="18" fill="#efe1c4"/><polygon points="296,112 300,100 304,112" fill="#efe1c4"/>' +
+      chariots +
+    '</svg>';
+  }
+
+  function renderRaceBox() {
+    var result = '';
+    if (ui.team) {
+      var mine = TEAMS.filter(function (t) { return t.id === ui.team.mine; })[0];
+      var hers = TEAMS.filter(function (t) { return t.id === ui.team.hers; })[0];
+      result = mine.id === hers.id
+        ? '<p class="team-result">Glück gehabt: Ihr seid beide für <strong>' + hers.name + '</strong>. Gesprächsstoff für die nächsten zehn Runden ist gesichert. 🎉</p>'
+        : '<p class="team-result">Du bist für <strong>' + mine.name + '</strong> – aber sie jubelt für <strong>' + hers.name + '</strong>. Ovid sagt: Egal, ab jetzt bist du auch für ' + hers.name + '! <em>„Quisquis erit, cui favet illa, fave.“</em></p>';
+    }
+    return '<div class="race-box">' +
+      '<h4>🏁 Für wen bist du?</h4>' +
+      '<p>Wähle dein Team – und schau, was Ovid dir rät.</p>' +
+      raceSvg() +
+      '<div class="team-picker">' + TEAMS.map(function (t) {
+        return '<button type="button" class="team-btn" style="--c:' + t.color + '" data-action="team" data-team="' + t.id + '" aria-pressed="' + (!!ui.team && ui.team.mine === t.id) + '"><i></i>' + t.label + '</button>';
+      }).join('') + '</div>' +
+      result +
+    '</div>';
+  }
+
   function renderSpotsSection() {
     var head = sectionHead('Loca Amoris', 'Date-Spots im alten Rom',
-      'Die Orte, an denen man laut Ovid die Liebe findet – auf einen Blick.');
+      'Die Orte, an denen man laut Ovid die Liebe findet – auf einen Blick, zum Antippen und Ausprobieren.');
     return head + '<div class="tip-list">' + SPOTS.map(function (spot, i) {
+      var extra = SPOT_EXTRAS[spot.name] || {};
+      var img = extra.photo ? photo(extra.photo) : '';
       var stars = '★★★★★'.slice(0, spot.rating) + '☆☆☆☆☆'.slice(0, 5 - spot.rating);
       var boxes = spot.cards.map(function (c) {
         return '<section class="spot-box">' +
@@ -1570,22 +2699,27 @@ textarea.short { min-height: 70px; }
           }).join('') + '</ul>' +
         '</section>');
       }
+      var heroBlock = '' +
+        '<header class="spot-hero">' +
+          '<span class="spot-icon" aria-hidden="true">' + spot.icon + '</span>' +
+          '<div class="spot-title">' +
+            '<p class="spot-number">Date-Spot ' + roman(i + 1) + '</p>' +
+            '<h3>' + esc(spot.name) + ' <em>' + esc(spot.latinName) + '</em></h3>' +
+            '<p class="spot-rating"><span aria-label="' + spot.rating + ' von 5 Sternen">' + stars + '</span> Ovids Bewertung</p>' +
+            '<p class="tip-source">' + esc(spot.source) + '</p>' +
+          '</div>' +
+        '</header>';
       return '' +
-        '<article class="card spot">' +
-          '<header class="spot-hero">' +
-            '<span class="spot-icon" aria-hidden="true">' + spot.icon + '</span>' +
-            '<div class="spot-title">' +
-              '<p class="spot-number">Date-Spot ' + roman(i + 1) + '</p>' +
-              '<h3>' + esc(spot.name) + ' <em>' + esc(spot.latinName) + '</em></h3>' +
-              '<p class="spot-rating"><span aria-label="' + spot.rating + ' von 5 Sternen">' + stars + '</span> Ovids Bewertung</p>' +
-              '<p class="tip-source">' + esc(spot.source) + '</p>' +
-            '</div>' +
-          '</header>' +
+        '<article class="card spot reveal" style="--i:' + (i + 1) + '">' +
+          (img
+            ? '<div class="spot-banner"><img src="' + esc(img) + '" alt="' + esc(spot.name) + ' – Foto">' + heroBlock + '</div>'
+            : heroBlock) +
           '<blockquote class="spot-quote"><p class="quote-latin">„' + esc(spot.quote) + '“</p><p>' + esc(spot.translation) + '</p></blockquote>' +
           '<ul class="spot-chips">' + spot.chips.map(function (c) {
             return '<li><span aria-hidden="true">' + c[0] + '</span>' + esc(c[1]) + '</li>';
           }).join('') + '</ul>' +
           '<div class="spot-grid' + (boxes.length === 4 ? ' spot-grid-4' : '') + '">' + boxes.join('') + '</div>' +
+          (extra.race ? renderRaceBox() : '') +
           '<div class="spot-warning">' +
             '<span class="spot-warning-icon" aria-hidden="true">⚠</span>' +
             '<div><p class="spot-warning-title">' + esc(spot.warning.title) + '</p>' +
@@ -1613,6 +2747,81 @@ textarea.short { min-height: 70px; }
     }).join('') + '</div>';
   }
 
+  /* ---------- Quiz ---------- */
+
+  var QUIZ = [
+    { q: 'Wo soll Ovids Schüler vor allem „auf die Jagd“ gehen?', a: ['im Theater', 'auf dem Forum', 'in den Thermen', 'im Tempel'], why: '„Sed tu praecipue curvis venare theatris.“ – Ars amatoria 1, 89' },
+    { q: 'Was bedeutet „spectentur ut ipsae“?', a: ['damit sie selbst angeschaut werden', 'damit sie das Stück sehen', 'damit sie selbst jagen', 'damit sie klatschen können'], why: '„Spectatum veniunt, veniunt, spectentur ut ipsae.“ – Sehen und gesehen werden.' },
+    { q: 'Womit vergleicht Ovid die Frauen, die zum Theater strömen?', a: ['mit Ameisen', 'mit Pferden', 'mit Tauben', 'mit Wölfen'], why: '„Ut redit itque frequens longum formica per agmen …“ – wie Ameisen im langen Zug.' },
+    { q: 'Wo durften Frauen im Theater laut Sueton sitzen?', a: ['ganz oben', 'in der ersten Reihe', 'neben den Senatoren', 'direkt an der Bühne'], why: 'Augustus regelte die Sitzordnung (lex Iulia theatralis): Frauen nur in den obersten Reihen.' },
+    { q: 'Wie soll man im Circus ein Gespräch anfangen?', a: ['fragen, wessen Pferde kommen', 'ein Gedicht vortragen', 'nach ihrem Namen fragen', 'eine Wette anbieten'], why: '„Cuius equi veniant, facito, studiose, requiras.“' },
+    { q: '„Cui favet illa, fave“ heißt …', a: ['Jubel dem zu, dem sie zujubelt.', 'Jubel gegen ihr Team.', 'Bleib lieber neutral.', 'Setz auf die Blauen.'], why: 'Ovids Taktik: Gemeinsamkeit vortäuschen – egal, welches Team.' },
+    { q: 'Wem soll man applaudieren, wenn der Festzug mit den Götterstatuen vorbeizieht?', a: ['Venus', 'Mars', 'Jupiter', 'Augustus'], why: '„Tu Veneri dominae plaude favente manu.“ – Venus, die Göttin der Liebe.' },
+    { q: 'Wo sollen junge Römer ihren Körper bräunen?', a: ['auf dem Marsfeld', 'im Circus', 'am Strand von Baiae', 'in den Thermen'], why: '„Fuscentur corpora Campo.“ – auf dem Campus Martius, beim Sport.' },
+    { q: 'Was soll laut Ovid auf keinen Fall aus der Nase ragen?', a: ['ein Haar', 'ein Lorbeerblatt', 'ein Stück Toga', 'ein Ring'], why: '„Inque cava nullus stet tibi nare pilus.“ – Ovid denkt an alles.' }
+  ];
+
+  function shuffle(list) {
+    var a = list.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  function startQuiz() {
+    ui.quiz = {
+      step: 0, score: 0, picked: null, results: [],
+      orders: QUIZ.map(function (item) { return shuffle(item.a.map(function (_, k) { return k; })); })
+    };
+  }
+
+  function renderQuizSection() {
+    if (!ui.quiz) startQuiz();
+    var qz = ui.quiz;
+    var head = sectionHead('Examen', 'Das Ovid-Quiz', 'Neun Fragen zu allen bisherigen Textstellen. Wie gut kennst du Ovids Liebeskunst?');
+    var bar = '<div class="quiz-progress" aria-hidden="true">' + QUIZ.map(function (_, i) {
+      var r = qz.results[i];
+      return '<span class="' + (r === true ? 'ok' : r === false ? 'bad' : i === qz.step ? 'now' : '') + '"></span>';
+    }).join('') + '</div>';
+
+    if (qz.step >= QUIZ.length) {
+      var s = qz.score, n = QUIZ.length;
+      var medal = s === n ? '🏆' : s >= n - 2 ? '🥇' : s >= n / 2 ? '🥈' : '📜';
+      var verdict = s === n ? 'Magister Amoris! Ovid würde dich zum Assistenten machen.'
+        : s >= n - 2 ? 'Sehr stark – fast schon praeceptor amoris.'
+        : s >= n / 2 ? 'Solide! Ein paar Verse solltest du nochmal lesen.'
+        : 'Ovid empfiehlt: zurück ins Theater – und die Tipps nochmal anschauen.';
+      return head + '<div class="card quiz-card quiz-result reveal">' + bar +
+        (s >= n - 2 ? heartBurst(20) : '') +
+        '<span class="medal" aria-hidden="true">' + medal + '</span>' +
+        '<h3>Ergebnis</h3>' +
+        '<p class="score">' + s + ' / ' + n + '</p>' +
+        '<p>' + verdict + '</p>' +
+        '<button type="button" class="btn btn-primary" data-action="quiz-restart">Nochmal spielen</button>' +
+      '</div>';
+    }
+
+    var item = QUIZ[qz.step];
+    var order = qz.orders[qz.step];
+    var answered = qz.picked !== null;
+    return head + '<div class="card quiz-card reveal">' + bar +
+      '<p class="quiz-meta">Frage ' + (qz.step + 1) + ' von ' + QUIZ.length + ' · ' + qz.score + ' richtig</p>' +
+      '<h3 class="quiz-q">' + esc(item.q) + '</h3>' +
+      '<div class="quiz-answers">' + order.map(function (k, pos) {
+        var cls = '';
+        if (answered && k === 0) cls = ' correct';
+        else if (answered && k === qz.picked) cls = ' wrong';
+        return '<button type="button" class="quiz-answer' + cls + '" data-action="quiz-answer" data-k="' + k + '"' + (answered ? ' disabled' : '') + '><span class="letter">' + 'ABCD'[pos] + '</span>' + esc(item.a[k]) + '</button>';
+      }).join('') + '</div>' +
+      (answered ? '<p class="quiz-explain">' + (qz.picked === 0 ? '✅ Richtig! ' : '❌ Leider falsch. ') + '<em>' + esc(item.why) + '</em></p>' +
+        '<div class="quiz-foot"><button type="button" class="btn btn-primary" data-action="quiz-next" data-autofocus>' + (qz.step + 1 < QUIZ.length ? 'Nächste Frage →' : 'Zum Ergebnis 🏆') + '</button></div>' : '') +
+    '</div>';
+  }
+
+  /* ---------- Community & eigenes Profil ---------- */
+
   function renderCommunitySection() {
     var people = sortedCommunity();
     var head = sectionHead('Forum Romanum', 'Die Community',
@@ -1620,9 +2829,9 @@ textarea.short { min-height: 70px; }
     if (!people.length) {
       return head + '<p class="empty-state">Noch niemand hier. Lege unter „Mein Profil“ das erste Community-Profil an.</p>';
     }
-    return head + '<div class="community-grid">' + people.map(function (p) {
+    return head + '<div class="community-grid">' + people.map(function (p, i) {
       return '' +
-        '<article class="card community-card">' +
+        '<article class="card community-card reveal" style="--i:' + Math.min(i, 8) + '">' +
           '<header class="community-head">' +
             '<span class="community-avatar">' + esc(initial(p.name)) + '</span>' +
             '<div><h3>' + esc(p.name) + '</h3><span class="community-age">' + p.age + ' Jahre</span></div>' +
@@ -1638,7 +2847,7 @@ textarea.short { min-height: 70px; }
   function renderProfileSection() {
     return sectionHead('Tabula Tua', 'Mein Profil',
       'Lege dein eigenes Profil an. Es wird gespeichert und erscheint sofort im Community-Bereich.') +
-      '<form class="card form-card" data-form="community">' +
+      '<form class="card form-card reveal" data-form="community">' +
         flashHtml('profile') +
         '<div class="form-row">' +
           '<div class="field"><label for="profile-name">Name</label><input id="profile-name" name="name" type="text" required maxlength="60" placeholder="z. B. Flavia"></div>' +
@@ -1652,6 +2861,67 @@ textarea.short { min-height: 70px; }
         '<button type="submit" class="btn btn-primary btn-block">Profil veröffentlichen</button>' +
       '</form>';
   }
+
+  /* ---------- Nach dem Rendern: Gesten & Zähler ---------- */
+
+  var reducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  function bindDrag(card) {
+    var startX = null, dx = 0;
+    card.addEventListener('pointerdown', function (e) {
+      if (ui.swipeBusy || (e.pointerType === 'mouse' && e.button !== 0)) return;
+      startX = e.clientX; dx = 0;
+      try { card.setPointerCapture(e.pointerId); } catch (err) { /* egal */ }
+      card.style.transition = 'none';
+      card.classList.add('dragging');
+    });
+    card.addEventListener('pointermove', function (e) {
+      if (startX === null) return;
+      dx = e.clientX - startX;
+      card.style.transform = 'translateX(' + dx + 'px) rotate(' + (dx / 18) + 'deg)';
+      card.style.setProperty('--like', Math.max(0, Math.min(1, dx / 110)));
+      card.style.setProperty('--nope', Math.max(0, Math.min(1, -dx / 110)));
+    });
+    function end() {
+      if (startX === null) return;
+      startX = null;
+      card.classList.remove('dragging');
+      card.style.transition = '';
+      if (Math.abs(dx) > 100) {
+        swipe(dx > 0 ? 'like' : 'nope');
+      } else {
+        card.style.transform = '';
+        card.style.setProperty('--like', 0);
+        card.style.setProperty('--nope', 0);
+      }
+    }
+    card.addEventListener('pointerup', end);
+    card.addEventListener('pointercancel', end);
+  }
+
+  function countUp() {
+    root.querySelectorAll('[data-count]').forEach(function (el) {
+      var target = Number(el.getAttribute('data-count')) || 0;
+      if (reducedMotion || target < 2) return;
+      var start = performance.now(), dur = 1200;
+      (function step(now) {
+        var t = Math.min(1, (now - start) / dur);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)));
+        if (t < 1) requestAnimationFrame(step);
+      })(start);
+    });
+  }
+
+  function enhance(firstPaint) {
+    if (isAdminView()) return;
+    var card = document.getElementById('swipe-card');
+    if (card) bindDrag(card);
+    if (firstPaint) countUp();
+    if (reducedMotion) {
+      root.querySelectorAll('svg.race').forEach(function (svg) { if (svg.pauseAnimations) svg.pauseAnimations(); });
+    }
+  }
+
 
   /* =======================================================
      Admin-Bereich
@@ -1916,8 +3186,13 @@ textarea.short { min-height: 70px; }
 
   function render() {
     var admin = isAdminView();
+    var firstPaint = ui.animate;
+    root.classList.toggle('animate', !admin && ui.animate);
+    ui.animate = false;
     root.innerHTML = admin ? renderAdmin() : renderPublic();
     document.title = admin ? 'Admin · ROMA MATCH' : 'ROMA MATCH – Dating im alten Rom';
+    enhance(firstPaint);
+    ui.styleCelebrate = false;
 
     var focusTarget = root.querySelector('[data-autofocus]') || root.querySelector('#match-close');
     if (focusTarget) focusTarget.focus();
@@ -2009,7 +3284,11 @@ textarea.short { min-height: 70px; }
     ui.swipeBusy = true;
 
     var card = document.getElementById('swipe-card');
-    if (card) card.classList.add(direction === 'like' ? 'leaving-like' : 'leaving-nope');
+    if (card) {
+      card.style.transition = '';
+      card.style.transform = '';
+      card.classList.add(direction === 'like' ? 'leaving-like' : 'leaving-nope');
+    }
     root.querySelectorAll('.circle-btn').forEach(function (b) { b.disabled = true; });
 
     if (direction === 'like') {
@@ -2035,8 +3314,64 @@ textarea.short { min-height: 70px; }
     tab: function (el) {
       ui.tab = el.getAttribute('data-tab');
       ui.flash = null;
+      ui.animate = true;
+      render();
+      var nav = root.querySelector('.nav');
+      if (nav) {
+        var top = nav.getBoundingClientRect().top + window.scrollY;
+        if (el.hasAttribute('data-scroll') || window.scrollY > top) window.scrollTo({ top: top, behavior: reducedMotion ? 'auto' : 'smooth' });
+      }
+      var active = root.querySelector('.nav-tab[aria-selected="true"]');
+      if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest', inline: 'center' });
+    },
+    reveal: function (el) { el.classList.toggle('revealed'); },
+    'reveal-all': function () { ui.revealAll = !ui.revealAll; render(); },
+    vote: function (el) {
+      var votes = readVotes();
+      var id = el.getAttribute('data-id'), v = el.getAttribute('data-v');
+      if (votes[id] === v) delete votes[id]; else votes[id] = v;
+      storageSet(localStorage, VOTES_KEY, JSON.stringify(votes));
       render();
     },
+    'style-pick': function (el) {
+      var id = el.getAttribute('data-id');
+      var done = function () { return STYLE_ITEMS.filter(function (it) { return ui.styleFixed[it.id]; }).length; };
+      var before = done();
+      ui.styleSel = id;
+      ui.styleFixed[id] = true;
+      ui.styleCelebrate = before < STYLE_ITEMS.length && done() === STYLE_ITEMS.length;
+      render();
+    },
+    'style-all': function () {
+      STYLE_ITEMS.forEach(function (it) { ui.styleFixed[it.id] = true; });
+      ui.styleCelebrate = true;
+      render();
+    },
+    'style-reset': function () { ui.styleFixed = {}; ui.styleSel = null; render(); },
+    seat: function (el) {
+      var seat = el.getAttribute('data-seat');
+      ui.seat = ui.seat === seat ? null : seat;
+      render();
+    },
+    team: function (el) {
+      var hers = TEAMS[Math.floor(Math.random() * TEAMS.length)].id;
+      ui.team = { mine: el.getAttribute('data-team'), hers: hers };
+      render();
+    },
+    'quiz-answer': function (el) {
+      var qz = ui.quiz;
+      if (!qz || qz.picked !== null) return;
+      qz.picked = Number(el.getAttribute('data-k'));
+      qz.results[qz.step] = qz.picked === 0;
+      if (qz.picked === 0) qz.score += 1;
+      render();
+    },
+    'quiz-next': function () {
+      ui.quiz.step += 1;
+      ui.quiz.picked = null;
+      render();
+    },
+    'quiz-restart': function () { startQuiz(); ui.animate = true; render(); },
     like: function () { swipe('like'); },
     nope: function () { swipe('nope'); },
     restart: function () { ui.swipeIndex = 0; render(); },
