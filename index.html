@@ -1588,6 +1588,95 @@ body { background-image: radial-gradient(ellipse at 50% -10%, rgba(181, 74, 53, 
   .pub .swipe-card { border-width: 5px; }
   .spot-banner { height: 220px; }
 }
+
+/* ---------- Geführte Tour ---------- */
+.tour-fab {
+  position: fixed; right: 18px; bottom: 18px; z-index: 50;
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 18px 12px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(227, 207, 166, 0.5);
+  background: rgba(28, 23, 20, 0.92);
+  backdrop-filter: blur(10px);
+  color: var(--text);
+  font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.tour-fab .icon { width: 22px; height: 22px; color: var(--gold-soft); }
+.tour-fab:hover { transform: translateY(-2px); background: var(--pink); }
+.tour-fab:hover .icon { color: #fff; }
+body.touring .tour-fab { display: none; }
+
+.tour-ring {
+  position: fixed; left: 0; top: 0; z-index: 70;
+  display: none; opacity: 0;
+  pointer-events: none;
+  border: 2px solid var(--gold-soft);
+  border-radius: 20px;
+  box-shadow: 0 0 0 9999px rgba(10, 8, 7, 0.5), 0 0 30px rgba(227, 207, 166, 0.45);
+  transition: transform 0.35s ease, width 0.35s ease, height 0.35s ease, opacity 0.3s ease;
+}
+.tour-ring.on { display: block; }
+
+.tour-bar {
+  position: fixed; left: 50%; bottom: 16px; z-index: 80;
+  width: min(680px, calc(100% - 24px));
+  transform: translate(-50%, 160%);
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px;
+  padding: 14px 16px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(227, 207, 166, 0.45);
+  background: rgba(28, 23, 20, 0.97);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1);
+  overflow: hidden;
+}
+.tour-bar.on { transform: translate(-50%, 0); }
+.tour-text { margin: 0; color: var(--text); font-size: 0.98rem; line-height: 1.5; }
+.tour-wave { display: flex; align-items: center; gap: 3px; height: 28px; width: 30px; }
+.tour-wave i { flex: 1; height: 30%; border-radius: 3px; background: var(--gold-soft); transition: height 0.2s; }
+.tour-bar.speaking .tour-wave i { animation: talk 0.9s ease-in-out infinite; }
+.tour-bar.speaking .tour-wave i:nth-child(2) { animation-delay: -0.3s; }
+.tour-bar.speaking .tour-wave i:nth-child(3) { animation-delay: -0.6s; }
+.tour-bar.speaking .tour-wave i:nth-child(4) { animation-delay: -0.15s; }
+.tour-bar.paused .tour-text { opacity: 0.6; }
+.tour-controls { display: flex; gap: 6px; }
+.tour-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid var(--border); background: rgba(239, 229, 211, 0.06);
+  color: var(--text); cursor: pointer;
+  transition: background 0.2s;
+}
+.tour-btn:hover { background: var(--pink); border-color: var(--pink); }
+.tour-btn .icon { width: 18px; height: 18px; }
+.tour-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(239, 229, 211, 0.08); }
+.tour-progress i { display: block; height: 100%; width: 0; background: var(--pink); transition: width 0.5s ease; }
+
+.swipe-card.demo-swipe { animation: demo-swipe 3.6s ease-in-out; }
+.swipe-card.demo-swipe .stamp-like { animation: demo-like 3.6s ease-in-out; }
+.swipe-card.demo-swipe .stamp-nope { animation: demo-nope 3.6s ease-in-out; }
+@keyframes demo-swipe {
+  0%, 100% { transform: none; }
+  20%, 32% { transform: translateX(90px) rotate(6deg); }
+  48% { transform: none; }
+  64%, 76% { transform: translateX(-90px) rotate(-6deg); }
+  90% { transform: none; }
+}
+@keyframes demo-like { 0%, 10%, 45%, 100% { opacity: 0; } 20%, 32% { opacity: 1; } }
+@keyframes demo-nope { 0%, 55%, 88%, 100% { opacity: 0; } 64%, 76% { opacity: 1; } }
+@keyframes talk { 0%, 100% { height: 25%; } 50% { height: 100%; } }
+
+@media (max-width: 640px) {
+  .tour-fab { right: 12px; bottom: 12px; padding: 12px; }
+  .tour-fab span { display: none; }
+  .tour-bar { grid-template-columns: 1fr auto; padding: 12px 12px 16px; gap: 10px; bottom: 10px; }
+  .tour-wave { display: none; }
+  .tour-text { font-size: 0.9rem; }
+  .tour-btn { width: 36px; height: 36px; }
+}
 </style>
 </head>
 <body>
@@ -2080,7 +2169,12 @@ body { background-image: radial-gradient(ellipse at 50% -10%, rgba(181, 74, 53, 
     seat: '<path d="M6 11V5h12v6M4 11h16v4H4zM6 15v5M18 15v5"/>',
     megaphone: '<path d="M4 10v4h3l8 5V5L7 10z"/><path d="M18 9a4 4 0 0 1 0 6"/>',
     star: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.8 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/>',
-    flagRace: '<path d="M5 21V4h13v9H5"/><path d="M5 4h4v3H5zM13 4h5v3h-5zM9 7h4v3H9zM5 10h4v3H5zM13 10h5v3h-5z"/>'
+    flagRace: '<path d="M5 21V4h13v9H5"/><path d="M5 4h4v3H5zM13 4h5v3h-5zM9 7h4v3H9zM5 10h4v3H5zM13 10h5v3h-5z"/>',
+    speaker: '<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/>',
+    play: '<path d="M8 5l11 7-11 7z"/>',
+    pause: '<path d="M8 5v14M16 5v14"/>',
+    next: '<path d="M6 5l9 7-9 7zM18 5v14"/>',
+    close: '<path d="M6 6l12 12M18 6L6 18"/>'
   };
 
   function icon(name, extra) {
@@ -2407,6 +2501,7 @@ body { background-image: radial-gradient(ellipse at 50% -10%, rgba(181, 74, 53, 
           '</footer>' +
         '</main>' +
       '</div>' +
+      '<button type="button" class="tour-fab" data-action="tour-start" aria-label="Seite automatisch vorstellen lassen">' + icon('speaker') + '<span>Seite vorstellen</span></button>' +
       (ui.matchedId ? renderMatch() : '');
   }
 
@@ -2430,7 +2525,7 @@ body { background-image: radial-gradient(ellipse at 50% -10%, rgba(181, 74, 53, 
           }).join('') + '</ul>' +
           '<div class="hero-cta">' +
             '<button type="button" class="btn btn-primary" data-action="tab" data-tab="swipe" data-scroll>' + icon('heart') + ' Jetzt swipen</button>' +
-            '<button type="button" class="btn btn-glass" data-action="tab" data-tab="style" data-scroll>Neu: Style-Check</button>' +
+            '<button type="button" class="btn btn-glass" data-action="tour-start">' + icon('speaker') + ' Seite vorstellen</button>' +
           '</div>' +
         '</div>' +
       '</header>';
@@ -3641,6 +3736,7 @@ body { background-image: radial-gradient(ellipse at 50% -10%, rgba(181, 74, 53, 
       render();
     },
     'quiz-restart': function () { startQuiz(); ui.animate = true; render(); },
+    'tour-start': function () { startTour(); },
     like: function () { swipe('like'); },
     nope: function () { swipe('nope'); },
     restart: function () { ui.swipeIndex = 0; render(); },
@@ -3764,6 +3860,251 @@ body { background-image: radial-gradient(ellipse at 50% -10%, rgba(181, 74, 53, 
       render();
     }
   };
+
+  /* =======================================================
+     Geführte Tour mit Sprachausgabe („Seite vorstellen“)
+     Nutzt die eingebaute Stimme des Browsers (Web Speech API).
+     ======================================================= */
+
+  var TOUR = [
+    { tab: 'swipe', top: true, focus: '.hero-inner', text: 'Salve! Willkommen bei Roma Match – Dating im alten Rom.' },
+    { focus: '.hero-inner', text: 'Hier trifft Ovids Liebeskunst, die Ars amatoria, auf die Swipe-Kultur von heute. Ich zeige dir in zwei Minuten alles.' },
+    { tab: 'swipe', focus: '.swipe-stack', text: 'Beim Swipen lernst du Menschen aus Ovids Rom kennen: Ovid selbst, Kaiserin Livia oder den Redner Cicero.' },
+    { focus: '.swipe-stack', act: 'demoSwipe', text: 'Nach rechts wischen heißt Like, nach links heißt Nope. Und wenn es passt, gibt es ein Match.' },
+    { tab: 'tips', focus: '.tip-card', text: 'In Ovids Tipps steht, was der Dichter seinen Schülern rät – immer mit dem lateinischen Original.' },
+    { focus: '.tip-card .quote-box', act: 'reveal', text: 'Tippst du auf ein Zitat, erscheint die Übersetzung.' },
+    { focus: '.tip-card .vote-row', text: 'Und dann entscheidest du: Ist das heute noch ein Top-Tipp – oder eine Red Flag?' },
+    { tab: 'style', focus: '.figure-card', text: 'Im Style-Check zeigt Ovid: Pflege ist nicht nur Frauensache. Durch Sauberkeit sollst du gefallen.' },
+    { focus: '.figure-card', act: 'styleAll', text: 'Haare und Bart vom Profi, frischer Atem, saubere Toga, passende Schuhe – nach sieben Regeln ist unser Römer bereit fürs Date.' },
+    { tab: 'spots', focus: '.spot', text: 'Bei den Date-Spots erfährst du, wo man im alten Rom flirtete. Erster Hotspot: das Theater, denn dort wollen alle gesehen werden.' },
+    { focus: '.seat-plan', act: 'seat', text: 'Der Haken: Frauen saßen ganz oben, weit weg von den Männern.' },
+    { focus: '.race-box', act: 'team', text: 'Deshalb schickt Ovid seine Schüler in den Circus Maximus. Dort sitzt man nebeneinander – und Ovid rät: Jubel einfach für ihr Team.' },
+    { tab: 'quiz', focus: '.quiz-card', text: 'Im Dating-Quiz testest du, ob du bei Ovid aufgepasst hast.' },
+    { tab: 'community', focus: '.community-grid', text: 'In der Community findest du die Profile anderer Besucher. Unter Mein Profil legst du dein eigenes an.' },
+    { tab: 'swipe', top: true, focus: '.hero-inner', text: 'Ovids wichtigster Rat zum Schluss: Damit du geliebt wirst, sei liebenswert. Viel Spaß auf Roma Match!' }
+  ];
+
+  var tour = { active: false, paused: false, step: 0, timer: null, token: 0, voice: null, el: null, ring: null, raf: 0 };
+  var canSpeak = 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';
+
+  /** Beste deutsche Stimme wählen – neuronale/„natürliche“ Stimmen klingen am menschlichsten. */
+  function pickVoice() {
+    if (!canSpeak) return null;
+    var voices = window.speechSynthesis.getVoices().filter(function (v) { return /^de(-|_|$)/i.test(v.lang); });
+    if (!voices.length) return null;
+    function score(v) {
+      var n = v.name;
+      var s = 0;
+      if (/natural|neural|online/i.test(n)) s += 8;
+      if (/premium|enhanced|erweitert/i.test(n)) s += 6;
+      if (/google/i.test(n)) s += 5;
+      if (/anna|helena|petra|katja|amala|vicki|marlene|conrad|markus|yannick/i.test(n)) s += 2;
+      if (/de-DE/i.test(v.lang)) s += 1;
+      return s;
+    }
+    return voices.sort(function (a, b) { return score(b) - score(a); })[0];
+  }
+  if (canSpeak) {
+    tour.voice = pickVoice();
+    window.speechSynthesis.onvoiceschanged = function () { tour.voice = pickVoice(); };
+  }
+
+  function tourEl() {
+    if (tour.el) return tour.el;
+    var el = document.createElement('div');
+    el.className = 'tour-bar';
+    el.setAttribute('role', 'region');
+    el.setAttribute('aria-label', 'Vorstellung der Seite');
+    el.innerHTML = '' +
+      '<div class="tour-wave" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' +
+      '<p class="tour-text" aria-live="polite"></p>' +
+      '<div class="tour-controls">' +
+        '<button type="button" class="tour-btn" data-tour="pause" aria-label="Pause">' + icon('pause') + '</button>' +
+        '<button type="button" class="tour-btn" data-tour="next" aria-label="Weiter">' + icon('next') + '</button>' +
+        '<button type="button" class="tour-btn" data-tour="stop" aria-label="Beenden">' + icon('close') + '</button>' +
+      '</div>' +
+      '<div class="tour-progress" aria-hidden="true"><i></i></div>';
+    el.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-tour]');
+      if (!btn) return;
+      var what = btn.getAttribute('data-tour');
+      if (what === 'stop') stopTour();
+      if (what === 'next') { cancelSpeech(); tourGo(tour.step + 1); }
+      if (what === 'pause') togglePause();
+    });
+    var ring = document.createElement('div');
+    ring.className = 'tour-ring';
+    ring.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(ring);
+    document.body.appendChild(el);
+    tour.el = el;
+    tour.ring = ring;
+    return el;
+  }
+
+  function cancelSpeech() {
+    tour.token++;
+    clearTimeout(tour.timer);
+    if (canSpeak) window.speechSynthesis.cancel();
+  }
+
+  function startTour() {
+    if (isAdminView()) return;
+    cancelSpeech();
+    ui.matchedId = null;
+    tour.active = true;
+    tour.paused = false;
+    var el = tourEl();
+    el.classList.add('on');
+    tour.ring.classList.add('on');
+    document.body.classList.add('touring');
+    setPauseIcon();
+    followRing();
+    tourGo(0);
+  }
+
+  function stopTour() {
+    cancelSpeech();
+    tour.active = false;
+    cancelAnimationFrame(tour.raf);
+    if (tour.el) tour.el.classList.remove('on');
+    if (tour.ring) tour.ring.classList.remove('on');
+    document.body.classList.remove('touring');
+  }
+
+  function togglePause() {
+    if (!tour.active) return;
+    tour.paused = !tour.paused;
+    setPauseIcon();
+    if (tour.paused) {
+      cancelSpeech();
+      tour.el.classList.add('paused');
+    } else {
+      tour.el.classList.remove('paused');
+      speakStep();
+    }
+  }
+
+  function setPauseIcon() {
+    var btn = tour.el && tour.el.querySelector('[data-tour="pause"]');
+    if (!btn) return;
+    btn.innerHTML = icon(tour.paused ? 'play' : 'pause');
+    btn.setAttribute('aria-label', tour.paused ? 'Weiter abspielen' : 'Pause');
+  }
+
+  function fakeEl(attrs) { return { getAttribute: function (k) { return attrs[k]; }, hasAttribute: function () { return false; } }; }
+
+  var TOUR_ACTS = {
+    demoSwipe: function () {
+      var card = document.getElementById('swipe-card');
+      if (!card) return;
+      card.classList.remove('demo-swipe');
+      void card.offsetWidth;
+      card.classList.add('demo-swipe');
+    },
+    reveal: function () {
+      var box = root.querySelector('.tip-card .quote-box');
+      if (box) setTimeout(function () { box.classList.add('revealed'); }, 900);
+    },
+    styleAll: function () {
+      var token = tour.token;
+      ui.styleFixed = {};
+      ['hair', 'mouth', 'toga', 'shoes', 'nails', 'nose', 'skin'].forEach(function (id, i) {
+        setTimeout(function () {
+          if (!tour.active || token !== tour.token) return;
+          actions['style-pick'](fakeEl({ 'data-id': id }));
+        }, 500 + i * 900);
+      });
+    },
+    seat: function () {
+      setTimeout(function () { if (tour.active) { ui.seat = 'women'; render(); } }, 700);
+    },
+    team: function () {
+      setTimeout(function () {
+        if (!tour.active) return;
+        ui.team = { mine: 'green', hers: 'blue' };
+        render();
+      }, 1800);
+    }
+  };
+
+  function tourGo(i) {
+    if (!tour.active) return;
+    if (i >= TOUR.length) { stopTour(); return; }
+    tour.step = i;
+    var s = TOUR[i];
+    if (s.tab && ui.tab !== s.tab) {
+      ui.tab = s.tab;
+      ui.animate = true;
+      render();
+    }
+    var bar = tour.el.querySelector('.tour-progress i');
+    bar.style.width = Math.round((i + 1) / TOUR.length * 100) + '%';
+    setTimeout(function () {
+      if (!tour.active || tour.step !== i) return;
+      var target = root.querySelector(s.focus);
+      if (s.top) window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+      else if (target) target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+      if (s.act && TOUR_ACTS[s.act]) TOUR_ACTS[s.act]();
+      if (!tour.paused) speakStep();
+    }, s.tab ? 450 : 150);
+  }
+
+  function speakStep() {
+    var i = tour.step;
+    var s = TOUR[i];
+    var token = ++tour.token;
+    tour.el.querySelector('.tour-text').textContent = s.text;
+    tour.el.classList.add('speaking');
+    var done = false;
+    var started = Date.now();
+    // Mindestzeit pro Schritt: falls der Browser keine Stimme hat und sofort „fertig“ meldet
+    var minDur = Math.max(2200, s.text.length * 55);
+    function next() {
+      if (done || token !== tour.token || !tour.active || tour.paused) return;
+      done = true;
+      tour.el.classList.remove('speaking');
+      var wait = Math.max(450, minDur - (Date.now() - started));
+      tour.timer = setTimeout(function () { if (token === tour.token) tourGo(i + 1); }, wait);
+    }
+    // Sicherheitsnetz: weiter, auch wenn der Browser kein „Ende“ meldet
+    var fallback = Math.max(2600, s.text.length * 72);
+    if (canSpeak) {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(s.text);
+      u.lang = 'de-DE';
+      if (tour.voice) u.voice = tour.voice;
+      u.rate = 1.0;
+      u.pitch = 1.0;
+      u.onend = next;
+      u.onerror = next;
+      window.speechSynthesis.speak(u);
+      tour.timer = setTimeout(next, fallback + 4000);
+    } else {
+      tour.timer = setTimeout(next, fallback);
+    }
+  }
+
+  /** Leuchtrahmen folgt dem gerade erklärten Element – auch beim Scrollen. */
+  function followRing() {
+    cancelAnimationFrame(tour.raf);
+    (function loop() {
+      if (!tour.active) return;
+      var s = TOUR[tour.step];
+      var target = s && root.querySelector(s.focus);
+      if (target) {
+        var r = target.getBoundingClientRect();
+        var pad = 10;
+        tour.ring.style.transform = 'translate(' + (r.left - pad) + 'px,' + (r.top - pad) + 'px)';
+        tour.ring.style.width = (r.width + pad * 2) + 'px';
+        tour.ring.style.height = (r.height + pad * 2) + 'px';
+        tour.ring.style.opacity = 1;
+      } else {
+        tour.ring.style.opacity = 0;
+      }
+      tour.raf = requestAnimationFrame(loop);
+    })();
+  }
 
   /* =======================================================
      Formulare
@@ -3961,6 +4302,7 @@ body { background-image: radial-gradient(ellipse at 50% -10%, rgba(181, 74, 53, 
   }, true);
 
   document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && tour.active) { stopTour(); return; }
     if (event.key === 'Escape' && ui.matchedId) {
       ui.matchedId = null;
       render();
@@ -3973,6 +4315,7 @@ body { background-image: radial-gradient(ellipse at 50% -10%, rgba(181, 74, 53, 
   });
 
   window.addEventListener('hashchange', function () {
+    stopTour();
     ui.flash = null;
     ui.loginError = null;
     ui.matchedId = null;
