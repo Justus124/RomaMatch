@@ -1677,6 +1677,38 @@ body.touring .tour-fab { display: none; }
   .tour-text { font-size: 0.9rem; }
   .tour-btn { width: 36px; height: 36px; }
 }
+
+/* ---------- Ovid als Erklär-Figur ---------- */
+.tour-bar { grid-template-columns: auto 1fr auto; padding: 12px 16px 18px 8px; overflow: visible; }
+.tour-ovid { width: 104px; height: 136px; margin: -58px 0 -10px; flex-shrink: 0; transform-origin: 50% 100%; }
+.tour-bar.on .tour-ovid { animation: ovid-in 0.7s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
+.tour-ovid svg { width: 100%; height: 100%; overflow: visible; }
+.og-body { animation: ovid-bob 2.6s ease-in-out infinite; transform-origin: 80px 200px; }
+.og-eyes { animation: blink 4.5s infinite; transform-box: fill-box; transform-origin: center; }
+.og-laurel { animation: sway 3.6s ease-in-out infinite; transform-origin: 80px 76px; }
+.og-arm { transform-box: fill-box; transform-origin: 10% 90%; }
+.og-mouth { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.tour-bar.speaking .og-smile { opacity: 0; }
+.tour-bar.speaking .og-mouth { opacity: 1; animation: ovid-talk 0.19s ease-in-out infinite alternate; }
+.tour-bar.speaking .og-arm { animation: ovid-gesture 2.2s ease-in-out infinite; }
+.tour-ovid.waving .og-arm { animation: ovid-wave 0.45s ease-in-out 4 alternate; }
+.tour-bubble { position: relative; background: #efe5d3; color: #241a14; border-radius: 16px; padding: 10px 14px 12px; }
+.tour-bubble::before { content: ''; position: absolute; left: -9px; top: 22px; border: 9px solid transparent; border-right-color: #efe5d3; border-left: 0; }
+.tour-name { display: block; font-family: var(--font-display); font-weight: 700; font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--pink-dark); margin-bottom: 2px; }
+.tour-bubble .tour-text { color: #241a14; font-size: 0.96rem; }
+.tour-bar .tour-wave { display: none; }
+@keyframes ovid-in { from { transform: translateY(60px) scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes ovid-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes ovid-talk { from { transform: scaleY(0.25); } to { transform: scaleY(1); } }
+@keyframes ovid-gesture { 0%, 100% { transform: rotate(0deg); } 30% { transform: rotate(-14deg); } 60% { transform: rotate(6deg); } }
+@keyframes ovid-wave { from { transform: rotate(-24deg); } to { transform: rotate(18deg); } }
+@media (max-width: 640px) {
+  .tour-bar { grid-template-columns: auto 1fr; grid-template-areas: 'ovid bubble' 'ovid controls'; padding: 10px 10px 16px 4px; }
+  .tour-ovid { grid-area: ovid; width: 78px; height: 104px; margin: -40px 0 -6px; }
+  .tour-bubble { grid-area: bubble; padding: 8px 12px 10px; }
+  .tour-controls { grid-area: controls; justify-content: flex-end; }
+  .tour-bubble .tour-text { font-size: 0.88rem; }
+}
 </style>
 </head>
 <body>
@@ -1692,6 +1724,9 @@ body.touring .tour-fab { display: none; }
   wird hier der aktuelle Stand eingetragen, damit alle Besucher ihn sehen.
 -->
 <script id="roma-data" type="application/json">null</script>
+
+<!-- Sprachaufnahmen für „Seite vorstellen“ (Ovids Stimme, MP3) -->
+<script id="tour-audio" type="application/json">{}</script>
 
 
 <script>
@@ -3876,24 +3911,29 @@ body.touring .tour-fab { display: none; }
      ======================================================= */
 
   var TOUR = [
-    { tab: 'swipe', top: true, focus: '.hero-inner', text: 'Salve! Willkommen bei Roma Match – Dating im alten Rom.' },
-    { focus: '.hero-inner', text: 'Hier trifft Ovids Liebeskunst, die Ars amatoria, auf die Swipe-Kultur von heute. Ich zeige dir in zwei Minuten alles.' },
-    { tab: 'swipe', focus: '.swipe-stack', text: 'Beim Swipen lernst du Menschen aus Ovids Rom kennen: Ovid selbst, Kaiserin Livia oder den Redner Cicero.' },
-    { focus: '.swipe-stack', act: 'demoSwipe', text: 'Nach rechts wischen heißt Like, nach links heißt Nope. Und wenn es passt, gibt es ein Match.' },
-    { tab: 'tips', focus: '.tip-card', text: 'In Ovids Tipps steht, was der Dichter seinen Schülern rät – immer mit dem lateinischen Original.' },
-    { focus: '.tip-card .quote-box', act: 'reveal', text: 'Tippst du auf ein Zitat, erscheint die Übersetzung.' },
-    { focus: '.tip-card .vote-row', text: 'Und dann entscheidest du: Ist das heute noch ein Top-Tipp – oder eine Red Flag?' },
-    { tab: 'style', focus: '.figure-card', text: 'Im Style-Check zeigt Ovid: Pflege ist nicht nur Frauensache. Durch Sauberkeit sollst du gefallen.' },
-    { focus: '.figure-card', act: 'styleAll', text: 'Haare und Bart vom Profi, frischer Atem, saubere Toga, passende Schuhe – nach sieben Regeln ist unser Römer bereit fürs Date.' },
-    { tab: 'spots', focus: '.spot', text: 'Bei den Date-Spots erfährst du, wo man im alten Rom flirtete. Erster Hotspot: das Theater, denn dort wollen alle gesehen werden.' },
-    { focus: '.seat-plan', act: 'seat', text: 'Der Haken: Frauen saßen ganz oben, weit weg von den Männern.' },
-    { focus: '.race-box', act: 'team', text: 'Deshalb schickt Ovid seine Schüler in den Circus Maximus. Dort sitzt man nebeneinander – und Ovid rät: Jubel einfach für ihr Team.' },
-    { tab: 'quiz', focus: '.quiz-card', text: 'Im Dating-Quiz testest du, ob du bei Ovid aufgepasst hast.' },
-    { tab: 'community', focus: '.community-grid', text: 'In der Community findest du die Profile anderer Besucher. Unter Mein Profil legst du dein eigenes an.' },
-    { tab: 'swipe', top: true, focus: '.hero-inner', text: 'Ovids wichtigster Rat zum Schluss: Damit du geliebt wirst, sei liebenswert. Viel Spaß auf Roma Match!' }
+    { tab: 'swipe', top: true, focus: '.hero-inner', act: 'wave', text: 'Salve! Ich bin Ovid, Dichter und Lehrer der Liebe. Willkommen bei Roma Match!' },
+    { focus: '.hero-inner', text: 'Vor zweitausend Jahren habe ich die Ars amatoria geschrieben – ein Handbuch fürs Flirten. Hier findest du meine Tipps im Stil einer Dating-App. Komm mit!' },
+    { tab: 'swipe', focus: '.swipe-stack', text: 'Beim Swipen lernst du Menschen aus meinem Rom kennen: mich selbst, Kaiserin Livia oder den Redner Cicero. Der redet übrigens zu viel.' },
+    { focus: '.swipe-stack', act: 'demoSwipe', text: 'Nach rechts wischen heißt Like, nach links heißt Nope. Und wenn es passt – ein Match!' },
+    { tab: 'tips', focus: '.tip-card', text: 'Hier sind meine Tipps. Jeder mit dem lateinischen Original – schließlich habe ich auf Latein geschrieben.' },
+    { focus: '.tip-card .quote-box', act: 'reveal', text: 'Tipp aufs Zitat, und schon erscheint die Übersetzung.' },
+    { focus: '.tip-card .vote-row', text: 'Und dann entscheidest du: Top-Tipp oder Red Flag? Ich gebe zu – nicht alle meine Ratschläge sind gut gealtert.' },
+    { tab: 'style', focus: '.figure-card', text: 'Im Style-Check zeige ich dir: Pflege ist nicht nur Frauensache. Durch Sauberkeit sollst du gefallen!' },
+    { focus: '.figure-card', act: 'styleAll', text: 'Haare und Bart vom Profi, frischer Atem, saubere Toga, passende Schuhe – und schon ist mein Schüler bereit fürs Date.' },
+    { tab: 'spots', focus: '.spot', text: 'Bei den Date-Spots verrate ich dir, wo man in Rom flirtet. Erster Hotspot: das Theater – denn dort wollen alle gesehen werden.' },
+    { focus: '.seat-plan', act: 'seat', text: 'Der Haken: Die Frauen sitzen ganz oben. Kaiser Augustus hat das so bestimmt.' },
+    { focus: '.race-box', act: 'team', text: 'Darum gehst du besser in den Circus Maximus. Dort sitzt man nebeneinander. Und mein Rat: Jubel einfach für ihr Team!' },
+    { tab: 'quiz', focus: '.quiz-card', text: 'Im Dating-Quiz prüfe ich, ob du gut aufgepasst hast.' },
+    { tab: 'community', focus: '.community-grid', text: 'In der Community findest du andere Besucher – und unter Mein Profil legst du dein eigenes an.' },
+    { tab: 'swipe', top: true, focus: '.hero-inner', act: 'wave', text: 'Zum Schluss mein wichtigster Rat: Damit du geliebt wirst, sei liebenswert. Vale – mach\'s gut!' }
   ];
 
-  var tour = { active: false, paused: false, step: 0, timer: null, token: 0, voice: null, el: null, ring: null, raf: 0 };
+  /** Eingebettete Sprachaufnahmen (MP3, Ovids Stimme). Fehlen sie, spricht die Gerätestimme. */
+  var TOUR_AUDIO = {};
+  try { TOUR_AUDIO = JSON.parse(document.getElementById('tour-audio').textContent) || {}; } catch (e) { TOUR_AUDIO = {}; }
+  var SILENT_WAV = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
+
+  var tour = { active: false, paused: false, step: 0, timer: null, token: 0, voice: null, el: null, ring: null, raf: 0, audio: null };
   var canSpeak = 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';
 
   /** Beste deutsche Stimme wählen – neuronale/„natürliche“ Stimmen klingen am menschlichsten. */
@@ -3907,7 +3947,8 @@ body.touring .tour-fab { display: none; }
       if (/natural|neural|online/i.test(n)) s += 8;
       if (/premium|enhanced|erweitert/i.test(n)) s += 6;
       if (/google/i.test(n)) s += 5;
-      if (/anna|helena|petra|katja|amala|vicki|marlene|conrad|markus|yannick/i.test(n)) s += 2;
+      if (/conrad|markus|yannick|stefan|florian|killian|hans|männlich|male/i.test(n)) s += 3; // Ovid ist ein Mann
+      if (/anna|helena|petra|katja|amala|vicki|marlene/i.test(n)) s += 1;
       if (/de-DE/i.test(v.lang)) s += 1;
       return s;
     }
@@ -3925,8 +3966,8 @@ body.touring .tour-fab { display: none; }
     el.setAttribute('role', 'region');
     el.setAttribute('aria-label', 'Vorstellung der Seite');
     el.innerHTML = '' +
-      '<div class="tour-wave" aria-hidden="true"><i></i><i></i><i></i><i></i></div>' +
-      '<p class="tour-text" aria-live="polite"></p>' +
+      '<div class="tour-ovid" aria-hidden="true">' + ovidGuideSvg() + '</div>' +
+      '<div class="tour-bubble"><span class="tour-name">Ovid</span><p class="tour-text" aria-live="polite"></p></div>' +
       '<div class="tour-controls">' +
         '<button type="button" class="tour-btn" data-tour="pause" aria-label="Pause">' + icon('pause') + '</button>' +
         '<button type="button" class="tour-btn" data-tour="next" aria-label="Weiter">' + icon('next') + '</button>' +
@@ -3955,6 +3996,46 @@ body.touring .tour-fab { display: none; }
     tour.token++;
     clearTimeout(tour.timer);
     if (canSpeak) window.speechSynthesis.cancel();
+    if (tour.audio) { try { tour.audio.pause(); } catch (e) { /* egal */ } }
+    if (tour.el) tour.el.classList.remove('speaking');
+  }
+
+  /** Ovid als kleine Figur: Lorbeer, Toga, Schriftrolle – der Mund bewegt sich beim Sprechen. */
+  function ovidGuideSvg() {
+    var curls = '';
+    for (var a = 190; a <= 350; a += 16) {
+      var r = a * Math.PI / 180;
+      curls += '<circle cx="' + (80 + 38 * Math.cos(r)).toFixed(1) + '" cy="' + (74 + 36 * Math.sin(r)).toFixed(1) + '" r="9" fill="#3a2416"/>';
+    }
+    var leaves = '';
+    for (var b = 196; b <= 344; b += 13) {
+      var rr = b * Math.PI / 180;
+      var x = 80 + 42 * Math.cos(rr), y = 76 + 39 * Math.sin(rr);
+      leaves += '<ellipse cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" rx="8" ry="3.6" fill="' + (b % 26 ? '#7d8a4c' : '#66733c') + '" transform="rotate(' + (b + 90 + (b < 270 ? -30 : 30)) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1) + ')"/>';
+    }
+    return '<svg viewBox="0 0 160 210" focusable="false">' +
+      '<ellipse cx="80" cy="203" rx="44" ry="6" fill="#000" opacity="0.35"/>' +
+      '<g class="og-body">' +
+        '<path d="M58,196 h18 v-8 h-14 z M86,196 h18 v-8 h-14 z" fill="#7a4b2a"/>' +
+        '<path d="M38,192 Q34,132 80,120 Q126,132 122,192 Z" fill="#efe5d3"/>' +
+        '<path d="M46,138 Q90,150 118,188" stroke="#d3c4ab" stroke-width="9" fill="none" stroke-linecap="round"/>' +
+        '<path d="M50,170 Q80,178 112,170" stroke="#d3c4ab" stroke-width="2.5" fill="none"/>' +
+        '<g class="og-scroll"><rect x="14" y="140" width="46" height="16" rx="8" fill="#e8dcc0" transform="rotate(-20 37 148)"/><circle cx="50" cy="152" r="9" fill="#d9a47c"/></g>' +
+        '<g class="og-arm"><path d="M112,134 Q130,118 134,96 L144,100 Q142,124 120,146 Z" fill="#efe5d3"/><circle cx="140" cy="92" r="9.5" fill="#d9a47c"/></g>' +
+        '<rect x="70" y="106" width="20" height="18" rx="6" fill="#b8805a"/>' +
+        '<ellipse cx="42" cy="80" rx="7" ry="10" fill="#d9a47c"/><ellipse cx="118" cy="80" rx="7" ry="10" fill="#d9a47c"/>' +
+        '<circle cx="80" cy="78" r="40" fill="#d9a47c"/>' +
+        curls +
+        '<g class="og-laurel">' + leaves + '</g>' +
+        '<path d="M62,70 q7,-5 14,0 M84,70 q7,-5 14,0" stroke="#3a2416" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<g class="og-eyes"><ellipse cx="69" cy="81" rx="4.2" ry="5" fill="#24170f"/><ellipse cx="91" cy="81" rx="4.2" ry="5" fill="#24170f"/>' +
+        '<circle cx="70.5" cy="79" r="1.4" fill="#fff"/><circle cx="92.5" cy="79" r="1.4" fill="#fff"/></g>' +
+        '<path d="M80,82 q-5,12 1,14" stroke="#b8805a" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<circle cx="59" cy="96" r="7" fill="#c25a42" opacity="0.3"/><circle cx="101" cy="96" r="7" fill="#c25a42" opacity="0.3"/>' +
+        '<path class="og-smile" d="M71,102 q9,7 18,0" stroke="#6b2e22" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        '<ellipse class="og-mouth" cx="80" cy="104" rx="7" ry="5.5" fill="#5a1f17"/>' +
+      '</g>' +
+    '</svg>';
   }
 
   function startTour() {
@@ -3964,6 +4045,13 @@ body.touring .tour-fab { display: none; }
     tour.active = true;
     tour.paused = false;
     var el = tourEl();
+    // Audio im Klick „freischalten“ (iOS erlaubt Ton nur nach einer Berührung)
+    if (Object.keys(TOUR_AUDIO).length) {
+      if (!tour.audio) tour.audio = new Audio();
+      tour.audio.src = SILENT_WAV;
+      var unlock = tour.audio.play();
+      if (unlock && unlock.catch) unlock.catch(function () { /* egal */ });
+    }
     el.classList.add('on');
     tour.ring.classList.add('on');
     document.body.classList.add('touring');
@@ -4010,6 +4098,13 @@ body.touring .tour-fab { display: none; }
       card.classList.remove('demo-swipe');
       void card.offsetWidth;
       card.classList.add('demo-swipe');
+    },
+    wave: function () {
+      var guide = tour.el && tour.el.querySelector('.tour-ovid');
+      if (!guide) return;
+      guide.classList.remove('waving');
+      void guide.offsetWidth;
+      guide.classList.add('waving');
     },
     reveal: function () {
       var box = root.querySelector('.tip-card .quote-box');
@@ -4078,19 +4173,36 @@ body.touring .tour-fab { display: none; }
     }
     // Sicherheitsnetz: weiter, auch wenn der Browser kein „Ende“ meldet
     var fallback = Math.max(2600, s.text.length * 72);
+    var clip = TOUR_AUDIO[String(i + 1).padStart(2, '0')];
+    if (clip && tour.audio) {
+      minDur = 0;
+      var audio = tour.audio;
+      audio.onended = next;
+      audio.onerror = function () { useDeviceVoice(); };
+      audio.src = clip;
+      var playing = audio.play();
+      if (playing && playing.catch) playing.catch(function () { if (token === tour.token) useDeviceVoice(); });
+      tour.timer = setTimeout(next, 30000);
+      return;
+    }
+    useDeviceVoice();
+    function useDeviceVoice() {
     if (canSpeak) {
       window.speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(s.text);
       u.lang = 'de-DE';
       if (tour.voice) u.voice = tour.voice;
-      u.rate = 1.0;
-      u.pitch = 1.0;
+      u.rate = 0.98;
+      u.pitch = 0.95;
       u.onend = next;
       u.onerror = next;
       window.speechSynthesis.speak(u);
+      clearTimeout(tour.timer);
       tour.timer = setTimeout(next, fallback + 4000);
     } else {
+      clearTimeout(tour.timer);
       tour.timer = setTimeout(next, fallback);
+    }
     }
   }
 
