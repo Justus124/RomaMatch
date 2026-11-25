@@ -4165,10 +4165,17 @@ body.touring .tour-fab { display: none; }
     } else if (kind === 'applause') {
       for (var k = 0; k < 90; k++) noiseHit(t + Math.random() * 2.6, 0.04, 1200 + Math.random() * 1600, 1.5, 0.05 + Math.random() * 0.05);
     } else if (kind === 'right') {
-      // aufsteigender Dreiklang
-      [523.25, 659.25, 783.99, 1046.5].forEach(function (f, n) {
-        var o = c.createOscillator(); o.type = 'triangle'; o.frequency.value = f;
-        env(o, 0.13, 0.01, n === 3 ? 0.6 : 0.22, t + n * 0.09); o.start(t + n * 0.09); o.stop(t + n * 0.09 + 0.8);
+      // weicher Marimba-„Pling“: zwei kurze Töne (Quinte), leise, mit kleiner Tonhöhen-Variation
+      var base = [587.33, 659.25, 698.46][Math.floor(Math.random() * 3)];
+      [[base, 0], [base * 1.5, 0.075]].forEach(function (note) {
+        var at = t + note[1];
+        var lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400;
+        var o = c.createOscillator(); o.type = 'sine'; o.frequency.value = note[0];
+        var h = c.createOscillator(); h.type = 'sine'; h.frequency.value = note[0] * 4;
+        var hg = c.createGain(); hg.gain.value = 0.12;
+        o.connect(lp); h.connect(hg); hg.connect(lp);
+        env(lp, 0.075, 0.004, 0.32, at);
+        o.start(at); h.start(at); o.stop(at + 0.45); h.stop(at + 0.45);
       });
     } else if (kind === 'wrong') {
       // tiefes „Mööp“
