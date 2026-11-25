@@ -3790,6 +3790,7 @@ body.touring .tour-fab { display: none; }
       card.style.transform = '';
       card.classList.add(direction === 'like' ? 'leaving-like' : 'leaving-nope');
     }
+    sfx(direction === 'like' ? 'swipe-like' : 'swipe-nope');
     root.querySelectorAll('.circle-btn').forEach(function (b) { b.disabled = true; });
 
     if (direction === 'like') {
@@ -3804,7 +3805,7 @@ body.touring .tour-fab { display: none; }
     setTimeout(function () {
       ui.swipeBusy = false;
       ui.swipeIndex += 1;
-      if (direction === 'like') ui.matchedId = current.id;
+      if (direction === 'like') { ui.matchedId = current.id; sfx('match'); }
       render();
     }, 340);
   }
@@ -3838,17 +3839,20 @@ body.touring .tour-fab { display: none; }
       var id = el.getAttribute('data-id');
       var done = function () { return STYLE_ITEMS.filter(function (it) { return ui.styleFixed[it.id]; }).length; };
       var before = done();
+      var wasFixed = !!ui.styleFixed[id];
       ui.styleSel = id;
       ui.styleFixed[id] = true;
       ui.styleCelebrate = before < STYLE_ITEMS.length && done() === STYLE_ITEMS.length;
+      if (ui.styleCelebrate) sfx('tada'); else if (!wasFixed) sfx('sparkle');
       render();
     },
     'style-all': function () {
       STYLE_ITEMS.forEach(function (it) { ui.styleFixed[it.id] = true; });
       ui.styleCelebrate = true;
+      sfx('tada');
       render();
     },
-    'style-reset': function () { ui.styleFixed = {}; ui.styleSel = null; render(); },
+    'style-reset': function () { ui.styleFixed = {}; ui.styleSel = null; sfx('swipe-nope'); render(); },
     seat: function (el) {
       var seat = el.getAttribute('data-seat');
       ui.seat = ui.seat === seat ? null : seat;
@@ -4178,12 +4182,41 @@ body.touring .tour-fab { display: none; }
         o.start(at); h.start(at); o.stop(at + 0.45); h.stop(at + 0.45);
       });
     } else if (kind === 'wrong') {
-      // tiefes „Mööp“
-      [0, 0.22].forEach(function (d) {
-        var o = c.createOscillator(); o.type = 'sawtooth';
-        o.frequency.setValueAtTime(196, t + d); o.frequency.linearRampToValueAtTime(150, t + d + 0.2);
-        var lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 900;
-        o.connect(lp); env(lp, 0.12, 0.01, 0.22, t + d); o.start(t + d); o.stop(t + d + 0.3);
+      // weiches, tiefes „Bonk“ – kurz und leise
+      var w = c.createOscillator(); w.type = 'sine';
+      w.frequency.setValueAtTime(240, t); w.frequency.exponentialRampToValueAtTime(150, t + 0.18);
+      var wl = c.createBiquadFilter(); wl.type = 'lowpass'; wl.frequency.value = 800;
+      w.connect(wl); env(wl, 0.09, 0.006, 0.22, t); w.start(t); w.stop(t + 0.3);
+    } else if (kind === 'swipe-like' || kind === 'swipe-nope') {
+      // Wisch-Geräusch: Rauschen, das nach oben (Like) bzw. unten (Nope) gleitet
+      var like = kind === 'swipe-like';
+      var sw = c.createBufferSource(); sw.buffer = noiseBuffer(c);
+      var sf = c.createBiquadFilter(); sf.type = 'bandpass'; sf.Q.value = 1.4;
+      sf.frequency.setValueAtTime(like ? 700 : 1800, t); sf.frequency.exponentialRampToValueAtTime(like ? 2600 : 500, t + 0.22);
+      sw.connect(sf); env(sf, 0.045, 0.03, 0.2, t); sw.start(t, Math.random()); sw.stop(t + 0.3);
+      if (like) {
+        var lo = c.createOscillator(); lo.type = 'sine';
+        lo.frequency.setValueAtTime(660, t + 0.08); lo.frequency.exponentialRampToValueAtTime(990, t + 0.16);
+        env(lo, 0.05, 0.005, 0.2, t + 0.08); lo.start(t + 0.08); lo.stop(t + 0.35);
+      }
+    } else if (kind === 'match') {
+      // leises Glitzern: vier weiche Glockentöne nach oben
+      [783.99, 987.77, 1174.66, 1567.98].forEach(function (f, n) {
+        var mo = c.createOscillator(); mo.type = 'sine'; mo.frequency.value = f;
+        var ml = c.createBiquadFilter(); ml.type = 'lowpass'; ml.frequency.value = 3000;
+        mo.connect(ml); env(ml, 0.05, 0.004, 0.5, t + n * 0.07); mo.start(t + n * 0.07); mo.stop(t + n * 0.07 + 0.6);
+      });
+    } else if (kind === 'sparkle') {
+      // kleiner „Bläschen“-Pop beim Stylen, jedes Mal etwas anders hoch
+      var sp = c.createOscillator(); sp.type = 'sine';
+      var f0 = 700 + Math.random() * 300;
+      sp.frequency.setValueAtTime(f0, t); sp.frequency.exponentialRampToValueAtTime(f0 * 1.9, t + 0.07);
+      env(sp, 0.06, 0.003, 0.12, t); sp.start(t); sp.stop(t + 0.2);
+    } else if (kind === 'tada') {
+      // sanfter Abschluss-Akkord
+      [523.25, 659.25, 783.99].forEach(function (f, n) {
+        var ta = c.createOscillator(); ta.type = 'sine'; ta.frequency.value = f;
+        env(ta, 0.045, 0.02 + n * 0.02, 0.9, t + n * 0.05); ta.start(t + n * 0.05); ta.stop(t + 1.2);
       });
     } else if (kind === 'boing') {
       var b = c.createOscillator(); b.type = 'sine';
@@ -4362,7 +4395,6 @@ body.touring .tour-fab { display: none; }
         setTimeout(function () {
           if (!tour.active || token !== tour.token) return;
           actions['style-pick'](fakeEl({ 'data-id': id }));
-          sfx('pop');
         }, 600 + i * 900);
       });
     },
@@ -4740,7 +4772,14 @@ body.touring .tour-fab { display: none; }
      Ereignisse
      ======================================================= */
 
+  function wakeSound() {
+    var ctx = audioCtx();
+    if (ctx && ctx.state === 'suspended' && ctx.resume) ctx.resume();
+  }
+  root.addEventListener('pointerdown', wakeSound, true);
+
   root.addEventListener('click', function (event) {
+    wakeSound();
     var el = event.target.closest('[data-action]');
     if (!el || !root.contains(el)) return;
     var handler = actions[el.getAttribute('data-action')];
