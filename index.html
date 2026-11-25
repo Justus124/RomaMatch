@@ -1589,72 +1589,179 @@ body { background-image: radial-gradient(ellipse at 50% -10%, rgba(181, 74, 53, 
   .spot-banner { height: 220px; }
 }
 
-/* ---------- Geführte Tour ---------- */
+/* ---------- „Seite vorstellen“: Ovids Show ---------- */
 .tour-fab {
   position: fixed; right: 18px; bottom: 18px; z-index: 50;
   display: flex; align-items: center; gap: 10px;
-  padding: 12px 18px 12px 14px;
+  padding: 10px 18px 10px 10px;
   border-radius: 999px;
   border: 1px solid rgba(227, 207, 166, 0.5);
-  background: rgba(28, 23, 20, 0.92);
+  background: rgba(28, 23, 20, 0.94);
   backdrop-filter: blur(10px);
   color: var(--text);
-  font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  font-family: var(--font-display); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
   cursor: pointer;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   transition: transform 0.2s ease, background 0.2s ease;
+  animation: fab-nudge 6s ease-in-out infinite;
 }
-.tour-fab .icon { width: 22px; height: 22px; color: var(--gold-soft); }
-.tour-fab:hover { transform: translateY(-2px); background: var(--pink); }
-.tour-fab:hover .icon { color: #fff; }
+.tour-fab .icon { width: 34px; height: 34px; padding: 7px; border-radius: 50%; background: var(--pink); color: #fff; }
+.tour-fab:hover { transform: translateY(-2px) scale(1.03); }
 body.touring .tour-fab { display: none; }
+@keyframes fab-nudge { 0%, 88%, 100% { transform: none; } 91% { transform: rotate(-4deg) scale(1.06); } 94% { transform: rotate(4deg) scale(1.06); } 97% { transform: none; } }
 
 .tour-ring {
-  position: fixed; left: 0; top: 0; z-index: 70;
+  position: fixed; left: 0; top: 0; z-index: 85;
   display: none; opacity: 0;
   pointer-events: none;
-  border: 2px solid var(--gold-soft);
-  border-radius: 20px;
-  box-shadow: 0 0 0 9999px rgba(10, 8, 7, 0.5), 0 0 30px rgba(227, 207, 166, 0.45);
-  transition: transform 0.35s ease, width 0.35s ease, height 0.35s ease, opacity 0.3s ease;
+  border: 3px dashed var(--gold-soft);
+  border-radius: 22px;
+  box-shadow: 0 0 0 9999px rgba(10, 8, 7, 0.55), 0 0 40px rgba(227, 207, 166, 0.35);
+  transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1), width 0.5s ease, height 0.5s ease, opacity 0.3s ease;
 }
 .tour-ring.on { display: block; }
 
-.tour-bar {
-  position: fixed; left: 50%; bottom: 16px; z-index: 80;
-  width: min(680px, calc(100% - 24px));
-  transform: translate(-50%, 160%);
-  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px;
-  padding: 14px 16px 18px;
-  border-radius: 20px;
-  border: 1px solid rgba(227, 207, 166, 0.45);
-  background: rgba(28, 23, 20, 0.97);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1);
-  overflow: hidden;
-}
-.tour-bar.on { transform: translate(-50%, 0); }
-.tour-text { margin: 0; color: var(--text); font-size: 0.98rem; line-height: 1.5; }
-.tour-wave { display: flex; align-items: center; gap: 3px; height: 28px; width: 30px; }
-.tour-wave i { flex: 1; height: 30%; border-radius: 3px; background: var(--gold-soft); transition: height 0.2s; }
-.tour-bar.speaking .tour-wave i { animation: talk 0.9s ease-in-out infinite; }
-.tour-bar.speaking .tour-wave i:nth-child(2) { animation-delay: -0.3s; }
-.tour-bar.speaking .tour-wave i:nth-child(3) { animation-delay: -0.6s; }
-.tour-bar.speaking .tour-wave i:nth-child(4) { animation-delay: -0.15s; }
-.tour-bar.paused .tour-text { opacity: 0.6; }
-.tour-controls { display: flex; gap: 6px; }
-.tour-btn {
-  width: 40px; height: 40px; border-radius: 50%;
-  display: grid; place-items: center;
-  border: 1px solid var(--border); background: rgba(239, 229, 211, 0.06);
-  color: var(--text); cursor: pointer;
-  transition: background 0.2s;
-}
-.tour-btn:hover { background: var(--pink); border-color: var(--pink); }
-.tour-btn .icon { width: 18px; height: 18px; }
-.tour-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(239, 229, 211, 0.08); }
-.tour-progress i { display: block; height: 100%; width: 0; background: var(--pink); transition: width 0.5s ease; }
+.show { position: fixed; inset: 0; z-index: 90; pointer-events: none; visibility: hidden; }
+.show:not([data-phase='off']) { visibility: visible; }
+.show:not([data-phase]) { visibility: hidden; }
 
+/* Vorhang */
+.show-curtain {
+  position: absolute; top: 0; bottom: 0; width: 51%;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35), transparent 18%, transparent 80%, rgba(0, 0, 0, 0.45)),
+    repeating-linear-gradient(90deg, #5a170f 0 10px, #8e2a1d 10px 30px, #a6372a 30px 38px, #6e1d14 38px 52px);
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6);
+  transition: transform 1s cubic-bezier(0.7, 0, 0.3, 1);
+  pointer-events: auto;
+}
+.show-curtain::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 26px;
+  background: repeating-linear-gradient(90deg, #c9a46a 0 6px, #8d7246 6px 9px);
+  -webkit-mask: linear-gradient(180deg, #000 40%, transparent);
+  mask: linear-gradient(180deg, #000 40%, transparent);
+}
+.show-curtain.left { left: 0; transform: translateX(-102%); border-right: 4px solid #3a0f09; }
+.show-curtain.right { right: 0; transform: translateX(102%); border-left: 4px solid #3a0f09; }
+.show[data-phase='intro'] .show-curtain, .show[data-phase='end'] .show-curtain { transform: none; }
+.show[data-phase='live'] .show-curtain, .show[data-phase='open'] .show-curtain { pointer-events: none; }
+
+.show-title {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  text-align: center; color: #efe5d3;
+  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.2, 1.4, 0.4, 1);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+.show-title span, .show-title em { display: block; font-family: var(--font-display); letter-spacing: 0.4em; text-transform: uppercase; font-size: 0.8rem; color: var(--gold-soft); font-style: normal; }
+.show-title strong { display: block; font-family: var(--font-display); font-size: clamp(2.6rem, 11vw, 6rem); letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.1; margin: 6px 0; }
+.show[data-phase='intro'] .show-title { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+/* Story-Balken und Steuerung */
+.show-stories { position: absolute; top: 10px; left: 12px; right: 12px; display: flex; gap: 4px; opacity: 0; transition: opacity 0.4s; }
+.show-stories i { flex: 1; height: 4px; border-radius: 4px; background: rgba(239, 229, 211, 0.25); overflow: hidden; }
+.show-stories b { display: block; height: 100%; width: 0; background: #efe5d3; }
+.show-stories i.done b { width: 100%; }
+.show-controls { position: absolute; top: 24px; right: 12px; display: flex; gap: 6px; opacity: 0; transition: opacity 0.4s; }
+.show-controls button {
+  pointer-events: auto;
+  width: 42px; height: 42px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid rgba(239, 229, 211, 0.35); background: rgba(20, 16, 14, 0.75);
+  color: #efe5d3; cursor: pointer; backdrop-filter: blur(6px);
+  transition: background 0.2s, transform 0.2s;
+}
+.show-controls button:hover { background: var(--pink); transform: scale(1.08); }
+.show-controls .icon { width: 18px; height: 18px; }
+.show[data-phase='live'] .show-stories, .show[data-phase='live'] .show-controls { opacity: 1; }
+
+/* Untertitel im TikTok-Stil */
+.show-caption {
+  position: absolute; left: 50%; bottom: 36px;
+  transform: translateX(-50%);
+  width: min(900px, calc(100% - 24px));
+  margin: 0; text-align: center;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 800; font-size: clamp(1.35rem, 4.2vw, 2.3rem); line-height: 1.3;
+  color: #fff;
+  text-shadow: 0 3px 0 #241a14, 0 0 18px rgba(0, 0, 0, 0.9), 2px 2px 0 #241a14, -2px -2px 0 #241a14, 2px -2px 0 #241a14, -2px 2px 0 #241a14;
+  opacity: 0; transition: opacity 0.3s;
+}
+.show[data-phase='live'] .show-caption { opacity: 1; }
+.show-caption span { display: inline-block; padding: 0 0.12em; border-radius: 0.25em; transition: color 0.12s, background 0.12s, transform 0.12s; }
+.show-caption span.said { color: #efe5d3; }
+.show-caption span.now { color: #fff; background: var(--pink); transform: scale(1.08) rotate(-1.5deg); text-shadow: none; box-shadow: 0 4px 0 #241a14; }
+.show-caption span:not(.said):not(.now) { opacity: 0.55; }
+.show-caption.flip { animation: cap-in 0.28s cubic-bezier(0.2, 1.5, 0.4, 1); }
+.show.paused .show-caption { opacity: 0.45; }
+
+/* Ovid fliegt über die Seite */
+.show-guide {
+  position: absolute; left: 0; top: 0;
+  width: 150px;
+  transform: translate(-200px, 60vh);
+  transition: transform 0.85s cubic-bezier(0.34, 1.35, 0.64, 1);
+  opacity: 0;
+}
+.show[data-phase='open'] .show-guide, .show[data-phase='live'] .show-guide { opacity: 1; }
+.show-guide-inner { transition: transform 0.35s ease; }
+.show-guide.face-left .show-guide-inner { transform: scaleX(-1); }
+.show-guide svg { width: 100%; height: auto; display: block; overflow: visible; filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.55)); }
+.show-guide.hop svg { animation: hop 0.6s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.og-body { animation: ovid-bob 2.4s ease-in-out infinite; transform-origin: 80px 200px; }
+.og-laurel { animation: sway 3.6s ease-in-out infinite; transform-origin: 80px 76px; }
+.og-arm { transform-box: fill-box; transform-origin: 10% 90%; }
+.og-mouth { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.og-eyes { display: none; }
+.og-sweat { opacity: 0; }
+.show-guide .eyes-normal { display: inline; animation: blink 4.2s infinite; transform-box: fill-box; transform-origin: center; }
+.show-guide[data-mood='wink'] .eyes-normal, .show-guide[data-mood='love'] .eyes-normal,
+.show-guide[data-mood='laugh'] .eyes-normal, .show-guide[data-mood='shock'] .eyes-normal { display: none; }
+.show-guide[data-mood='wink'] .eyes-wink, .show-guide[data-mood='love'] .eyes-love,
+.show-guide[data-mood='laugh'] .eyes-laugh, .show-guide[data-mood='shock'] .eyes-shock { display: inline; }
+.show-guide[data-mood='love'] .eyes-love { animation: heart-beat 0.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.show-guide[data-mood='shock'] .og-sweat { opacity: 1; animation: float-y 1.2s ease-in-out infinite; }
+.show-guide[data-mood='shock'] .og-brows { transform: translateY(-4px); }
+.show-guide[data-mood='laugh'] .og-body { animation: laugh-shake 0.35s ease-in-out infinite; }
+.show-guide[data-mood='love'] .og-cheek { opacity: 0.6; }
+.show.speaking .og-smile { opacity: 0; }
+.show.speaking .og-mouth { opacity: 1; animation: ovid-talk 0.17s ease-in-out infinite alternate; }
+.show-guide[data-mood='shock'] .og-mouth { animation-name: ovid-talk-o; }
+.show.speaking .og-arm { animation: ovid-gesture 1.8s ease-in-out infinite; }
+.show-guide.waving .og-arm { animation: ovid-wave 0.4s ease-in-out 6 alternate !important; }
+
+/* Comic-Sticker über Ovids Kopf */
+.show-sticker {
+  position: absolute; left: 50%; bottom: 100%;
+  transform: translate(-50%, 10px) scale(0);
+  padding: 7px 14px;
+  border-radius: 14px;
+  background: #efe5d3; color: #241a14;
+  border: 3px solid #241a14;
+  box-shadow: 4px 4px 0 #241a14;
+  font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.04em; text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+}
+.show-sticker::after { content: ''; position: absolute; left: 50%; bottom: -12px; margin-left: -8px; border: 8px solid transparent; border-top-color: #241a14; }
+.show-sticker.pop { animation: sticker 3.4s cubic-bezier(0.2, 1.5, 0.4, 1) forwards; }
+
+/* Abspann */
+.show-end { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; pointer-events: none; transition: opacity 0.5s 0.6s; }
+.show[data-phase='end'] .show-end { opacity: 1; pointer-events: auto; }
+.show-end-card { text-align: center; color: #efe5d3; padding: 20px; position: relative; z-index: 1; }
+.show-end-small { display: block; font-family: var(--font-display); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold-soft); font-size: 0.85rem; }
+.show-end-card strong { display: block; font-family: var(--font-display); font-size: clamp(3.4rem, 14vw, 7rem); line-height: 1.05; text-transform: uppercase; letter-spacing: 0.06em; text-shadow: 0 6px 30px rgba(0, 0, 0, 0.6); }
+.show[data-phase='end'] .show-end-card strong { animation: pop-in 0.7s 0.7s cubic-bezier(0.2, 1.6, 0.4, 1) both; }
+.show-end-card p { font-style: italic; color: var(--gold-soft); font-size: 1.1rem; margin: 6px 0 22px; }
+.show-end-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.show-confetti span { position: absolute; top: -40px; left: var(--x); color: var(--gold-soft); font-size: 22px; opacity: 0; }
+.show-confetti span:nth-child(3n) { color: #efe5d3; }
+.show-confetti span:nth-child(4n) { color: #e08a74; }
+.show[data-phase='end'] .show-confetti span { animation: confetti var(--d) var(--delay) linear infinite; }
+
+/* Demo-Wischen der Swipe-Karte */
 .swipe-card.demo-swipe { animation: demo-swipe 3.6s ease-in-out; }
 .swipe-card.demo-swipe .stamp-like { animation: demo-like 3.6s ease-in-out; }
 .swipe-card.demo-swipe .stamp-nope { animation: demo-nope 3.6s ease-in-out; }
@@ -1667,47 +1774,32 @@ body.touring .tour-fab { display: none; }
 }
 @keyframes demo-like { 0%, 10%, 45%, 100% { opacity: 0; } 20%, 32% { opacity: 1; } }
 @keyframes demo-nope { 0%, 55%, 88%, 100% { opacity: 0; } 64%, 76% { opacity: 1; } }
-@keyframes talk { 0%, 100% { height: 25%; } 50% { height: 100%; } }
 
-@media (max-width: 640px) {
-  .tour-fab { right: 12px; bottom: 12px; padding: 12px; }
-  .tour-fab span { display: none; }
-  .tour-bar { grid-template-columns: 1fr auto; padding: 12px 12px 16px; gap: 10px; bottom: 10px; }
-  .tour-wave { display: none; }
-  .tour-text { font-size: 0.9rem; }
-  .tour-btn { width: 36px; height: 36px; }
-}
-
-/* ---------- Ovid als Erklär-Figur ---------- */
-.tour-bar { grid-template-columns: auto 1fr auto; padding: 12px 16px 18px 8px; overflow: visible; }
-.tour-ovid { width: 104px; height: 136px; margin: -58px 0 -10px; flex-shrink: 0; transform-origin: 50% 100%; }
-.tour-bar.on .tour-ovid { animation: ovid-in 0.7s cubic-bezier(0.2, 1.4, 0.4, 1) both; }
-.tour-ovid svg { width: 100%; height: 100%; overflow: visible; }
-.og-body { animation: ovid-bob 2.6s ease-in-out infinite; transform-origin: 80px 200px; }
-.og-eyes { animation: blink 4.5s infinite; transform-box: fill-box; transform-origin: center; }
-.og-laurel { animation: sway 3.6s ease-in-out infinite; transform-origin: 80px 76px; }
-.og-arm { transform-box: fill-box; transform-origin: 10% 90%; }
-.og-mouth { opacity: 0; transform-box: fill-box; transform-origin: center; }
-.tour-bar.speaking .og-smile { opacity: 0; }
-.tour-bar.speaking .og-mouth { opacity: 1; animation: ovid-talk 0.19s ease-in-out infinite alternate; }
-.tour-bar.speaking .og-arm { animation: ovid-gesture 2.2s ease-in-out infinite; }
-.tour-ovid.waving .og-arm { animation: ovid-wave 0.45s ease-in-out 4 alternate; }
-.tour-bubble { position: relative; background: #efe5d3; color: #241a14; border-radius: 16px; padding: 10px 14px 12px; }
-.tour-bubble::before { content: ''; position: absolute; left: -9px; top: 22px; border: 9px solid transparent; border-right-color: #efe5d3; border-left: 0; }
-.tour-name { display: block; font-family: var(--font-display); font-weight: 700; font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--pink-dark); margin-bottom: 2px; }
-.tour-bubble .tour-text { color: #241a14; font-size: 0.96rem; }
-.tour-bar .tour-wave { display: none; }
-@keyframes ovid-in { from { transform: translateY(60px) scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
-@keyframes ovid-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes hop { 0% { transform: translateY(0) scale(1, 1); } 30% { transform: translateY(-26px) scale(0.95, 1.06); } 60% { transform: translateY(0) scale(1.08, 0.92); } 100% { transform: none; } }
+@keyframes ovid-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 @keyframes ovid-talk { from { transform: scaleY(0.25); } to { transform: scaleY(1); } }
-@keyframes ovid-gesture { 0%, 100% { transform: rotate(0deg); } 30% { transform: rotate(-14deg); } 60% { transform: rotate(6deg); } }
-@keyframes ovid-wave { from { transform: rotate(-24deg); } to { transform: rotate(18deg); } }
+@keyframes ovid-talk-o { from { transform: scale(0.8); } to { transform: scale(1.25); } }
+@keyframes ovid-gesture { 0%, 100% { transform: rotate(0deg); } 30% { transform: rotate(-16deg); } 60% { transform: rotate(8deg); } }
+@keyframes ovid-wave { from { transform: rotate(-26deg); } to { transform: rotate(20deg); } }
+@keyframes laugh-shake { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg) translateY(-2px); } }
+@keyframes heart-beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+@keyframes sticker {
+  0% { opacity: 0; transform: translate(-50%, 10px) scale(0) rotate(-20deg); }
+  12% { opacity: 1; transform: translate(-50%, -6px) scale(1.15) rotate(6deg); }
+  20% { transform: translate(-50%, -6px) scale(1) rotate(-4deg); }
+  80% { opacity: 1; transform: translate(-50%, -6px) scale(1) rotate(-4deg); }
+  100% { opacity: 0; transform: translate(-50%, -20px) scale(0.9) rotate(-4deg); }
+}
+@keyframes cap-in { from { transform: translateX(-50%) translateY(14px) scale(0.92); opacity: 0.2; } to { transform: translateX(-50%); opacity: 1; } }
+@keyframes confetti { 0% { transform: translateY(0) rotate(0); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(110vh) rotate(var(--r)); opacity: 0.8; } }
+
 @media (max-width: 640px) {
-  .tour-bar { grid-template-columns: auto 1fr; grid-template-areas: 'ovid bubble' 'ovid controls'; padding: 10px 10px 16px 4px; }
-  .tour-ovid { grid-area: ovid; width: 78px; height: 104px; margin: -40px 0 -6px; }
-  .tour-bubble { grid-area: bubble; padding: 8px 12px 10px; }
-  .tour-controls { grid-area: controls; justify-content: flex-end; }
-  .tour-bubble .tour-text { font-size: 0.88rem; }
+  .tour-fab { right: 12px; bottom: 12px; padding: 8px; }
+  .tour-fab span { display: none; }
+  .show-guide { width: 104px; }
+  .show-caption { bottom: 26px; }
+  .show-sticker { font-size: 0.78rem; padding: 5px 10px; }
+  .show-controls button { width: 38px; height: 38px; }
 }
 </style>
 </head>
@@ -3906,26 +3998,27 @@ body.touring .tour-fab { display: none; }
   };
 
   /* =======================================================
-     Geführte Tour mit Sprachausgabe („Seite vorstellen“)
-     Nutzt die eingebaute Stimme des Browsers (Web Speech API).
+     „Seite vorstellen“ – Ovids Show
+     Vorhang auf, Ovid fliegt über die Seite, Untertitel Wort für Wort,
+     Comic-Sticker, Grimassen, Soundeffekte und Abspann.
      ======================================================= */
 
   var TOUR = [
-    { tab: 'swipe', top: true, focus: '.hero-inner', act: 'wave', text: 'Salve! Ich bin Ovid, Dichter und Lehrer der Liebe. Willkommen bei Roma Match!' },
-    { focus: '.hero-inner', text: 'Vor zweitausend Jahren habe ich die Ars amatoria geschrieben – ein Handbuch fürs Flirten. Hier findest du meine Tipps im Stil einer Dating-App. Komm mit!' },
-    { tab: 'swipe', focus: '.swipe-stack', text: 'Beim Swipen lernst du Menschen aus meinem Rom kennen: mich selbst, Kaiserin Livia oder den Redner Cicero. Der redet übrigens zu viel.' },
-    { focus: '.swipe-stack', act: 'demoSwipe', text: 'Nach rechts wischen heißt Like, nach links heißt Nope. Und wenn es passt – ein Match!' },
-    { tab: 'tips', focus: '.tip-card', text: 'Hier sind meine Tipps. Jeder mit dem lateinischen Original – schließlich habe ich auf Latein geschrieben.' },
-    { focus: '.tip-card .quote-box', act: 'reveal', text: 'Tipp aufs Zitat, und schon erscheint die Übersetzung.' },
-    { focus: '.tip-card .vote-row', text: 'Und dann entscheidest du: Top-Tipp oder Red Flag? Ich gebe zu – nicht alle meine Ratschläge sind gut gealtert.' },
-    { tab: 'style', focus: '.figure-card', text: 'Im Style-Check zeige ich dir: Pflege ist nicht nur Frauensache. Durch Sauberkeit sollst du gefallen!' },
-    { focus: '.figure-card', act: 'styleAll', text: 'Haare und Bart vom Profi, frischer Atem, saubere Toga, passende Schuhe – und schon ist mein Schüler bereit fürs Date.' },
-    { tab: 'spots', focus: '.spot', text: 'Bei den Date-Spots verrate ich dir, wo man in Rom flirtet. Erster Hotspot: das Theater – denn dort wollen alle gesehen werden.' },
-    { focus: '.seat-plan', act: 'seat', text: 'Der Haken: Die Frauen sitzen ganz oben. Kaiser Augustus hat das so bestimmt.' },
-    { focus: '.race-box', act: 'team', text: 'Darum gehst du besser in den Circus Maximus. Dort sitzt man nebeneinander. Und mein Rat: Jubel einfach für ihr Team!' },
-    { tab: 'quiz', focus: '.quiz-card', text: 'Im Dating-Quiz prüfe ich, ob du gut aufgepasst hast.' },
-    { tab: 'community', focus: '.community-grid', text: 'In der Community findest du andere Besucher – und unter Mein Profil legst du dein eigenes an.' },
-    { tab: 'swipe', top: true, focus: '.hero-inner', act: 'wave', text: 'Zum Schluss mein wichtigster Rat: Damit du geliebt wirst, sei liebenswert. Vale – mach\'s gut!' }
+    { tab: 'swipe', top: true, focus: '.hero-inner', act: 'wave', mood: 'happy', sticker: 'Salve!', text: 'Salve! Ich bin Ovid, Dichter und Lehrer der Liebe. Willkommen bei Roma Match!' },
+    { focus: '.hero-inner', mood: 'wink', sticker: 'Ars amatoria', text: 'Vor zweitausend Jahren habe ich die Ars amatoria geschrieben – ein Handbuch fürs Flirten. Hier findest du meine Tipps im Stil einer Dating-App. Komm mit!' },
+    { tab: 'swipe', focus: '.swipe-stack', mood: 'laugh', sticker: 'bla bla bla …', text: 'Beim Swipen lernst du Menschen aus meinem Rom kennen: mich selbst, Kaiserin Livia oder den Redner Cicero. Der redet übrigens zu viel.' },
+    { focus: '.swipe-stack', act: 'demoSwipe', mood: 'love', sticker: '♥ Match!', text: 'Nach rechts wischen heißt Like, nach links heißt Nope. Und wenn es passt – ein Match!' },
+    { tab: 'tips', focus: '.tip-card', mood: 'happy', sticker: 'Latein!', text: 'Hier sind meine Tipps. Jeder mit dem lateinischen Original – schließlich habe ich auf Latein geschrieben.' },
+    { focus: '.tip-card .quote-box', act: 'reveal', mood: 'wink', sticker: 'Tipp drauf!', text: 'Tipp aufs Zitat, und schon erscheint die Übersetzung.' },
+    { focus: '.tip-card .vote-row', mood: 'shock', sticker: 'Ups …', text: 'Und dann entscheidest du: Top-Tipp oder Red Flag? Ich gebe zu – nicht alle meine Ratschläge sind gut gealtert.' },
+    { tab: 'style', focus: '.figure-card', mood: 'happy', sticker: 'Munditie!', text: 'Im Style-Check zeige ich dir: Pflege ist nicht nur Frauensache. Durch Sauberkeit sollst du gefallen!' },
+    { focus: '.figure-card', act: 'styleAll', mood: 'love', sticker: 'Glow-up!', text: 'Haare und Bart vom Profi, frischer Atem, saubere Toga, passende Schuhe – und schon ist mein Schüler bereit fürs Date.' },
+    { tab: 'spots', focus: '.spot', mood: 'wink', sticker: 'Sehen & gesehen werden', text: 'Bei den Date-Spots verrate ich dir, wo man in Rom flirtet. Erster Hotspot: das Theater – denn dort wollen alle gesehen werden.' },
+    { focus: '.seat-plan', act: 'seat', mood: 'shock', sticker: 'Echt jetzt?!', text: 'Der Haken: Die Frauen sitzen ganz oben. Kaiser Augustus hat das so bestimmt.' },
+    { focus: '.race-box', act: 'team', mood: 'laugh', sticker: 'Go, Blau!', text: 'Darum gehst du besser in den Circus Maximus. Dort sitzt man nebeneinander. Und mein Rat: Jubel einfach für ihr Team!' },
+    { tab: 'quiz', focus: '.quiz-card', mood: 'wink', sticker: 'Quiz-Zeit!', text: 'Im Dating-Quiz prüfe ich, ob du gut aufgepasst hast.' },
+    { tab: 'community', focus: '.community-grid', mood: 'happy', sticker: 'Hallo Rom!', text: 'In der Community findest du andere Besucher – und unter Mein Profil legst du dein eigenes an.' },
+    { tab: 'swipe', top: true, focus: '.hero-inner', act: 'wave', mood: 'love', sticker: 'Vale! ♥', text: 'Zum Schluss mein wichtigster Rat: Damit du geliebt wirst, sei liebenswert. Vale – mach\'s gut!' }
   ];
 
   /** Eingebettete Sprachaufnahmen (MP3, Ovids Stimme). Fehlen sie, spricht die Gerätestimme. */
@@ -3933,10 +4026,14 @@ body.touring .tour-fab { display: none; }
   try { TOUR_AUDIO = JSON.parse(document.getElementById('tour-audio').textContent) || {}; } catch (e) { TOUR_AUDIO = {}; }
   var SILENT_WAV = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
 
-  var tour = { active: false, paused: false, step: 0, timer: null, token: 0, voice: null, el: null, ring: null, raf: 0, audio: null };
+  var tour = {
+    active: false, paused: false, step: 0, timer: null, token: 0, voice: null,
+    el: null, ring: null, guide: null, raf: 0, audio: null, ctx: null, noise: null,
+    words: [], wordIdx: -1, phase: 'off', faceLeft: false
+  };
   var canSpeak = 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined';
 
-  /** Beste deutsche Stimme wählen – neuronale/„natürliche“ Stimmen klingen am menschlichsten. */
+  /** Beste deutsche Stimme wählen (nur, falls die Aufnahmen fehlen). */
   function pickVoice() {
     if (!canSpeak) return null;
     var voices = window.speechSynthesis.getVoices().filter(function (v) { return /^de(-|_|$)/i.test(v.lang); });
@@ -3947,8 +4044,7 @@ body.touring .tour-fab { display: none; }
       if (/natural|neural|online/i.test(n)) s += 8;
       if (/premium|enhanced|erweitert/i.test(n)) s += 6;
       if (/google/i.test(n)) s += 5;
-      if (/conrad|markus|yannick|stefan|florian|killian|hans|männlich|male/i.test(n)) s += 3; // Ovid ist ein Mann
-      if (/anna|helena|petra|katja|amala|vicki|marlene/i.test(n)) s += 1;
+      if (/conrad|markus|yannick|stefan|florian|killian|hans|männlich|male/i.test(n)) s += 3;
       if (/de-DE/i.test(v.lang)) s += 1;
       return s;
     }
@@ -3959,48 +4055,8 @@ body.touring .tour-fab { display: none; }
     window.speechSynthesis.onvoiceschanged = function () { tour.voice = pickVoice(); };
   }
 
-  function tourEl() {
-    if (tour.el) return tour.el;
-    var el = document.createElement('div');
-    el.className = 'tour-bar';
-    el.setAttribute('role', 'region');
-    el.setAttribute('aria-label', 'Vorstellung der Seite');
-    el.innerHTML = '' +
-      '<div class="tour-ovid" aria-hidden="true">' + ovidGuideSvg() + '</div>' +
-      '<div class="tour-bubble"><span class="tour-name">Ovid</span><p class="tour-text" aria-live="polite"></p></div>' +
-      '<div class="tour-controls">' +
-        '<button type="button" class="tour-btn" data-tour="pause" aria-label="Pause">' + icon('pause') + '</button>' +
-        '<button type="button" class="tour-btn" data-tour="next" aria-label="Weiter">' + icon('next') + '</button>' +
-        '<button type="button" class="tour-btn" data-tour="stop" aria-label="Beenden">' + icon('close') + '</button>' +
-      '</div>' +
-      '<div class="tour-progress" aria-hidden="true"><i></i></div>';
-    el.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-tour]');
-      if (!btn) return;
-      var what = btn.getAttribute('data-tour');
-      if (what === 'stop') stopTour();
-      if (what === 'next') { cancelSpeech(); tourGo(tour.step + 1); }
-      if (what === 'pause') togglePause();
-    });
-    var ring = document.createElement('div');
-    ring.className = 'tour-ring';
-    ring.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(ring);
-    document.body.appendChild(el);
-    tour.el = el;
-    tour.ring = ring;
-    return el;
-  }
+  /* ---------- Ovid als Figur mit Grimassen ---------- */
 
-  function cancelSpeech() {
-    tour.token++;
-    clearTimeout(tour.timer);
-    if (canSpeak) window.speechSynthesis.cancel();
-    if (tour.audio) { try { tour.audio.pause(); } catch (e) { /* egal */ } }
-    if (tour.el) tour.el.classList.remove('speaking');
-  }
-
-  /** Ovid als kleine Figur: Lorbeer, Toga, Schriftrolle – der Mund bewegt sich beim Sprechen. */
   function ovidGuideSvg() {
     var curls = '';
     for (var a = 190; a <= 350; a += 16) {
@@ -4013,72 +4069,237 @@ body.touring .tour-fab { display: none; }
       var x = 80 + 42 * Math.cos(rr), y = 76 + 39 * Math.sin(rr);
       leaves += '<ellipse cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" rx="8" ry="3.6" fill="' + (b % 26 ? '#7d8a4c' : '#66733c') + '" transform="rotate(' + (b + 90 + (b < 270 ? -30 : 30)) + ' ' + x.toFixed(1) + ' ' + y.toFixed(1) + ')"/>';
     }
+    var heart = function (cx, cy) { return '<path transform="translate(' + cx + ' ' + cy + ') scale(0.5)" d="M0,6 C-12,-4 -8,-14 0,-8 C8,-14 12,-4 0,6 Z" fill="#c4503a"/>'; };
     return '<svg viewBox="0 0 160 210" focusable="false">' +
-      '<ellipse cx="80" cy="203" rx="44" ry="6" fill="#000" opacity="0.35"/>' +
+      '<ellipse class="og-shadow" cx="80" cy="203" rx="44" ry="6" fill="#000" opacity="0.35"/>' +
       '<g class="og-body">' +
         '<path d="M58,196 h18 v-8 h-14 z M86,196 h18 v-8 h-14 z" fill="#7a4b2a"/>' +
         '<path d="M38,192 Q34,132 80,120 Q126,132 122,192 Z" fill="#efe5d3"/>' +
         '<path d="M46,138 Q90,150 118,188" stroke="#d3c4ab" stroke-width="9" fill="none" stroke-linecap="round"/>' +
         '<path d="M50,170 Q80,178 112,170" stroke="#d3c4ab" stroke-width="2.5" fill="none"/>' +
         '<g class="og-scroll"><rect x="14" y="140" width="46" height="16" rx="8" fill="#e8dcc0" transform="rotate(-20 37 148)"/><circle cx="50" cy="152" r="9" fill="#d9a47c"/></g>' +
-        '<g class="og-arm"><path d="M112,134 Q130,118 134,96 L144,100 Q142,124 120,146 Z" fill="#efe5d3"/><circle cx="140" cy="92" r="9.5" fill="#d9a47c"/></g>' +
+        '<g class="og-arm"><path d="M112,134 Q130,118 134,96 L144,100 Q142,124 120,146 Z" fill="#efe5d3"/><circle cx="140" cy="92" r="9.5" fill="#d9a47c"/><rect x="136" y="74" width="6" height="14" rx="3" fill="#d9a47c"/></g>' +
         '<rect x="70" y="106" width="20" height="18" rx="6" fill="#b8805a"/>' +
         '<ellipse cx="42" cy="80" rx="7" ry="10" fill="#d9a47c"/><ellipse cx="118" cy="80" rx="7" ry="10" fill="#d9a47c"/>' +
         '<circle cx="80" cy="78" r="40" fill="#d9a47c"/>' +
         curls +
         '<g class="og-laurel">' + leaves + '</g>' +
-        '<path d="M62,70 q7,-5 14,0 M84,70 q7,-5 14,0" stroke="#3a2416" stroke-width="3" fill="none" stroke-linecap="round"/>' +
-        '<g class="og-eyes"><ellipse cx="69" cy="81" rx="4.2" ry="5" fill="#24170f"/><ellipse cx="91" cy="81" rx="4.2" ry="5" fill="#24170f"/>' +
+        '<path class="og-brows" d="M62,70 q7,-5 14,0 M84,70 q7,-5 14,0" stroke="#3a2416" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+        // Augen: normal, Zwinkern, Herzen, Lachen
+        '<g class="og-eyes eyes-normal"><ellipse cx="69" cy="81" rx="4.2" ry="5" fill="#24170f"/><ellipse cx="91" cy="81" rx="4.2" ry="5" fill="#24170f"/>' +
         '<circle cx="70.5" cy="79" r="1.4" fill="#fff"/><circle cx="92.5" cy="79" r="1.4" fill="#fff"/></g>' +
+        '<g class="og-eyes eyes-wink"><ellipse cx="69" cy="81" rx="4.2" ry="5" fill="#24170f"/><circle cx="70.5" cy="79" r="1.4" fill="#fff"/>' +
+        '<path d="M86,82 q5,-5 10,0" stroke="#24170f" stroke-width="3" fill="none" stroke-linecap="round"/></g>' +
+        '<g class="og-eyes eyes-love">' + heart(69, 81) + heart(91, 81) + '</g>' +
+        '<g class="og-eyes eyes-laugh"><path d="M64,83 q5,-7 10,0 M86,83 q5,-7 10,0" stroke="#24170f" stroke-width="3" fill="none" stroke-linecap="round"/></g>' +
+        '<g class="og-eyes eyes-shock"><circle cx="69" cy="81" r="6" fill="#fff" stroke="#24170f" stroke-width="2"/><circle cx="69" cy="81" r="2.6" fill="#24170f"/>' +
+        '<circle cx="91" cy="81" r="6" fill="#fff" stroke="#24170f" stroke-width="2"/><circle cx="91" cy="81" r="2.6" fill="#24170f"/></g>' +
         '<path d="M80,82 q-5,12 1,14" stroke="#b8805a" stroke-width="3" fill="none" stroke-linecap="round"/>' +
-        '<circle cx="59" cy="96" r="7" fill="#c25a42" opacity="0.3"/><circle cx="101" cy="96" r="7" fill="#c25a42" opacity="0.3"/>' +
+        '<circle class="og-cheek" cx="59" cy="96" r="7" fill="#c25a42" opacity="0.3"/><circle class="og-cheek" cx="101" cy="96" r="7" fill="#c25a42" opacity="0.3"/>' +
         '<path class="og-smile" d="M71,102 q9,7 18,0" stroke="#6b2e22" stroke-width="3" fill="none" stroke-linecap="round"/>' +
         '<ellipse class="og-mouth" cx="80" cy="104" rx="7" ry="5.5" fill="#5a1f17"/>' +
+        '<g class="og-sweat"><path d="M116,60 q6,10 0,14 q-6,-4 0,-14z" fill="#9cc7e0"/></g>' +
       '</g>' +
     '</svg>';
+  }
+
+  /* ---------- Soundeffekte (ohne Dateien, live erzeugt) ---------- */
+
+  function audioCtx() {
+    if (tour.ctx) return tour.ctx;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    try { tour.ctx = new AC(); } catch (e) { tour.ctx = null; }
+    return tour.ctx;
+  }
+
+  function noiseBuffer(c) {
+    if (tour.noise) return tour.noise;
+    var buf = c.createBuffer(1, c.sampleRate * 2, c.sampleRate);
+    var d = buf.getChannelData(0);
+    for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    tour.noise = buf;
+    return buf;
+  }
+
+  function sfx(kind) {
+    var c = tour.ctx;
+    if (!c || reducedMotion) return;
+    var t = c.currentTime;
+    function env(node, peak, attack, release, at) {
+      var g = c.createGain();
+      g.gain.setValueAtTime(0.0001, at);
+      g.gain.exponentialRampToValueAtTime(peak, at + attack);
+      g.gain.exponentialRampToValueAtTime(0.0001, at + attack + release);
+      node.connect(g); g.connect(c.destination);
+      return g;
+    }
+    function noiseHit(at, dur, freq, q, peak) {
+      var src = c.createBufferSource(); src.buffer = noiseBuffer(c);
+      var f = c.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = q;
+      src.connect(f); env(f, peak, 0.004, dur, at);
+      src.start(at, Math.random()); src.stop(at + dur + 0.05);
+    }
+    if (kind === 'pop') {
+      var o = c.createOscillator(); o.type = 'sine';
+      o.frequency.setValueAtTime(520, t); o.frequency.exponentialRampToValueAtTime(1300, t + 0.09);
+      env(o, 0.12, 0.005, 0.14, t); o.start(t); o.stop(t + 0.2);
+    } else if (kind === 'whoosh') {
+      var src = c.createBufferSource(); src.buffer = noiseBuffer(c);
+      var f = c.createBiquadFilter(); f.type = 'bandpass'; f.Q.value = 1.2;
+      f.frequency.setValueAtTime(300, t); f.frequency.exponentialRampToValueAtTime(2600, t + 0.35);
+      src.connect(f); env(f, 0.07, 0.12, 0.28, t); src.start(t); src.stop(t + 0.5);
+    } else if (kind === 'drum') {
+      for (var i = 0; i < 18; i++) noiseHit(t + i * 0.065, 0.05, 1800, 0.8, 0.03 + i * 0.003);
+      noiseHit(t + 1.2, 0.25, 900, 0.6, 0.12);
+      var ding = c.createOscillator(); ding.type = 'triangle'; ding.frequency.value = 880;
+      env(ding, 0.08, 0.01, 0.7, t + 1.2); ding.start(t + 1.2); ding.stop(t + 2);
+    } else if (kind === 'applause') {
+      for (var k = 0; k < 90; k++) noiseHit(t + Math.random() * 2.6, 0.04, 1200 + Math.random() * 1600, 1.5, 0.05 + Math.random() * 0.05);
+    } else if (kind === 'boing') {
+      var b = c.createOscillator(); b.type = 'sine';
+      b.frequency.setValueAtTime(180, t); b.frequency.exponentialRampToValueAtTime(420, t + 0.12); b.frequency.exponentialRampToValueAtTime(260, t + 0.3);
+      env(b, 0.1, 0.01, 0.32, t); b.start(t); b.stop(t + 0.4);
+    }
+  }
+
+  /* ---------- Bühne aufbauen ---------- */
+
+  function showEl() {
+    if (tour.el) return tour.el;
+    var el = document.createElement('div');
+    el.className = 'show';
+    el.setAttribute('role', 'region');
+    el.setAttribute('aria-label', 'Ovid stellt die Seite vor');
+    var leaves = '';
+    for (var i = 0; i < 26; i++) {
+      leaves += '<span style="--x:' + ((i * 37) % 100) + '%;--d:' + (2.2 + (i % 5) * 0.4) + 's;--delay:' + ((i % 9) * 0.15) + 's;--r:' + ((i * 53) % 360) + 'deg">' + (i % 3 ? '❦' : '♥') + '</span>';
+    }
+    el.innerHTML = '' +
+      '<div class="show-curtain left"></div><div class="show-curtain right"></div>' +
+      '<div class="show-title"><span>Ovid präsentiert</span><strong>Roma Match</strong><em>Die Show</em></div>' +
+      '<div class="show-stories">' + TOUR.map(function () { return '<i><b></b></i>'; }).join('') + '</div>' +
+      '<div class="show-controls">' +
+        '<button type="button" data-tour="pause" aria-label="Pause">' + icon('pause') + '</button>' +
+        '<button type="button" data-tour="next" aria-label="Weiter">' + icon('next') + '</button>' +
+        '<button type="button" data-tour="stop" aria-label="Beenden">' + icon('close') + '</button>' +
+      '</div>' +
+      '<div class="show-guide" aria-hidden="true"><div class="show-sticker"></div><div class="show-guide-inner">' + ovidGuideSvg() + '</div></div>' +
+      '<p class="show-caption" aria-live="polite"></p>' +
+      '<div class="show-end">' +
+        '<div class="show-confetti" aria-hidden="true">' + leaves + '</div>' +
+        '<div class="show-end-card">' +
+          '<span class="show-end-small">Finis</span>' +
+          '<strong>Vale!</strong>' +
+          '<p>„Ut ameris, amabilis esto.“</p>' +
+          '<div class="show-end-btns">' +
+            '<button type="button" class="btn btn-glass" data-tour="again">Nochmal ansehen</button>' +
+            '<button type="button" class="btn btn-primary" data-tour="stop">Selbst entdecken</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    el.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-tour]');
+      if (!btn) return;
+      var what = btn.getAttribute('data-tour');
+      if (what === 'stop') stopTour();
+      if (what === 'again') startTour();
+      if (what === 'next') { cancelSpeech(); tourGo(tour.step + 1); }
+      if (what === 'pause') togglePause();
+    });
+    var ring = document.createElement('div');
+    ring.className = 'tour-ring';
+    ring.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(ring);
+    document.body.appendChild(el);
+    tour.el = el;
+    tour.ring = ring;
+    tour.guide = el.querySelector('.show-guide');
+    return el;
+  }
+
+  function setPhase(phase) {
+    tour.phase = phase;
+    tour.el.setAttribute('data-phase', phase);
+  }
+
+  function cancelSpeech() {
+    tour.token++;
+    clearTimeout(tour.timer);
+    if (canSpeak) window.speechSynthesis.cancel();
+    if (tour.audio) { try { tour.audio.pause(); } catch (e) { /* egal */ } }
+    if (tour.el) tour.el.classList.remove('speaking');
   }
 
   function startTour() {
     if (isAdminView()) return;
     cancelSpeech();
     ui.matchedId = null;
+    var el = showEl();
+    // Ton im Klick freischalten (iOS erlaubt Audio nur nach einer Berührung)
+    if (!tour.audio) tour.audio = new Audio();
+    tour.audio.src = SILENT_WAV;
+    var unlock = tour.audio.play();
+    if (unlock && unlock.catch) unlock.catch(function () { /* egal */ });
+    var c = audioCtx();
+    if (c && c.resume) c.resume();
+
     tour.active = true;
     tour.paused = false;
-    var el = tourEl();
-    // Audio im Klick „freischalten“ (iOS erlaubt Ton nur nach einer Berührung)
-    if (Object.keys(TOUR_AUDIO).length) {
-      if (!tour.audio) tour.audio = new Audio();
-      tour.audio.src = SILENT_WAV;
-      var unlock = tour.audio.play();
-      if (unlock && unlock.catch) unlock.catch(function () { /* egal */ });
-    }
-    el.classList.add('on');
-    tour.ring.classList.add('on');
+    tour.step = 0;
+    el.classList.remove('paused', 'speaking');
+    el.querySelectorAll('.show-stories i').forEach(function (s) { s.className = ''; });
     document.body.classList.add('touring');
     setPauseIcon();
-    followRing();
-    tourGo(0);
+    setPhase('intro');
+    sfx('drum');
+    var token = tour.token;
+    setTimeout(function () {
+      if (!tour.active || token !== tour.token) return;
+      setPhase('open');
+      sfx('whoosh');
+      tour.ring.classList.add('on');
+      followGuide();
+      setTimeout(function () {
+        if (!tour.active || token !== tour.token) return;
+        setPhase('live');
+        tourGo(0);
+      }, reducedMotion ? 0 : 900);
+    }, reducedMotion ? 300 : 1500);
   }
 
   function stopTour() {
     cancelSpeech();
     tour.active = false;
     cancelAnimationFrame(tour.raf);
-    if (tour.el) tour.el.classList.remove('on');
+    if (tour.el) setPhase('off');
     if (tour.ring) tour.ring.classList.remove('on');
     document.body.classList.remove('touring');
   }
 
+  function finishTour() {
+    cancelSpeech();
+    tour.ring.classList.remove('on');
+    setPhase('end');
+    sfx('whoosh');
+    setTimeout(function () { if (tour.phase === 'end') sfx('applause'); }, 700);
+  }
+
   function togglePause() {
-    if (!tour.active) return;
+    if (!tour.active || tour.phase !== 'live') return;
     tour.paused = !tour.paused;
     setPauseIcon();
+    tour.el.classList.toggle('paused', tour.paused);
     if (tour.paused) {
-      cancelSpeech();
-      tour.el.classList.add('paused');
+      clearTimeout(tour.timer);
+      tour.token++;
+      if (canSpeak) window.speechSynthesis.cancel();
+      if (tour.audio) tour.audio.pause();
+      tour.el.classList.remove('speaking');
     } else {
-      tour.el.classList.remove('paused');
-      speakStep();
+      var clip = TOUR_AUDIO[String(tour.step + 1).padStart(2, '0')];
+      if (clip && tour.audio && tour.audio.currentTime > 0 && !tour.audio.ended) resumeClip();
+      else speakStep();
     }
   }
 
@@ -4092,23 +4313,18 @@ body.touring .tour-fab { display: none; }
   function fakeEl(attrs) { return { getAttribute: function (k) { return attrs[k]; }, hasAttribute: function () { return false; } }; }
 
   var TOUR_ACTS = {
+    wave: function () {
+      var g = tour.guide;
+      g.classList.remove('waving'); void g.offsetWidth; g.classList.add('waving');
+    },
     demoSwipe: function () {
       var card = document.getElementById('swipe-card');
       if (!card) return;
-      card.classList.remove('demo-swipe');
-      void card.offsetWidth;
-      card.classList.add('demo-swipe');
-    },
-    wave: function () {
-      var guide = tour.el && tour.el.querySelector('.tour-ovid');
-      if (!guide) return;
-      guide.classList.remove('waving');
-      void guide.offsetWidth;
-      guide.classList.add('waving');
+      card.classList.remove('demo-swipe'); void card.offsetWidth; card.classList.add('demo-swipe');
     },
     reveal: function () {
       var box = root.querySelector('.tip-card .quote-box');
-      if (box) setTimeout(function () { box.classList.add('revealed'); }, 900);
+      if (box) setTimeout(function () { box.classList.add('revealed'); sfx('pop'); }, 1200);
     },
     styleAll: function () {
       var token = tour.token;
@@ -4117,112 +4333,216 @@ body.touring .tour-fab { display: none; }
         setTimeout(function () {
           if (!tour.active || token !== tour.token) return;
           actions['style-pick'](fakeEl({ 'data-id': id }));
-        }, 500 + i * 900);
+          sfx('pop');
+        }, 600 + i * 900);
       });
     },
     seat: function () {
-      setTimeout(function () { if (tour.active) { ui.seat = 'women'; render(); } }, 700);
+      setTimeout(function () { if (tour.active) { ui.seat = 'women'; render(); sfx('boing'); } }, 800);
     },
     team: function () {
       setTimeout(function () {
         if (!tour.active) return;
         ui.team = { mine: 'green', hers: 'blue' };
         render();
-      }, 1800);
+        sfx('pop');
+      }, 2200);
     }
   };
 
+  /* ---------- Ablauf ---------- */
+
   function tourGo(i) {
     if (!tour.active) return;
-    if (i >= TOUR.length) { stopTour(); return; }
+    if (i >= TOUR.length) { finishTour(); return; }
+    var prevStep = tour.step;
     tour.step = i;
     var s = TOUR[i];
-    if (s.tab && ui.tab !== s.tab) {
+    var tabChange = s.tab && ui.tab !== s.tab;
+    if (tabChange) {
       ui.tab = s.tab;
       ui.animate = true;
       render();
+      sfx('whoosh');
     }
-    var bar = tour.el.querySelector('.tour-progress i');
-    bar.style.width = Math.round((i + 1) / TOUR.length * 100) + '%';
+    // Story-Balken oben
+    tour.el.querySelectorAll('.show-stories i').forEach(function (bar, k) {
+      bar.className = k < i ? 'done' : k === i ? 'now' : '';
+      bar.firstChild.style.animationDuration = '';
+    });
+    // Grimasse und Hüpfer
+    var g = tour.guide;
+    g.setAttribute('data-mood', s.mood || 'happy');
+    if (i !== prevStep || i === 0) { g.classList.remove('hop'); void g.offsetWidth; g.classList.add('hop'); }
+    var cap = tour.el.querySelector('.show-caption');
+    cap.innerHTML = '';
     setTimeout(function () {
       if (!tour.active || tour.step !== i) return;
       var target = root.querySelector(s.focus);
       if (s.top) window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
       else if (target) target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
       if (s.act && TOUR_ACTS[s.act]) TOUR_ACTS[s.act]();
+      popSticker(s.sticker);
       if (!tour.paused) speakStep();
-    }, s.tab ? 450 : 150);
+    }, tabChange ? 500 : 200);
+  }
+
+  function popSticker(text) {
+    var st = tour.el.querySelector('.show-sticker');
+    if (!text) { st.className = 'show-sticker'; return; }
+    st.textContent = text;
+    st.className = 'show-sticker';
+    void st.offsetWidth;
+    st.className = 'show-sticker pop';
+    sfx('pop');
+  }
+
+  /* Untertitel im TikTok-Stil: immer ein paar Wörter, das aktuelle hervorgehoben. */
+  function setupCaption(text) {
+    tour.words = text.split(/\s+/).filter(Boolean);
+    tour.wordIdx = -1;
+    showWord(0);
+  }
+
+  function showWord(idx) {
+    if (idx === tour.wordIdx || !tour.words.length) return;
+    idx = Math.max(0, Math.min(tour.words.length - 1, idx));
+    var per = window.innerWidth < 640 ? 3 : 5;
+    var start = Math.floor(idx / per) * per;
+    var oldStart = Math.floor(tour.wordIdx / per) * per;
+    tour.wordIdx = idx;
+    var cap = tour.el.querySelector('.show-caption');
+    cap.innerHTML = tour.words.slice(start, start + per).map(function (w, k) {
+      var n = start + k;
+      return '<span class="' + (n < idx ? 'said' : n === idx ? 'now' : '') + '">' + esc(w) + '</span>';
+    }).join(' ');
+    if (start !== oldStart) { cap.classList.remove('flip'); void cap.offsetWidth; cap.classList.add('flip'); }
+  }
+
+  function captionLoop(token) {
+    (function loop() {
+      if (token !== tour.token || !tour.active || tour.paused) return;
+      var a = tour.audio;
+      if (a && a.duration && isFinite(a.duration)) {
+        // kleine Vorlaufzeit, damit das Wort nicht hinterherhinkt
+        showWord(Math.floor(((a.currentTime + 0.15) / a.duration) * tour.words.length));
+        var bar = tour.el.querySelector('.show-stories i.now b');
+        if (bar) bar.style.width = Math.min(100, a.currentTime / a.duration * 100) + '%';
+      }
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  function resumeClip() {
+    var token = ++tour.token;
+    var step = tour.step;
+    tour.audio.onended = function () { afterSpeech(step, token); };
+    tour.el.classList.add('speaking');
+    var playing = tour.audio.play();
+    if (playing && playing.catch) playing.catch(function () { /* egal */ });
+    captionLoop(token);
+    tour.timer = setTimeout(function () { if (token === tour.token) afterSpeech(tour.step, token); }, 30000);
+  }
+
+  function afterSpeech(i, token) {
+    if (token !== tour.token || !tour.active || tour.paused) return;
+    tour.token++;
+    tour.el.classList.remove('speaking');
+    var bar = tour.el.querySelector('.show-stories i.now b');
+    if (bar) bar.style.width = '100%';
+    var mine = tour.token;
+    tour.timer = setTimeout(function () { if (mine === tour.token) tourGo(i + 1); }, 550);
   }
 
   function speakStep() {
     var i = tour.step;
     var s = TOUR[i];
     var token = ++tour.token;
-    tour.el.querySelector('.tour-text').textContent = s.text;
+    setupCaption(s.text);
     tour.el.classList.add('speaking');
-    var done = false;
     var started = Date.now();
-    // Mindestzeit pro Schritt: falls der Browser keine Stimme hat und sofort „fertig“ meldet
-    var minDur = Math.max(2200, s.text.length * 55);
+    var done = false;
     function next() {
-      if (done || token !== tour.token || !tour.active || tour.paused) return;
+      if (done) return;
       done = true;
-      tour.el.classList.remove('speaking');
-      var wait = Math.max(450, minDur - (Date.now() - started));
-      tour.timer = setTimeout(function () { if (token === tour.token) tourGo(i + 1); }, wait);
+      afterSpeech(i, token);
     }
-    // Sicherheitsnetz: weiter, auch wenn der Browser kein „Ende“ meldet
-    var fallback = Math.max(2600, s.text.length * 72);
+
     var clip = TOUR_AUDIO[String(i + 1).padStart(2, '0')];
     if (clip && tour.audio) {
-      minDur = 0;
       var audio = tour.audio;
       audio.onended = next;
-      audio.onerror = function () { useDeviceVoice(); };
+      audio.onerror = function () { if (token === tour.token) deviceVoice(); };
       audio.src = clip;
       var playing = audio.play();
-      if (playing && playing.catch) playing.catch(function () { if (token === tour.token) useDeviceVoice(); });
+      if (playing && playing.catch) playing.catch(function () { if (token === tour.token) deviceVoice(); });
+      captionLoop(token);
       tour.timer = setTimeout(next, 30000);
       return;
     }
-    useDeviceVoice();
-    function useDeviceVoice() {
-    if (canSpeak) {
-      window.speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(s.text);
-      u.lang = 'de-DE';
-      if (tour.voice) u.voice = tour.voice;
-      u.rate = 0.98;
-      u.pitch = 0.95;
-      u.onend = next;
-      u.onerror = next;
-      window.speechSynthesis.speak(u);
+    deviceVoice();
+
+    function deviceVoice() {
       clearTimeout(tour.timer);
-      tour.timer = setTimeout(next, fallback + 4000);
-    } else {
-      clearTimeout(tour.timer);
-      tour.timer = setTimeout(next, fallback);
-    }
+      var estimate = Math.max(2600, s.text.length * 70);
+      // Untertitel nach Zeit weiterschalten (genauer, wenn der Browser Wortgrenzen meldet)
+      var timeLoop = setInterval(function () {
+        if (token !== tour.token || tour.paused) { clearInterval(timeLoop); return; }
+        showWord(Math.floor((Date.now() - started) / estimate * tour.words.length));
+      }, 120);
+      if (canSpeak) {
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(s.text);
+        u.lang = 'de-DE';
+        if (tour.voice) u.voice = tour.voice;
+        u.rate = 0.98;
+        u.pitch = 0.95;
+        u.onboundary = function (e) {
+          if (e.name && e.name !== 'word') return;
+          clearInterval(timeLoop);
+          showWord(s.text.slice(0, e.charIndex).split(/\s+/).filter(Boolean).length);
+        };
+        u.onend = function () {
+          var wait = Math.max(0, estimate * 0.6 - (Date.now() - started));
+          setTimeout(next, wait);
+        };
+        u.onerror = next;
+        window.speechSynthesis.speak(u);
+        tour.timer = setTimeout(next, estimate + 4000);
+      } else {
+        tour.timer = setTimeout(next, estimate);
+      }
     }
   }
 
-  /** Leuchtrahmen folgt dem gerade erklärten Element – auch beim Scrollen. */
-  function followRing() {
+  /** Leuchtrahmen und Ovid folgen dem gerade erklärten Element – auch beim Scrollen. */
+  function followGuide() {
     cancelAnimationFrame(tour.raf);
     (function loop() {
-      if (!tour.active) return;
+      if (!tour.active || tour.phase === 'end') return;
       var s = TOUR[tour.step];
       var target = s && root.querySelector(s.focus);
-      if (target) {
+      var vw = window.innerWidth, vh = window.innerHeight;
+      var g = tour.guide;
+      var gw = g.offsetWidth, gh = g.offsetHeight;
+      var bottomLimit = vh - (vw < 640 ? 150 : 170) - gh;
+      var x = 16, y = bottomLimit, faceLeft = false;
+      if (target && tour.phase === 'live') {
         var r = target.getBoundingClientRect();
         var pad = 10;
         tour.ring.style.transform = 'translate(' + (r.left - pad) + 'px,' + (r.top - pad) + 'px)';
         tour.ring.style.width = (r.width + pad * 2) + 'px';
         tour.ring.style.height = (r.height + pad * 2) + 'px';
         tour.ring.style.opacity = 1;
+        if (vw - r.right > gw + 20) { x = r.right + 14; faceLeft = true; }
+        else if (r.left > gw + 20) { x = r.left - gw - 14; }
+        else { x = vw - gw - 8; faceLeft = true; }
+        y = Math.max(80, Math.min(bottomLimit, r.top + Math.min(r.height, vh) * 0.25));
       } else {
         tour.ring.style.opacity = 0;
       }
+      g.style.transform = 'translate(' + Math.round(x) + 'px,' + Math.round(y) + 'px)';
+      if (faceLeft !== tour.faceLeft) { tour.faceLeft = faceLeft; g.classList.toggle('face-left', faceLeft); }
       tour.raf = requestAnimationFrame(loop);
     })();
   }
