@@ -1801,6 +1801,27 @@ body.touring .tour-fab { display: none; }
   .show-sticker { font-size: 0.78rem; padding: 5px 10px; }
   .show-controls button { width: 38px; height: 38px; }
 }
+
+/* ---------- Kompliment-Übersetzer ---------- */
+.compliments { margin-top: 16px; }
+.compliments-head { margin: 0 0 10px; color: var(--gold-soft); font-family: var(--font-display); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.compliments-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.compliment { position: relative; height: 74px; perspective: 600px; border: 0; padding: 0; background: none; cursor: pointer; font-family: var(--font-body); }
+.compliment span {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  border-radius: 14px; padding: 6px;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  transition: transform 0.55s cubic-bezier(0.3, 1.4, 0.5, 1);
+  font-size: 0.86rem; text-align: center;
+}
+.c-front { background: rgba(15, 11, 10, 0.6); border: 1px dashed var(--border); color: var(--text-muted); }
+.c-back { background: var(--text); color: #241a14; transform: rotateY(180deg); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35); }
+.c-back b { font-family: var(--font-display); font-size: 0.8rem; color: var(--pink-dark); font-weight: 700; }
+.compliment.flipped .c-front { transform: rotateY(-180deg); }
+.compliment.flipped .c-back { transform: rotateY(0deg); }
+.compliment:hover .c-front { border-color: var(--gold); color: var(--text); }
+@media (max-width: 640px) { .compliments-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
 </head>
 <body>
@@ -1847,7 +1868,7 @@ body.touring .tour-fab { display: none; }
 
   var DEFAULT_DATA = {
     version: 1,
-    revision: 6,
+    revision: 7,
     adminHash: DEFAULT_ADMIN_HASH,
     profiles: [
       {
@@ -1942,6 +1963,14 @@ body.touring .tour-fab { display: none; }
         translation: 'Wein macht Mut und die Herzen bereit für das Feuer der Liebe; … dem Urteil über Schönheit schaden Nacht und Wein.',
         modernInterpretation: 'Die „Bierbrille“ kannte schon Ovid. Heute gilt: Alkohol ist kein Flirt-Trick – und wer betrunken ist, kann nicht wirklich zustimmen.',
         source: 'Ars amatoria 1, 237–252', sortOrder: 6, createdAt: '2026-11-18T10:00:00.000Z'
+      },
+      {
+        id: 't-8', title: 'Nenn Fehler beim schöneren Namen',
+        ovidIdea: 'Schönreden ist Pflicht: Aus jedem Makel machst du mit dem richtigen Wort ein Kompliment.',
+        latinQuote: 'Nominibus mollire licet mala … et lateat vitium proximitate boni.',
+        translation: 'Man darf Schlechtes durch Bezeichnungen beschönigen … und der Makel soll sich in der Nähe des Vorzugs verstecken.',
+        modernInterpretation: 'Wie im Dating-Profil: „spontan“ statt unzuverlässig. Ehrliche Komplimente wirken aber besser als Schönfärberei.',
+        source: 'Ars amatoria 2, 657–662', sortOrder: 8, createdAt: '2026-11-26T10:00:00.000Z'
       }
     ],
     community: [
@@ -2258,6 +2287,7 @@ body.touring .tour-fab { display: none; }
     styleFixed: {},
     styleSel: null,
     styleCelebrate: false,
+    compliments: {},
     seat: null,
     team: null,          // { mine, hers }
     quiz: null
@@ -2320,7 +2350,7 @@ body.touring .tour-fab { display: none; }
   var TABS = [
     { id: 'swipe', label: 'Swipen', icon: 'heart' },
     { id: 'tips', label: 'Ovids Tipps', icon: 'scroll' },
-    { id: 'style', label: 'Style-Check', icon: 'mirror', isNew: true },
+    { id: 'style', label: 'Style-Check', icon: 'mirror' },
     { id: 'spots', label: 'Date-Spots', icon: 'pin' },
     { id: 'quiz', label: 'Quiz', icon: 'trophy' },
     { id: 'community', label: 'Community', icon: 'users' },
@@ -2332,7 +2362,8 @@ body.touring .tour-fab { display: none; }
     { verses: '1, 89–100', title: 'Das Theater', tab: 'spots' },
     { verses: '1, 135–148', title: 'Der Circus', tab: 'spots' },
     { verses: '1, 237–252', title: 'Wein & Gastmahl', tab: 'tips' },
-    { verses: '1, 513–520', title: 'Pflege für Männer', tab: 'style' }
+    { verses: '1, 513–520', title: 'Pflege für Männer', tab: 'style' },
+    { verses: '2, 657–662', title: 'Komplimente', tab: 'tips' }
   ];
 
   function hashOf(str) {
@@ -2662,7 +2693,7 @@ body.touring .tour-fab { display: none; }
           }).join('') + '</ul>' +
           '<div class="hero-cta">' +
             '<button type="button" class="btn btn-primary" data-action="tab" data-tab="swipe" data-scroll>' + icon('heart') + ' Jetzt swipen</button>' +
-            '<button type="button" class="btn btn-glass" data-action="tour-start">' + icon('speaker') + ' Seite vorstellen</button>' +
+            '<button type="button" class="btn btn-glass" data-action="tour-start">' + icon('speaker') + ' Ovid stellt vor</button>' +
           '</div>' +
         '</div>' +
       '</header>';
@@ -2806,7 +2837,7 @@ body.touring .tour-fab { display: none; }
       '</div>' +
       '<div class="tip-list">' + tips.map(function (tip, i) {
         var vote = votes[tip.id];
-        var isNew = tip === newest && tips.length > 1;
+        var isNew = false;
         return '' +
           '<article class="card tip-card reveal' + (isNew ? ' is-new' : '') + '" style="--i:' + (i + 2) + '">' +
             (isNew ? '<span class="new-ribbon">Neu</span>' : '') +
@@ -2820,6 +2851,7 @@ body.touring .tour-fab { display: none; }
               (tip.translation ? '<p class="quote-translation">' + esc(tip.translation) + '</p><span class="reveal-hint">Übersetzen</span>' : '') +
             '</blockquote>' : '') +
             (tip.modernInterpretation ? '<p class="tip-today"><b>Heute</b>' + esc(tip.modernInterpretation) + '</p>' : '') +
+            (tip.id === 't-8' ? renderCompliments() : '') +
             (tip.id === 't-6' ? '<div class="tip-cta"><button type="button" class="btn btn-gold btn-sm" data-action="tab" data-tab="style" data-scroll>Zum Style-Check</button></div>' : '') +
             '<div class="vote-row">' +
               '<button type="button" class="vote-btn up" data-action="vote" data-id="' + esc(tip.id) + '" data-v="up" aria-pressed="' + (vote === 'up') + '">' + icon('thumb') + 'Top</button>' +
@@ -2827,6 +2859,29 @@ body.touring .tour-fab { display: none; }
             '</div>' +
           '</article>';
       }).join('') + '</div>';
+  }
+
+  /** Ars amatoria 2, 657–662: Makel → Ovids Kompliment (Aufgabe: tabellarische Gegenüberstellung). */
+  var COMPLIMENTS = [
+    { flaw: 'sehr dunkle Haut', latin: 'fusca', nice: 'schön gebräunt' },
+    { flaw: 'schielt', latin: 'Veneri similis', nice: 'wie Venus' },
+    { flaw: 'graue, fahle Augen', latin: 'Minervae', nice: 'wie Minerva' },
+    { flaw: 'abgemagert', latin: 'gracilis', nice: 'zierlich' },
+    { flaw: 'klein', latin: 'habilis', nice: 'handlich' },
+    { flaw: 'dick', latin: 'plena', nice: 'vollschlank' }
+  ];
+
+  function renderCompliments() {
+    return '<div class="compliments">' +
+      '<p class="compliments-head">Ovids Kompliment-Übersetzer – Makel antippen:</p>' +
+      '<div class="compliments-grid">' + COMPLIMENTS.map(function (c, i) {
+        var on = !!ui.compliments[i];
+        return '<button type="button" class="compliment' + (on ? ' flipped' : '') + '" data-action="compliment" data-i="' + i + '" aria-pressed="' + on + '">' +
+          '<span class="c-front">' + esc(c.flaw) + '</span>' +
+          '<span class="c-back"><b>„' + esc(c.latin) + '“</b>' + esc(c.nice) + '</span>' +
+        '</button>';
+      }).join('') + '</div>' +
+    '</div>';
   }
 
   /* ---------- Style-Check (Ars amatoria 1, 513–520) ---------- */
@@ -3263,6 +3318,7 @@ body.touring .tour-fab { display: none; }
     { q: 'Beim Festzug ziehen die Götterstatuen vorbei. Was machst du?', a: ['Für Venus klatschen', 'Für Mars klatschen', 'Über die Statuen lästern', 'Schnell gehen'], why: 'Venus ist die Göttin der Liebe – so zeigst du, was du suchst.' },
     { q: 'Was ist Ovids wichtigste Pflegeregel für Männer?', a: ['Sauberkeit statt Eitelkeit', 'Möglichst viel Parfüm', 'Locken mit dem Brenneisen', 'Je teurer die Toga, desto besser'], why: 'Munditie placeant – durch Sauberkeit gefallen.' },
     { q: 'Was steht NICHT auf Ovids Pflege-Checkliste?', a: ['Muskeln aufbauen', 'Kurze, saubere Nägel', 'Frischer Atem', 'Passende Schuhe'], why: 'Bräune vom Sport ja – Muskeln erwähnt Ovid nicht.' },
+    { q: 'Sie findet sich zu klein. Was sagst du laut Ovid?', a: ['„Du bist so schön handlich!“', '„Größe ist mir egal.“', '„Trag doch hohe Schuhe.“', 'Gar nichts.'], why: 'Dic „habilem“, quaecumque brevis – aus jedem Makel ein Kompliment machen.' },
     { q: 'Welcher Ovid-Tipp ist heute klar eine Red Flag?', a: ['Sich ungefragt eng an sie drücken', 'Gepflegt zum Date kommen', 'Ein Gespräch anfangen', 'Hingehen, wo Menschen sind'], why: 'Ohne Zustimmung geht gar nichts – damals wie heute.' }
   ];
 
@@ -3862,6 +3918,13 @@ body.touring .tour-fab { display: none; }
       var hers = TEAMS[Math.floor(Math.random() * TEAMS.length)].id;
       ui.team = { mine: el.getAttribute('data-team'), hers: hers };
       render();
+    },
+    compliment: function (el) {
+      var i = el.getAttribute('data-i');
+      ui.compliments[i] = !ui.compliments[i];
+      el.classList.toggle('flipped', !!ui.compliments[i]);
+      el.setAttribute('aria-pressed', String(!!ui.compliments[i]));
+      sfx(ui.compliments[i] ? 'sparkle' : 'swipe-nope');
     },
     'quiz-answer': function (el) {
       var qz = ui.quiz;
